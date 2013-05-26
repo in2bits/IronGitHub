@@ -33,5 +33,14 @@ namespace IronGitHub.Apis
 
             return gist;
         }
+
+        async public Task<Gist> Get(long id)
+        {
+            var request = CreateRequest("/gists/" + id);
+
+            var gist = await request.Complete<Gist>();
+
+            return gist;
+        }
     }
 }

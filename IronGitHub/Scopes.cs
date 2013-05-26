@@ -4,25 +4,37 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
 
 namespace IronGitHub
 {
     [DataContract]
-    [JsonConverter(typeof(StringEnumConverter))]
     public enum Scopes
     {
-        [EnumMember(Value="user")]
+        [EnumMember(Value = "user")]
         User,
 
-        [EnumMember(Value="user:email")]
+        [EnumMember(Value = "user:email")]
         UserEmail,
 
-        [EnumMember(Value="user:follow")]
+        [EnumMember(Value = "user:follow")]
         UserFollow,
 
-        [EnumMember(Value="gist")]
+        [EnumMember(Value = "public_repo")]
+        PublicRepo,
+
+        [EnumMember(Value = "repo")]
+        Repo,
+
+        [EnumMember(Value = "repo:status")]
+        RepoStatus,
+
+        [EnumMember(Value = "delete_repo")]
+        DeleteRepo,
+
+        [EnumMember(Value = "notifications")]
+        Notifications,
+
+        [EnumMember(Value = "gist")]
         Gist
     }
 }

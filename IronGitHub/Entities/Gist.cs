@@ -4,52 +4,84 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
 
 namespace IronGitHub.Entities
 {
     public class Gist
     {
-        [DataMember][JsonProperty("comments")]
+        [DataMember(Name = "comments")]
         public int Comments { get; set; }
 
-        [DataMember][JsonProperty("comments_url")]
+        [DataMember(Name = "comments_url")]
         public string CommentsUrl { get; set; }
 
-        [DataMember][JsonProperty("commits_url")]
+        [DataMember(Name = "commits_url")]
         public string CommitsUrl { get; set; }
 
-        [DataMember][JsonProperty("created_at")]
+        [DataMember(Name = "created_at")]
         public DateTime CreatedAt { get; set; }
 
-        [DataMember][JsonProperty("description")]
-        public string Descripton { get; set; }
+        [DataMember(Name = "description")]
+        public string Description { get; set; }
 
-        [DataMember][JsonProperty("files")]
+        [DataMember(Name = "files")]
         public IDictionary<string, GistFile> Files { get; set; }
 
-        [DataMember][JsonProperty("forks")]
+        [DataMember(Name = "forks")]
         public IEnumerable<Fork> Forks { get; set; }
 
-        [DataMember][JsonProperty("history")]
+        [DataMember(Name = "forks_url")]
+        public string ForksUrl { get; set; }
+
+        [DataMember(Name = "git_pull_url")]
+        public string GitPullUrl { get; set; }
+
+        [DataMember(Name = "git_push_url")]
+        public string GitPushUrl { get; set; }
+
+        [DataMember(Name = "history")]
         public IEnumerable<VersionEntry> History { get; set; }
+
+        [DataMember(Name = "html_url")]
+        public string HtmlUrl { get; set; }
+
+        [DataMember(Name = "id")]
+        public long Id { get; set; }
+
+        [DataMember(Name = "public")]
+        public bool Public { get; set; }
+
+        [DataMember(Name = "updated_at")]
+        public DateTime UpdatedAt { get; set; }
+
+        [DataMember(Name = "url")]
+        public string Url { get; set; }
+
+        [DataMember(Name = "user")]
+        public User User { get; set; }
 
         [DataContract]
         public class NewGistPost
         {
-            [DataMember][JsonProperty("description")]
+            [DataMember(Name = "description")]
             public string Description { get; set; }
 
-            [DataMember][JsonProperty("public")]
+            [DataMember(Name = "public")]
             public bool Public { get; set; }
 
-            [DataMember][JsonProperty("files")]
+            [DataMember(Name = "files")]
             public IDictionary<string, NewGistFile> Files { get; set; } 
 
             [DataContract]
             public class NewGistFile
             {
-                [DataMember][JsonProperty("content")]
+                [DataMember(Name = "type")]
+                public string Type { get; set; }
+
+                [DataMember(Name = "language")]
+                public string Language { get; set; }
+
+                [DataMember(Name = "content")]
                 public string Content { get; set; }
             }
         }

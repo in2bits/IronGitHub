@@ -1,15 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Runtime.Serialization;
-using Newtonsoft.Json;
 
 namespace IronGitHub.Exceptions
 {
     public class GitHubErrorResponse
     {
-        [DataMember][JsonProperty("errors")]
+        [DataMember(Name = "errors")]
         public IEnumerable<GitHubError> Errors { get; set; }
 
-        [DataMember][JsonProperty("message")]
+        [DataMember(Name = "message")]
         public string Message { get; set; }
     }
 }

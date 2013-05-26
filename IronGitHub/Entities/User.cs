@@ -1,96 +1,95 @@
 ﻿using System;
 using System.Runtime.Serialization;
-using Newtonsoft.Json;
 
 namespace IronGitHub.Entities
 {
     public class User
     {
-        [DataMember][JsonProperty("login")]
+        [DataMember(Name = "login")]
         public string Login { get; set; }
 
-        [DataMember][JsonProperty("id")]
+        [DataMember(Name = "id")]
         public long Id { get; set; }
-        
-        [DataMember][JsonProperty("avatar_url")]
+
+        [DataMember(Name = "avatar_url")]
         public string AvatarUrl { get; set; }
-        
-        [DataMember][JsonProperty("gravatar_id")]
+
+        [DataMember(Name = "gravatar_id")]
         public string GravatarId { get; set; }
-        
-        [DataMember][JsonProperty("url")]
+
+        [DataMember(Name = "url")]
         public string Url { get; set; }
-        
-        [DataMember][JsonProperty("html_url")]
+
+        [DataMember(Name = "html_url")]
         public string HtmlUrl { get; set; }
-        
-        [DataMember][JsonProperty("followers_url")]
+
+        [DataMember(Name = "followers_url")]
         public string FollowersUrl { get; set; }
-        
-        [DataMember][JsonProperty("following_url")]
+
+        [DataMember(Name = "following_url")]
         public string FollowingUrl { get; set; }
-        
-        [DataMember][JsonProperty("gists_url")]
+
+        [DataMember(Name = "gists_url")]
         public string GistsUrl { get; set; }
-        
-        [DataMember][JsonProperty("starred_url")]
+
+        [DataMember(Name = "starred_url")]
         public string StarredUrl { get; set; }
-        
-        [DataMember][JsonProperty("subscriptions_url")]
+
+        [DataMember(Name = "subscriptions_url")]
         public string SubscriptionsUrl { get; set; }
-        
-        [DataMember][JsonProperty("organizations_url")]
+
+        [DataMember(Name = "organizations_url")]
         public string OrganizationsUrl { get; set; }
-        
-        [DataMember][JsonProperty("repos_url")]
+
+        [DataMember(Name = "repos_url")]
         public string ReposUrl { get; set; }
-        
-        [DataMember][JsonProperty("events_url")]
+
+        [DataMember(Name = "events_url")]
         public string EventsUrl { get; set; }
-        
-        [DataMember][JsonProperty("received_events_url")]
+
+        [DataMember(Name = "received_events_url")]
         public string ReceivedEventsUrl { get; set; }
-        
-        [DataMember][JsonProperty("type")]
-        public string GitHubType { get; set; }
-        
-        [DataMember][JsonProperty("name")]
+
+        [DataMember(Name = "type")]
+        public string Type { get; set; }
+
+        [DataMember(Name = "name")]
         public string Name { get; set; }
-        
-        [DataMember][JsonProperty("company")]
+
+        [DataMember(Name = "company")]
         public string Company { get; set; }
-        
-        [DataMember][JsonProperty("blog")]
+
+        [DataMember(Name = "blog")]
         public string Blog { get; set; }
-        
-        [DataMember][JsonProperty("location")]
+
+        [DataMember(Name = "location")]
         public string Location { get; set; }
-        
-        [DataMember][JsonProperty("email")]
+
+        [DataMember(Name = "email")]
         public string Email { get; set; }
-        
-        [DataMember][JsonProperty("hireable")]
+
+        [DataMember(Name = "hireable")]
         public bool Hireable { get; set; }
-        
-        [DataMember][JsonProperty("bio")]
+
+        [DataMember(Name = "bio")]
         public string Bio { get; set; }
-        
-        [DataMember][JsonProperty("public_repos")]
+
+        [DataMember(Name = "public_repos")]
         public int PublicRepos { get; set; }
-        
-        [DataMember][JsonProperty("followers")]
+
+        [DataMember(Name = "followers")]
         public int Followers { get; set; }
-        
-        [DataMember][JsonProperty("following")]
+
+        [DataMember(Name = "following")]
         public int Following { get; set; }
-        
-        [DataMember][JsonProperty("created_at")]
+
+        [DataMember(Name = "created_at")]
         public DateTime CreatedAt { get; set; }
-        
-        [DataMember][JsonProperty("updated_at")]
+
+        [DataMember(Name = "updated_at")]
         public DateTime UpdatedAt { get; set; }
-        
-        [DataMember][JsonProperty("public_gists")]
+
+        [DataMember(Name = "public_gists")]
         public int PublicGists { get; set; }
     }
 }

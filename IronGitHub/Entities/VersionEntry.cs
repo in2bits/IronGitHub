@@ -1,25 +1,24 @@
 ﻿using System;
 using System.Runtime.Serialization;
-using Newtonsoft.Json;
 
 namespace IronGitHub.Entities
 {
     [DataContract]
     public class VersionEntry
     {
-        [DataMember][JsonProperty("url")]
+        [DataMember(Name = "url")]
         public string Url { get; set; }
 
-        [DataMember][JsonProperty("version")]
+        [DataMember(Name = "version")]
         public string Version { get; set; }
 
-        [DataMember][JsonProperty("user")]
+        [DataMember(Name = "user")]
         public User User { get; set; }
 
-        [DataMember][JsonProperty("change_status")]
+        [DataMember(Name = "change_status")]
         public ChangeStatus ChangeStatus { get; set; }
 
-        [DataMember][JsonProperty("committed_at")]
+        [DataMember(Name = "committed_at")]
         public DateTime CommittedAt { get; set; }
     }
 }

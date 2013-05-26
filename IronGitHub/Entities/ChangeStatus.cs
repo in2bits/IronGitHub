@@ -1,18 +1,17 @@
 ﻿using System.Runtime.Serialization;
-using Newtonsoft.Json;
 
 namespace IronGitHub.Entities
 {
     [DataContract]
     public class ChangeStatus
     {
-        [DataMember][JsonProperty("deletions")]
+        [DataMember(Name = "deletions")]
         public int Deletions { get; set; }
 
-        [DataMember][JsonProperty("additions")]
+        [DataMember(Name = "additions")]
         public int Additions { get; set; }
 
-        [DataMember][JsonProperty("total")]
+        [DataMember(Name = "total")]
         public int Total { get; set; }
     }
 }

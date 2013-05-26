@@ -1,47 +1,37 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
-using Newtonsoft.Json;
 
 namespace IronGitHub.Entities
 {
     [DataContract]
     public class Authorization
     {
-        [DataMember]
-        [JsonProperty("app")]
+        [DataMember(Name = "app")]
         public App App { get; set; }
 
-        [DataMember]
-        [JsonProperty("created_at")]
+        [DataMember(Name = "created_at")]
         public DateTime CreatedAt { get; set; }
 
-        [DataMember]
-        [JsonProperty("id")]
+        [DataMember(Name = "id")]
         public string Id { get; set; }
 
-        [DataMember]
-        [JsonProperty("note")]
+        [DataMember(Name = "note")]
         public string Note { get; set; }
 
-        [DataMember]
-        [JsonProperty("note_url")]
+        [DataMember(Name = "note_url")]
         public string NoteUrl { get; set; }
 
-        [DataMember]
-        [JsonProperty("scopes")]
+        [DataMember(Name = "scopes")]
         public IEnumerable<Scopes> Scopes { get; set; }
 
-        [DataMember]
-        [JsonProperty("token")]
+        [DataMember(Name = "token")]
         public string Token { get; set; }
 
-        [DataMember]
-        [JsonProperty("updated_at")]
+        [DataMember(Name = "updated_at")]
         public DateTime UpdatedAt { get; set; }
 
-        [DataMember]
-        [JsonProperty("url")]
+        [DataMember(Name = "url")]
         public string Url { get; set; }
 
         public bool IsValid { get; private set; }
@@ -49,41 +39,21 @@ namespace IronGitHub.Entities
         [DataContract]
         public class AuthorizeRequest
         {
-            [DataMember]
-            [JsonProperty("scopes")]
+            [DataMember(Name = "scopes")]
             public IEnumerable<Scopes> Scopes { get; set; }
 
-            [DataMember]
-            [JsonProperty("note")]
+            [DataMember(Name = "note")]
             public string Note { get; set; }
         }
 
         [DataContract]
         public class AuthorizeAppRequestPost : AuthorizeRequest
         {
-            [DataMember]
-            [JsonProperty("client_id")]
+            [DataMember(Name = "client_id")]
             public string ClientId { get; set; }
 
-            [DataMember]
-            [JsonProperty("client_secret")]
+            [DataMember(Name = "client_secret")]
             public string ClientSecret { get; set; }
         }
-    }
-
-    [DataContract]
-    public class App
-    {
-        [DataMember]
-        [JsonProperty("client_id")]
-        public string ClientId { get; set; }
-
-        [DataMember]
-        [JsonProperty("name")]
-        public string Name { get; set; }
-
-        [DataMember]
-        [JsonProperty("url")]
-        public string Url { get; set; }
     }
 }

@@ -30,8 +30,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\Newtonsoft.Json.5.0.5\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="ServiceStack.Text">
+      <HintPath>..\packages\ServiceStack.Text.3.9.46\lib\net35\ServiceStack.Text.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="Apis\GistsApi.cs" />
     <Compile Include="Application.cs" />
+    <Compile Include="Entities\App.cs" />
     <Compile Include="Entities\Authorization.cs" />
     <Compile Include="Configuration.cs" />
     <Compile Include="Entities\ChangeStatus.cs" />

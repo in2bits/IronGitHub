@@ -26,5 +26,19 @@ namespace Tests
             var api = GitHubApi.Create();
             await api.Account01(new[] {Scopes.Gist});
         }
+
+        [TestMethod]
+        async public Task AuthorizeWithUserEmailScope()
+        {
+            var api = GitHubApi.Create();
+            await api.Account01(new[] { Scopes.UserEmail });
+        }
+
+        [TestMethod]
+        async public Task AuthorizeWithGistAndUserEmailScopes()
+        {
+            var api = GitHubApi.Create();
+            await api.Account01(new[] {Scopes.Gist, Scopes.UserEmail});
+        }
     }
 }

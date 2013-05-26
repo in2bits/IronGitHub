@@ -6,11 +6,17 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using IronGitHub.Exceptions;
+using ServiceStack.Text;
 
 namespace IronGitHub
 {
     public static class HttpExtensions
     {
+        static HttpExtensions()
+        {
+            JsConfig<Scopes>.SerializeFn = s => s.ToJsonValue();
+        }
+
         private const string ApplicationJson = "application/json";
         private const string POST = "POST";
 
@@ -37,8 +43,7 @@ namespace IronGitHub
             var stream = response.GetResponseStream();
             if (stream == null)
                 return default(T);
-            using (var textReader = new StreamReader(response.GetResponseStream(), Encoding.UTF8, true, 1024, true))
-                return textReader.Deserialize<T>();
+            return JsonSerializer.DeserializeResponse<T>(response);
         }
 
         async public static Task PostAsJson(this HttpWebRequest request, object body)
@@ -47,7 +52,7 @@ namespace IronGitHub
             request.ContentType = ApplicationJson;
             var requestStream = await request.GetRequestStreamAsync().ConfigureAwait(false);
 
-            await requestStream.WriteAsJson(body).ConfigureAwait(false);
+            requestStream.WriteAsJson(body);
         }
 
         async public static Task<T> Complete<T>(this HttpWebRequest request, Action<GitHubErrorResponse> handleGitHubError = null)
