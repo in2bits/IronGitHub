@@ -1,5 +1,6 @@
-# Credential Files
+# Auth Files
 Tests/test.creds.01.txt
+Tests/test.token.01.txt
 
 # Build Folders (you can keep bin if you'd like, to store dlls and pdbs)
 [Bb]in/

@@ -1,20 +1,21 @@
 ﻿using System.Runtime.Serialization;
+using Newtonsoft.Json;
 
 namespace IronGitHub.Exceptions
 {
     [DataContract]
     public class GitHubError
     {
-        [DataMember(Name="code")]
+        [DataMember][JsonProperty("code")]
         public string Code { get; set; }
 
-        [DataMember(Name="field")]
+        [DataMember][JsonProperty("field")]
         public string Field { get; set; }
 
-        [DataMember(Name = "message")]
+        [DataMember][JsonProperty("message")]
         public string Message { get; set; }
 
-        [DataMember(Name = "resource")]
+        [DataMember][JsonProperty("resource")]
         public string Resource { get; set; }
     }
 }

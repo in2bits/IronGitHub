@@ -1,4 +1,6 @@
-﻿namespace IronGitHub
+﻿using IronGitHub.Entities;
+
+namespace IronGitHub
 {
     public class GitHubApiContext
     {

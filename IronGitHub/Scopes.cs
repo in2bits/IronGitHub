@@ -20,6 +20,9 @@ namespace IronGitHub
         UserEmail,
 
         [EnumMember(Value="user:follow")]
-        UserFollow
+        UserFollow,
+
+        [EnumMember(Value="gist")]
+        Gist
     }
 }

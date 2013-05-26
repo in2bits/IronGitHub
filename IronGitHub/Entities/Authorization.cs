@@ -1,45 +1,47 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Net;
 using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
-using IronGitHub.Exceptions;
 using Newtonsoft.Json;
-//using ServiceStack.Text;
 
-namespace IronGitHub
+namespace IronGitHub.Entities
 {
     [DataContract]
     public class Authorization
     {
-        [DataMember(Name = "app")]
+        [DataMember]
+        [JsonProperty("app")]
         public App App { get; set; }
 
-        [DataMember(Name = "created_at")]
+        [DataMember]
+        [JsonProperty("created_at")]
         public DateTime CreatedAt { get; set; }
 
-        [DataMember(Name = "id")]
+        [DataMember]
+        [JsonProperty("id")]
         public string Id { get; set; }
 
-        [DataMember(Name = "note")]
+        [DataMember]
+        [JsonProperty("note")]
         public string Note { get; set; }
 
-        [DataMember(Name = "note_url")]
+        [DataMember]
+        [JsonProperty("note_url")]
         public string NoteUrl { get; set; }
 
-        [DataMember(Name = "scopes")]
+        [DataMember]
+        [JsonProperty("scopes")]
         public IEnumerable<Scopes> Scopes { get; set; }
 
-        [DataMember(Name = "token")]
+        [DataMember]
+        [JsonProperty("token")]
         public string Token { get; set; }
 
-        [DataMember(Name = "updated_at")]
+        [DataMember]
+        [JsonProperty("updated_at")]
         public DateTime UpdatedAt { get; set; }
 
-        [DataMember(Name = "url")]
+        [DataMember]
+        [JsonProperty("url")]
         public string Url { get; set; }
 
         public bool IsValid { get; private set; }
@@ -47,20 +49,24 @@ namespace IronGitHub
         [DataContract]
         public class AuthorizeRequest
         {
-            [DataMember(Name="scopes")]
+            [DataMember]
+            [JsonProperty("scopes")]
             public IEnumerable<Scopes> Scopes { get; set; }
 
-            [DataMember(Name = "note")]
+            [DataMember]
+            [JsonProperty("note")]
             public string Note { get; set; }
         }
 
         [DataContract]
         public class AuthorizeAppRequestPost : AuthorizeRequest
         {
-            [DataMember(Name = "client_id")]
+            [DataMember]
+            [JsonProperty("client_id")]
             public string ClientId { get; set; }
 
-            [DataMember(Name = "client_secret")]
+            [DataMember]
+            [JsonProperty("client_secret")]
             public string ClientSecret { get; set; }
         }
     }
@@ -68,13 +74,16 @@ namespace IronGitHub
     [DataContract]
     public class App
     {
-        [DataMember(Name = "client_id")]
+        [DataMember]
+        [JsonProperty("client_id")]
         public string ClientId { get; set; }
 
-        [DataMember(Name = "name")]
+        [DataMember]
+        [JsonProperty("name")]
         public string Name { get; set; }
 
-        [DataMember(Name = "url")]
+        [DataMember]
+        [JsonProperty("url")]
         public string Url { get; set; }
     }
 }

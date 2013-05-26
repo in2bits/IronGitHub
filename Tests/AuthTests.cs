@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
@@ -11,11 +12,19 @@ namespace Tests
     public class AuthTests
     {
         [TestMethod]
-        async public Task ReadCredentials()
+        async public Task AuthorizeWithCredential()
         {
-            var creds = TestExtensions.LoadCredentials("test.creds.01.txt");
             var api = GitHubApi.Create();
-            await api.Authorize(creds, Enumerable.Empty<Scopes>(), "testing");
+            Assert.IsNull(api.Context.Authorization);
+            await api.Account01();
+            Assert.IsNotNull(api.Context.Authorization);
+        }
+
+        [TestMethod]
+        async public Task AuthorizeWithGistScope()
+        {
+            var api = GitHubApi.Create();
+            await api.Account01(new[] {Scopes.Gist});
         }
     }
 }

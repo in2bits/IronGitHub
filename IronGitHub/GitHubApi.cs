@@ -4,6 +4,9 @@ using System.IO;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using IronGitHub.Apis;
+using IronGitHub.Exceptions;
+using Authorization = IronGitHub.Entities.Authorization;
 
 namespace IronGitHub
 {
@@ -22,15 +25,28 @@ namespace IronGitHub
             return new GitHubApi(new GitHubApiContext());
         }
 
-        private MembersApi _membersApi = null;
+        private MembersApi _membersApi;
         public MembersApi Members
         {
-            get
-            {
-                if (_membersApi == null)
-                    _membersApi = new MembersApi(Context);
-                return _membersApi;
-            }
+            get { return _membersApi ?? (_membersApi = new MembersApi(Context)); }
+        }
+
+        private RepositoriesApi _repositoriesApi = null;
+        public RepositoriesApi Repositories
+        {
+            get { return _repositoriesApi ?? (_repositoriesApi = new RepositoriesApi(Context)); }
+        }
+
+        private UsersApi _usersApi;
+        public UsersApi Users
+        {
+            get { return _usersApi ?? (_usersApi = new UsersApi(Context)); }
+        }
+
+        private GistsApi _gistsApi;
+        public GistsApi Gists
+        {
+            get { return _gistsApi ?? (_gistsApi = new GistsApi(Context)); }
         }
 
         public GitHubApiContext Context { get; private set; }
@@ -39,6 +55,11 @@ namespace IronGitHub
         {
             var uri = new Uri("https://" + Context.Configuration.Domain + path);
             var request = WebRequest.CreateHttp(uri);
+            var auth = Context.Authorization;
+            if (auth != null)
+            {
+                request.Headers["Authorization"] = "token " + auth.Token;
+            }
             request.UserAgent = Context.Configuration.UserAgent;
             return request;
         }
@@ -79,6 +100,13 @@ namespace IronGitHub
             var auth = await request.Complete<Authorization>();
             Context.Authorization = auth;
             return auth;
+        }
+
+        public void Authorize(Authorization authorization)
+        {
+            if (authorization == null)
+                throw new ArgumentNullException("authorization");
+            Context.Authorization = authorization;
         }
     }
 }
