@@ -1,4 +1,4 @@
 IronGitHub
 ==========
 
-C# GitHub Api
+C# client for GitHub Api v3
