@@ -3,6 +3,7 @@ using System.Runtime.Serialization;
 
 namespace IronGitHub.Entities
 {
+    [DataContract]
     public class User
     {
         [DataMember(Name = "login")]

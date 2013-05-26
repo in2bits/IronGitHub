@@ -3,6 +3,7 @@ using System.Runtime.Serialization;
 
 namespace IronGitHub.Exceptions
 {
+    [DataContract]
     public class GitHubErrorResponse
     {
         [DataMember(Name = "errors")]

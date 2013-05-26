@@ -18,6 +18,7 @@ namespace IronGitHub
         }
 
         private const string ApplicationJson = "application/json";
+        private const string DELETE = "DELETE";
         private const string POST = "POST";
 
         public static void AddAuthorizationCredential(this HttpWebRequest request, NetworkCredential credential)
@@ -46,6 +47,12 @@ namespace IronGitHub
             return JsonSerializer.DeserializeResponse<T>(response);
         }
 
+        async public static Task<ApiResponse> Delete(this HttpWebRequest request)
+        {
+            request.Method = DELETE;
+            return await request.Complete();
+        }
+
         async public static Task PostAsJson(this HttpWebRequest request, object body)
         {
             request.Method = "POST";
@@ -55,14 +62,13 @@ namespace IronGitHub
             requestStream.WriteAsJson(body);
         }
 
-        async public static Task<T> Complete<T>(this HttpWebRequest request, Action<GitHubErrorResponse> handleGitHubError = null)
+        async public static Task<ApiResponse> Complete(this HttpWebRequest request)
         {
-            HttpWebResponse response = null;
+            HttpWebResponse response;
             try
             {
                 response = (HttpWebResponse)await request.GetResponseAsync().ConfigureAwait(false);
-                var auth = await response.Deserialize<T>();
-                return auth;
+                return new ApiResponse {HttpResponse = response};
             }
             catch (WebException wex)
             {
@@ -71,10 +77,24 @@ namespace IronGitHub
                     throw;
             }
             var errorResponse = await response.Deserialize<GitHubErrorResponse>();
-            if (handleGitHubError == null)
-                throw GitHubErrorExceptionFactory.From(response, errorResponse);
-            handleGitHubError(errorResponse);
-            return default(T);
+            throw GitHubErrorExceptionFactory.From(response, errorResponse);
         }
+
+        async public static Task<ApiResponse<T>> Complete<T>(this HttpWebRequest request)
+        {
+            var apiResponse = await request.Complete();
+            var result = await apiResponse.HttpResponse.Deserialize<T>();
+            return new ApiResponse<T>{HttpResponse = apiResponse.HttpResponse, Result = result};
+        }
+    }
+
+    public class ApiResponse
+    {
+        public HttpWebResponse HttpResponse { get; set; }
+    }
+
+    public class ApiResponse<T> : ApiResponse
+    {
+        public T Result { get; set; }
     }
 }

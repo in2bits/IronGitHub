@@ -34,8 +34,6 @@ namespace IronGitHub.Entities
         [DataMember(Name = "url")]
         public string Url { get; set; }
 
-        public bool IsValid { get; private set; }
-
         [DataContract]
         public class AuthorizeRequest
         {

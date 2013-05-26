@@ -13,8 +13,8 @@ namespace IronGitHub.Apis
         async public Task<User> GetCurrent()
         {
             var request = CreateRequest("/user");
-            var user = await request.Complete<User>();
-            return user;
+            var response = await request.Complete<User>();
+            return response.Result;
         }
     }
 }

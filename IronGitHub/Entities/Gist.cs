@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace IronGitHub.Entities
 {
+    [DataContract]
     public class Gist
     {
         [DataMember(Name = "comments")]

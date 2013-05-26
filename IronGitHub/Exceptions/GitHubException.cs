@@ -2,7 +2,7 @@
 
 namespace IronGitHub.Exceptions
 {
-    public abstract class GitHubException : Exception
+    public class GitHubException : Exception
     {
         public GitHubException(string message) : base(message)
         {

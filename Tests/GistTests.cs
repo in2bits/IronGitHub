@@ -19,10 +19,22 @@ namespace Tests
                     {"theAnswer", "42"},
                     {"the Question", "I dunno"}
                 };
-            var content = "The answer is 42.";
+            var api = GitHubApi.Create();
+            var gist = await api.Gists.New(files);
+        }
+
+        [TestMethod]
+        async public Task CreateAndDeleteGist()
+        {
+            var files = new Dictionary<string, string>
+                {
+                    {"theAnswer", "42"},
+                    {"the Question", "I dunno"}
+                };
             var api = GitHubApi.Create();
             await api.Account01(new []{Scopes.Gist});
             var gist = await api.Gists.New(files);
+            await api.Gists.Delete(gist);
         }
 
         [TestMethod]

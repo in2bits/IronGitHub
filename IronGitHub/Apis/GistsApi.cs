@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using IronGitHub.Entities;
+using IronGitHub.Exceptions;
 
 namespace IronGitHub.Apis
 {
@@ -29,18 +31,29 @@ namespace IronGitHub.Apis
 
             await request.PostAsJson(gistRequest);
 
-            var gist = await request.Complete<Gist>();
+            var response = await request.Complete<Gist>();
 
-            return gist;
+            return response.Result;
         }
 
         async public Task<Gist> Get(long id)
         {
             var request = CreateRequest("/gists/" + id);
 
-            var gist = await request.Complete<Gist>();
+            var response = await request.Complete<Gist>();
 
-            return gist;
+            return response.Result;
+        }
+
+        async public Task Delete(Gist gist)
+        {
+            var request = CreateRequest("/gists/" + gist.Id);
+
+            var response = await request.Delete();
+            if (response.HttpResponse.StatusCode != HttpStatusCode.NoContent)
+                throw new GitHubException(string.Format("Unexpected response code : {0} {1}",
+                                                        response.HttpResponse.StatusCode,
+                                                        response.HttpResponse.StatusDescription));
         }
     }
 }

@@ -97,9 +97,9 @@ namespace IronGitHub
 
             await request.PostAsJson(authRequest);
 
-            var auth = await request.Complete<Authorization>();
-            Context.Authorization = auth;
-            return auth;
+            var response = await request.Complete<Authorization>();
+            Context.Authorization = response.Result;
+            return Context.Authorization;
         }
 
         public void Authorize(Authorization authorization)
