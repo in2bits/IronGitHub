@@ -16,5 +16,12 @@ namespace IronGitHub.Apis
             var response = await request.Complete<User>();
             return response.Result;
         }
+
+        async public Task<User> Get(int id)
+        {
+            var request = CreateRequest("/user/" + id);
+            var response = await request.Complete<User>();
+            return response.Result;
+        }
     }
 }

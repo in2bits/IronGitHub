@@ -52,6 +52,7 @@
     <Compile Include="Entities\Fork.cs" />
     <Compile Include="Entities\Gist.cs" />
     <Compile Include="Entities\GistFile.cs" />
+    <Compile Include="Entities\Repository.cs" />
     <Compile Include="Entities\VersionEntry.cs" />
     <Compile Include="Exceptions\ForbiddenException.cs" />
     <Compile Include="Exceptions\GitHubErrorResponse.cs" />
@@ -59,6 +60,7 @@
     <Compile Include="Exceptions\GitHubErrorExceptionFactory.cs" />
     <Compile Include="Exceptions\GitHubErrorException.cs" />
     <Compile Include="Exceptions\GitHubException.cs" />
+    <Compile Include="Exceptions\NotFoundException.cs" />
     <Compile Include="Exceptions\ServerErrorException.cs" />
     <Compile Include="Exceptions\UnauthorizedException.cs" />
     <Compile Include="GitHubApi.cs" />
@@ -73,6 +75,7 @@
     <Compile Include="Exceptions\UnprocessableEntityException.cs" />
     <Compile Include="Entities\User.cs" />
     <Compile Include="Apis\UsersApi.cs" />
+    <Compile Include="Apis\SearchApi.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

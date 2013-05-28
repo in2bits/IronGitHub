@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Runtime.Serialization;
 
 namespace IronGitHub.Entities
@@ -10,7 +11,7 @@ namespace IronGitHub.Entities
         public string Login { get; set; }
 
         [DataMember(Name = "id")]
-        public long Id { get; set; }
+        public string Id { get; set; }
 
         [DataMember(Name = "avatar_url")]
         public string AvatarUrl { get; set; }
@@ -92,5 +93,12 @@ namespace IronGitHub.Entities
 
         [DataMember(Name = "public_gists")]
         public int PublicGists { get; set; }
+
+        [DataContract]
+        public class UserList
+        {
+            [DataMember(Name = "users")]
+            public IEnumerable<User> Users { get; set; }
+        }
     }
 }

@@ -49,6 +49,12 @@ namespace IronGitHub
             get { return _gistsApi ?? (_gistsApi = new GistsApi(Context)); }
         }
 
+        private SearchApi _searchApi;
+        public SearchApi Search
+        {
+            get { return _searchApi ?? (_searchApi = new SearchApi(Context)); }
+        }
+
         public GitHubApiContext Context { get; private set; }
 
         protected HttpWebRequest CreateRequest(string path)

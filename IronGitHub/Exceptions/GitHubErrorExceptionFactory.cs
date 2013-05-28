@@ -12,6 +12,7 @@ namespace IronGitHub.Exceptions
             {
                 case 401: return new UnauthorizedException(response, errorResponse);
                 case 403: return new ForbiddenException(response, errorResponse);
+                case 404: return new NotFoundException(response, errorResponse);
                 case 422: return new UnprocessableEntityException(response, errorResponse);
                 case 500: return new ServerErrorException(response, errorResponse);
                 default :

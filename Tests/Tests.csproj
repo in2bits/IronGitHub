@@ -55,6 +55,8 @@
   </Choose>
   <ItemGroup>
     <Compile Include="GistTests.cs" />
+    <Compile Include="RepositoryTests.cs" />
+    <Compile Include="SearchTests.cs" />
     <Compile Include="TestExtensions.cs" />
     <Compile Include="AuthTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
