@@ -140,7 +140,7 @@ namespace IronGitHub.Entities
         public string Name { get; set; }
 
         [DataMember(Name = "network_count")]
-        public string NetworkCount { get; set; }
+        public int NetworkCount { get; set; }
 
         [DataMember(Name = "notifications_url")]
         public string NotificationsUrl { get; set; }
@@ -156,6 +156,9 @@ namespace IronGitHub.Entities
 
         [DataMember(Name = "owner")]
         public Entity Owner { get; set; }
+
+        [DataMember(Name = "permissions")]
+        public Permissions Permissions { get; set; }
 
         [DataMember(Name = "private")]
         public bool Private { get; set; }

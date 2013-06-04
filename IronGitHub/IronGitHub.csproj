@@ -53,6 +53,7 @@
     <Compile Include="Entities\Fork.cs" />
     <Compile Include="Entities\Gist.cs" />
     <Compile Include="Entities\GistFile.cs" />
+    <Compile Include="Entities\Permissions.cs" />
     <Compile Include="Entities\Repository.cs" />
     <Compile Include="Entities\VersionEntry.cs" />
     <Compile Include="Exceptions\ForbiddenException.cs" />
