@@ -1,23 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Net;
-using System.Text;
 using System.Threading.Tasks;
 using IronGitHub.Apis;
-using IronGitHub.Exceptions;
 using Authorization = IronGitHub.Entities.Authorization;
 
 namespace IronGitHub
 {
-    public class GitHubApi
+    public class GitHubApi : GitHubApiBase
     {
-        public GitHubApi(GitHubApiContext context)
+        public GitHubApi(GitHubApiContext context) : base(context)
         {
-            if (context == null)
-                throw new ArgumentNullException("context");
-
-            Context = context;
         }
 
         public static GitHubApi Create()
@@ -31,7 +24,7 @@ namespace IronGitHub
             get { return _membersApi ?? (_membersApi = new MembersApi(Context)); }
         }
 
-        private RepositoriesApi _repositoriesApi = null;
+        private RepositoriesApi _repositoriesApi;
         public RepositoriesApi Repositories
         {
             get { return _repositoriesApi ?? (_repositoriesApi = new RepositoriesApi(Context)); }
@@ -53,21 +46,6 @@ namespace IronGitHub
         public SearchApi Search
         {
             get { return _searchApi ?? (_searchApi = new SearchApi(Context)); }
-        }
-
-        public GitHubApiContext Context { get; private set; }
-
-        protected HttpWebRequest CreateRequest(string path)
-        {
-            var uri = new Uri("https://" + Context.Configuration.Domain + path);
-            var request = WebRequest.CreateHttp(uri);
-            var auth = Context.Authorization;
-            if (auth != null)
-            {
-                request.Headers["Authorization"] = "token " + auth.Token;
-            }
-            request.UserAgent = Context.Configuration.UserAgent;
-            return request;
         }
 
         async public Task<Authorization> AuthorizeApplication(NetworkCredential credential, Application application, IEnumerable<Scopes> scopes, string note = null)

@@ -4,15 +4,15 @@ using IronGitHub.Entities;
 
 namespace IronGitHub.Apis
 {
-    public class RepositoriesApi : GitHubApi
+    public class RepositoriesApi : GitHubApiBase
     {
         public RepositoriesApi(GitHubApiContext context) : base(context)
         {
         }
 
-        async public Task<Repository> Get(int id)
+        async public Task<Repository> Get(string owner, string repo)
         {
-            var request = CreateRequest("/repositories/" + id);
+            var request = CreateRequest("/repos/" + owner + "/" + repo);
 
             var response = await request.Complete<Repository>();
 

@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace IronGitHub
+﻿namespace IronGitHub
 {
     public class Configuration
     {
         public const string DefaultDomain = "api.github.com";
 
-        public const string DefaultUserAgent = "IronGitHub API v0.01";
+        public const string DefaultUserAgent = "IronGitHub API v0.1";
 
         public Configuration()
         {

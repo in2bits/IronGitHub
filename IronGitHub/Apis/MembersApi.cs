@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace IronGitHub
 {
-    public sealed class MembersApi : GitHubApi
+    public sealed class MembersApi : GitHubApiBase
     {
         public MembersApi(GitHubApiContext context)
             : base(context)

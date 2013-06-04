@@ -12,7 +12,7 @@ namespace Tests
     public class GistTests
     {
         [TestMethod]
-        async public Task CreateNewGist()
+        async public Task CreateNewAnonymousGist()
         {
             var files = new Dictionary<string, string>
                 {
@@ -24,7 +24,7 @@ namespace Tests
         }
 
         [TestMethod]
-        async public Task CreateAndDeleteGist()
+        async public Task CreateAndDeleteUserGist()
         {
             var files = new Dictionary<string, string>
                 {
@@ -32,7 +32,7 @@ namespace Tests
                     {"the Question", "I dunno"}
                 };
             var api = GitHubApi.Create();
-            await api.Account01(new []{Scopes.Gist});
+            await api.in2bitstest(new []{Scopes.Gist});
             var gist = await api.Gists.New(files);
             await api.Gists.Delete(gist);
         }
@@ -42,6 +42,7 @@ namespace Tests
         {
             const long id = 5651796;
             var api = GitHubApi.Create();
+            await api.in2bitstest();
             var gist = await api.Gists.Get(id);
             Assert.AreEqual("https://api.github.com/gists/5651796/comments", gist.CommentsUrl);
             Assert.AreEqual("https://api.github.com/gists/5651796/commits", gist.CommitsUrl);

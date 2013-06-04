@@ -9,7 +9,7 @@ using IronGitHub.Exceptions;
 
 namespace IronGitHub.Apis
 {
-    public class GistsApi : GitHubApi
+    public class GistsApi : GitHubApiBase
     {
         public GistsApi(GitHubApiContext context) : base(context)
         {

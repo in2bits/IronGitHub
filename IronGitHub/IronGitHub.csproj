@@ -49,6 +49,7 @@
     <Compile Include="Entities\Authorization.cs" />
     <Compile Include="Configuration.cs" />
     <Compile Include="Entities\ChangeStatus.cs" />
+    <Compile Include="Entities\Entity.cs" />
     <Compile Include="Entities\Fork.cs" />
     <Compile Include="Entities\Gist.cs" />
     <Compile Include="Entities\GistFile.cs" />
@@ -64,11 +65,12 @@
     <Compile Include="Exceptions\ServerErrorException.cs" />
     <Compile Include="Exceptions\UnauthorizedException.cs" />
     <Compile Include="GitHubApi.cs" />
+    <Compile Include="GitHubApiBase.cs" />
     <Compile Include="GitHubApiContext.cs" />
     <Compile Include="HttpExtensions.cs" />
     <Compile Include="JsonExtensions.cs" />
     <Compile Include="Apis\MembersApi.cs" />
-    <Compile Include="Entities\Org.cs" />
+    <Compile Include="Entities\Organization.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Apis\RepositoriesApi.cs" />
     <Compile Include="Scopes.cs" />

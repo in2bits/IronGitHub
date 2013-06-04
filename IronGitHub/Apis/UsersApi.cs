@@ -3,7 +3,7 @@ using IronGitHub.Entities;
 
 namespace IronGitHub.Apis
 {
-    public class UsersApi : GitHubApi
+    public class UsersApi : GitHubApiBase
     {
         public UsersApi(GitHubApiContext context) 
             : base(context)

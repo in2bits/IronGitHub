@@ -15,13 +15,16 @@ namespace Tests
         async public Task GetRepository()
         {
             var api = GitHubApi.Create();
-            var repo = await api.Repositories.Get(123);
+            await api.in2bitstest();
+            var repo = await api.Repositories.Get("in2bits", "IronGitHub");
+            Assert.IsNotNull(repo);
         }
 
         [TestMethod]
         async public Task ListRepositores()
         {
             var api = GitHubApi.Create();
+            await api.in2bitstest();
             var repos = await api.Repositories.List();
 
             Assert.IsTrue(1 < repos.Count());
@@ -31,6 +34,7 @@ namespace Tests
         async public Task ListRepositoriesSince10()
         {
             var api = GitHubApi.Create();
+            await api.in2bitstest();
             var repos = await api.Repositories.List(10);
             Assert.IsTrue(10 <= repos.ElementAt(0).Id);
         }
@@ -39,6 +43,7 @@ namespace Tests
         async public Task ListForUser()
         {
             var api = GitHubApi.Create();
+            await api.in2bitstest();
             var user = api.Users.GetCurrent();
         }
     }

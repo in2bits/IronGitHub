@@ -15,7 +15,7 @@ namespace Tests
         async public Task GetCurrentUser()
         {
             var api = GitHubApi.Create();
-            await api.Account01();
+            await api.in2bitstest();
             var user = await api.Users.GetCurrent();
         }
 
@@ -23,7 +23,7 @@ namespace Tests
         async public Task Get57726()
         {
             var api = GitHubApi.Create();
-            //await api.Account01();
+            await api.in2bitstest();
             var user = await api.Users.Get(57726);
             Assert.AreEqual("https://secure.gravatar.com/avatar/e9fbbfd2de96fdb0cec592a4b6792f0e?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png", user.AvatarUrl);
             Assert.AreEqual(null, user.Bio);
@@ -52,7 +52,7 @@ namespace Tests
             Assert.AreEqual("https://api.github.com/users/timerickson/starred{/owner}{/repo}", user.StarredUrl);
             Assert.AreEqual("https://api.github.com/users/timerickson/subscriptions", user.SubscriptionsUrl);
             Assert.AreEqual("User", user.Type);
-            Assert.AreEqual(new DateTime(2013,5,27,7,27,32,DateTimeKind.Utc), user.UpdatedAt);
+            Assert.IsTrue(new DateTime(2013,5,27,7,27,32,DateTimeKind.Utc) <= user.UpdatedAt);
             Assert.AreEqual("https://api.github.com/users/timerickson", user.Url);
         }
     }

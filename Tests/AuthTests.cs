@@ -1,10 +1,12 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
-using System.Net;
+using System.Text;
 using System.Threading.Tasks;
 using IronGitHub;
+using IronGitHub.Entities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using ServiceStack.Text;
 
 namespace Tests
 {
@@ -16,7 +18,7 @@ namespace Tests
         {
             var api = GitHubApi.Create();
             Assert.IsNull(api.Context.Authorization);
-            await api.Account01();
+            await api.in2bitstest();
             Assert.IsNotNull(api.Context.Authorization);
         }
 
@@ -24,21 +26,24 @@ namespace Tests
         async public Task AuthorizeWithGistScope()
         {
             var api = GitHubApi.Create();
-            await api.Account01(new[] {Scopes.Gist});
+            await api.in2bitstest(new[] {Scopes.Gist});
+            Assert.IsTrue(api.Context.Authorization.Scopes.Matches(new []{Scopes.Gist}));
         }
 
         [TestMethod]
         async public Task AuthorizeWithUserEmailScope()
         {
             var api = GitHubApi.Create();
-            await api.Account01(new[] { Scopes.UserEmail });
+            await api.in2bitstest(new[] { Scopes.UserEmail });
+            Assert.IsTrue(api.Context.Authorization.Scopes.Matches(new[] { Scopes.UserEmail }));
         }
 
         [TestMethod]
         async public Task AuthorizeWithGistAndUserEmailScopes()
         {
             var api = GitHubApi.Create();
-            await api.Account01(new[] {Scopes.Gist, Scopes.UserEmail});
+            await api.in2bitstest(new[] { Scopes.Gist, Scopes.UserEmail });
+            Assert.IsTrue(api.Context.Authorization.Scopes.Matches(new[] { Scopes.Gist, Scopes.UserEmail }));
         }
     }
 }

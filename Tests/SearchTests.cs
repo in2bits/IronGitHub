@@ -12,11 +12,21 @@ namespace Tests
     public class SearchTests
     {
         [TestMethod]
-        async public Task FindUser()
+        async public Task SearchUsers()
         {
             var api = GitHubApi.Create();
+            await api.in2bitstest();
             var userList = await api.Search.Users("timerickson");
             Assert.IsTrue(1 == userList.Users.Count(x => x.Id == "user-57726"));
+        }
+
+        [TestMethod]
+        async public Task SearchRepositories()
+        {
+            var api = GitHubApi.Create();
+            await api.in2bitstest();
+            var repoList = await api.Search.Repositories("IronGitHub");
+            Assert.IsTrue(1 == repoList.Repositories.Count(x => x.Name == "IronGitHub"));
         }
     }
 }

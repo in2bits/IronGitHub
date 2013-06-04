@@ -35,11 +35,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+    <Reference Include="ServiceStack.Text, Version=3.9.45.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Newtonsoft.Json.5.0.5\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\packages\ServiceStack.Text.3.9.46\lib\net35\ServiceStack.Text.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Runtime.Serialization" />
   </ItemGroup>
   <Choose>
     <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
@@ -63,15 +64,16 @@
     <Compile Include="UserTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="test.creds.01.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\IronGitHub\IronGitHub.csproj">
       <Project>{C5B5317F-6AA9-4918-82B0-6FADDF5A6BF9}</Project>
       <Name>IronGitHub</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+    <Content Include="testaccount.in2bitstest.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
