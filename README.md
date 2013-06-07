@@ -9,6 +9,10 @@ Why
 - [csharp-github-api](https://github.com/sgrassie/csharp-github-api) didn't do what I needed yet and I wanted to try it for myself
 - [GitHubSharp](https://github.com/erikzaadi/GitHubSharp) is [Not compatible with v3 API](https://github.com/erikzaadi/GithubSharp/issues/13)
 
+Install
+==========
+[via NuGet](https://nuget.org/packages/IronGitHub/)
+
 Supports
 ==========
 - Auth via token and app Client ID / Client Secret
