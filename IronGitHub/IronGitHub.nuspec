@@ -2,14 +2,14 @@
 <package >
   <metadata>
     <id>$id$</id>
-    <version>$version$</version>
-    <title>$title$</title>
+    <version>0.1.0.0</version>
+    <title>IronGitHub</title>
     <authors>in2bits (Tim Erickson)</authors>
     <owners>in2bits (Tim Erickson)</owners>
     <licenseUrl>https://github.com/in2bits/IronGitHub/blob/master/License.txt</licenseUrl>
     <projectUrl>https://github.com/in2bits/IronGitHub</projectUrl>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
-    <description>$description$</description>
+    <description>GitHub API v3 client</description>
     <releaseNotes>Initial release - supports auth, Gist create/read/delete, Repository read, User read, Search Users, Search Repositories.</releaseNotes>
     <copyright>Copyright 2013</copyright>
     <tags>github api</tags>
