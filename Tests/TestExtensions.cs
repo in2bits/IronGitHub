@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
-using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
 using System.Threading.Tasks;
 using IronGitHub;
@@ -16,7 +15,7 @@ namespace Tests
     {
         async public static Task in2bitstest(this GitHubApi api, IEnumerable<Scopes> scopes = null, string note = null)
         {
-            await TestAccount.Load("in2bitstest", api, scopes);
+            await TestAccount.Auth("in2bitstest", api, scopes);
         }
 
         public static bool Matches(this IEnumerable<Scopes> these, IEnumerable<Scopes> those)
@@ -64,23 +63,31 @@ namespace Tests
             return string.Format("testaccount.{0}.json", name);
         }
 
-        async public static Task Load(string name, GitHubApi api, IEnumerable<Scopes> scopes = null, string note = null)
+        async public static Task Auth(string accountName, GitHubApi api, IEnumerable<Scopes> scopes = null, string note = null)
         {
-            var account = Load("in2bitstest");
+            var account = Load(accountName);
             var auth = account.Authorizations.FirstOrDefault(x => x.Scopes.Matches(scopes));
             if (auth == null)
             {
                 auth = await api.Authorize(account.Credential, scopes, note);
+                auth.Invalidated += account.OnAuthorizationInvalidated;
                 account.Authorizations.Add(auth);
                 account.Save();
             }
             else
             {
-                api.Authorize(auth);
+                api.Context.Authorize(auth);
+                auth.Invalidated += account.OnAuthorizationInvalidated;
             }
         }
 
-        public static TestAccount Load(string name)
+        private void OnAuthorizationInvalidated(object sender, EventArgs e)
+        {
+            var auth = (Authorization) sender;
+            Delete(auth);
+        }
+
+        private static TestAccount Load(string name)
         {
             if (string.IsNullOrEmpty(name))
                 throw new ArgumentException("must be populated", "name");
@@ -100,6 +107,15 @@ namespace Tests
                     };
             }
             return account;
+        }
+
+        public void Delete(Authorization auth)
+        {
+            if (Authorizations.Remove(auth))
+            {
+                auth.Invalidated -= OnAuthorizationInvalidated;
+                Save();
+            }
         }
 
         public void Save()

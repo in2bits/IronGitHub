@@ -76,8 +76,8 @@ namespace IronGitHub.Entities
             [DataContract]
             public class NewGistFile
             {
-                [DataMember(Name = "type")]
-                public string Type { get; set; }
+                //[DataMember(Name = "type")]
+                //public string Type { get; set; }
 
                 [DataMember(Name = "language")]
                 public string Language { get; set; }

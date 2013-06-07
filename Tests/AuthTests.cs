@@ -17,7 +17,7 @@ namespace Tests
         async public Task AuthorizeWithCredential()
         {
             var api = GitHubApi.Create();
-            Assert.IsNull(api.Context.Authorization);
+            Assert.AreEqual(Authorization.Anonymous, api.Context.Authorization);
             await api.in2bitstest();
             Assert.IsNotNull(api.Context.Authorization);
         }

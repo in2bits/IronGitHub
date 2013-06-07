@@ -45,7 +45,7 @@ namespace Tests
             Assert.AreEqual("timerickson", user.Login);
             Assert.AreEqual("Tim Erickson", user.Name);
             Assert.AreEqual("https://api.github.com/users/timerickson/orgs", user.OrganizationsUrl);
-            Assert.AreEqual(12, user.PublicGists);
+            Assert.IsTrue(1 <= user.PublicGists);
             Assert.AreEqual(4, user.PublicRepos);
             Assert.AreEqual("https://api.github.com/users/timerickson/received_events", user.ReceivedEventsUrl);
             Assert.AreEqual("https://api.github.com/users/timerickson/repos", user.ReposUrl);

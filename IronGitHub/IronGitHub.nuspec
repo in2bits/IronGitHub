@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>$id$</id>
-    <version>0.1.0.0</version>
+    <version>0.1.0.1</version>
     <title>IronGitHub</title>
     <authors>in2bits (Tim Erickson)</authors>
     <owners>in2bits (Tim Erickson)</owners>

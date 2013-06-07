@@ -14,7 +14,7 @@ namespace IronGitHub.Apis
         {
             var request = CreateRequest("/repos/" + owner + "/" + repo);
 
-            var response = await request.Complete<Repository>();
+            var response = await Complete<Repository>(request);
 
             return response.Result;
         }
@@ -27,7 +27,7 @@ namespace IronGitHub.Apis
             
             var request = CreateRequest(path);
 
-            var response = await request.Complete<IEnumerable<Repository>>();
+            var response = await Complete<IEnumerable<Repository>>(request);
 
             return response.Result;
         }

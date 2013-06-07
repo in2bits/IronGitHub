@@ -17,21 +17,31 @@ namespace IronGitHub.Apis
 
         async public Task<Gist> New(IDictionary<string, string> files, string description = null, bool @public = true)
         {
-            var request = CreateRequest("/gists");
-
             var newFiles = new Dictionary<string, Gist.NewGistPost.NewGistFile>();
             foreach (var key in files.Keys)
                 newFiles[key] = new Gist.NewGistPost.NewGistFile {Content = files[key]};
+            return await New(newFiles, description, @public);
+        }
+
+        async public Task<Gist> New(IDictionary<string, Gist.NewGistPost.NewGistFile> files, string description = null, bool @public = true)
+        {
             var gistRequest = new Gist.NewGistPost
-                {
-                    Description = description,
-                    Public = @public,
-                    Files = newFiles
-                };
+            {
+                Description = description,
+                Public = @public,
+                Files = files
+            };
 
-            await request.PostAsJson(gistRequest);
+            return await New(gistRequest);
+        }
 
-            var response = await request.Complete<Gist>();
+        async public Task<Gist> New(Gist.NewGistPost newGist)
+        {
+            var request = CreateRequest("/gists");
+
+            await PostAsJson(request, newGist);
+
+            var response = await Complete<Gist>(request);
 
             return response.Result;
         }
@@ -40,7 +50,7 @@ namespace IronGitHub.Apis
         {
             var request = CreateRequest("/gists/" + id);
 
-            var response = await request.Complete<Gist>();
+            var response = await Complete<Gist>(request);
 
             return response.Result;
         }
@@ -49,7 +59,7 @@ namespace IronGitHub.Apis
         {
             var request = CreateRequest("/gists/" + gist.Id);
 
-            var response = await request.Delete();
+            var response = await Delete(request);
             if (response.HttpResponse.StatusCode != HttpStatusCode.NoContent)
                 throw new GitHubException(string.Format("Unexpected response code : {0} {1}",
                                                         response.HttpResponse.StatusCode,

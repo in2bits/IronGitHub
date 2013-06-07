@@ -15,7 +15,7 @@ namespace IronGitHub.Apis
         {
             var request = CreateRequest("/legacy/user/search/" + Uri.EscapeDataString(matching));
 
-            var response = await request.Complete<User.UserList>();
+            var response = await Complete<User.UserList>(request);
 
             return response.Result;
         }
@@ -24,7 +24,7 @@ namespace IronGitHub.Apis
         {
             var request = CreateRequest("/legacy/repos/search/" + Uri.EscapeDataString(matching));
 
-            var response = await request.Complete<Repository.RepositoryList>();
+            var response = await Complete<Repository.RepositoryList>(request);
 
             return response.Result;
         }

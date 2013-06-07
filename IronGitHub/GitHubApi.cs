@@ -79,18 +79,11 @@ namespace IronGitHub
             var request = CreateRequest("/authorizations");
             request.AddAuthorizationCredential(credential);
 
-            await request.PostAsJson(authRequest);
+            await PostAsJson(request, authRequest);
 
-            var response = await request.Complete<Authorization>();
-            Context.Authorization = response.Result;
+            var response = await Complete<Authorization>(request);
+            Context.Authorize(response.Result);
             return Context.Authorization;
-        }
-
-        public void Authorize(Authorization authorization)
-        {
-            if (authorization == null)
-                throw new ArgumentNullException("authorization");
-            Context.Authorization = authorization;
         }
     }
 }

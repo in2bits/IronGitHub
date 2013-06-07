@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApiResponse.cs" />
     <Compile Include="Apis\GistsApi.cs" />
     <Compile Include="Application.cs" />
     <Compile Include="Entities\App.cs" />
@@ -54,6 +55,7 @@
     <Compile Include="Entities\Gist.cs" />
     <Compile Include="Entities\GistFile.cs" />
     <Compile Include="Entities\Permissions.cs" />
+    <Compile Include="Exceptions\RateLimitExceededException.cs" />
     <Compile Include="Entities\Repository.cs" />
     <Compile Include="Entities\VersionEntry.cs" />
     <Compile Include="Exceptions\ForbiddenException.cs" />
@@ -81,6 +83,7 @@
     <Compile Include="Apis\SearchApi.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="IronGitHub.nuspec" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

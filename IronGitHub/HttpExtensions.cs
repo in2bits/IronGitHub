@@ -10,12 +10,6 @@ namespace IronGitHub
 {
     public static class HttpExtensions
     {
-        private const string ApplicationJson = "application/json";
-// ReSharper disable InconsistentNaming
-        private const string DELETE = "DELETE";
-        private const string POST = "POST";
-// ReSharper restore InconsistentNaming
-
         public static void AddAuthorizationCredential(this HttpWebRequest request, NetworkCredential credential)
         {
             var encodedCreds = Convert.ToBase64String(Encoding.UTF8.GetBytes(string.Format("{0}:{1}", credential.UserName, credential.Password)));
@@ -51,55 +45,5 @@ namespace IronGitHub
         {
             return JsonSerializer.SerializeToString(obj);
         }
-
-        async public static Task<ApiResponse> Delete(this HttpWebRequest request)
-        {
-            request.Method = DELETE;
-            return await request.Complete();
-        }
-
-        async public static Task PostAsJson<T>(this HttpWebRequest request, T body)
-        {
-            request.Method = POST;
-            request.ContentType = ApplicationJson;
-            var requestStream = await request.GetRequestStreamAsync().ConfigureAwait(false);
-
-            requestStream.WriteAsJson(body);
-        }
-
-        async public static Task<ApiResponse> Complete(this HttpWebRequest request)
-        {
-            HttpWebResponse response;
-            try
-            {
-                response = (HttpWebResponse)await request.GetResponseAsync();
-                return new ApiResponse {HttpResponse = response};
-            }
-            catch (WebException wex)
-            {
-                response = wex.Response as HttpWebResponse;
-                if (response == null)
-                    throw;
-            }
-            var errorResponse = response.Deserialize<GitHubErrorResponse>();
-            throw GitHubErrorExceptionFactory.From(response, errorResponse);
-        }
-
-        async public static Task<ApiResponse<T>> Complete<T>(this HttpWebRequest request)
-        {
-            var apiResponse = await request.Complete();
-            var result = apiResponse.HttpResponse.Deserialize<T>();
-            return new ApiResponse<T>{HttpResponse = apiResponse.HttpResponse, Result = result};
-        }
-    }
-
-    public class ApiResponse
-    {
-        public HttpWebResponse HttpResponse { get; set; }
-    }
-
-    public class ApiResponse<T> : ApiResponse
-    {
-        public T Result { get; set; }
     }
 }

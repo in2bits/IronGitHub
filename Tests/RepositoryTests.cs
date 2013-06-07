@@ -74,7 +74,7 @@ namespace Tests
             Assert.AreEqual(false, repo.Private);
             Assert.AreEqual("https://api.github.com/repos/in2bits/IronGitHub/pulls{/number}", repo.PullsUrl);
             Assert.IsTrue(new DateTime(2013, 6, 4, 0, 13, 8, DateTimeKind.Utc) <= repo.PushedAt);
-            Assert.AreEqual(260, repo.Size);
+            Assert.IsTrue(260 <= repo.Size);
             Assert.AreEqual("git@github.com:in2bits/IronGitHub.git", repo.SshUrl);
             Assert.AreEqual("https://api.github.com/repos/in2bits/IronGitHub/stargazers", repo.StargazersUrl);
             Assert.AreEqual("https://api.github.com/repos/in2bits/IronGitHub/statuses/{sha}", repo.StatusesUrl);
