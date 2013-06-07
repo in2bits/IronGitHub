@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>$id$</id>
+    <version>$version$</version>
+    <title>$title$</title>
+    <authors>$author$</authors>
+    <owners>$author$</owners>
+    <licenseUrl>https://github.com/in2bits/IronGitHub/blob/master/License.txt</licenseUrl>
+    <projectUrl>https://github.com/in2bits/IronGitHub</projectUrl>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <description>$description$</description>
+    <releaseNotes>Initial release - supports auth, Gist create/read/delete, Repository read, User read, Search Users, Search Repositories.</releaseNotes>
+    <copyright>Copyright 2013</copyright>
+    <tags>github api</tags>
+  </metadata>
+</package>
