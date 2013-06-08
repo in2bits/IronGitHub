@@ -19,6 +19,7 @@ namespace IronGitHub
         {
             if (_initted)
                 return;
+            JsConfig.IncludeNullValues = true;
             JsConfig<Scopes>.SerializeFn = s => s.ToJsonValue();
             JsConfig<Scopes>.DeSerializeFn = s => s.ToScopesValue();
             _initted = true;

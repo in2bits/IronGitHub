@@ -12,6 +12,7 @@ namespace IronGitHub
         private const string ApplicationJson = "application/json";
         private const string POST = "POST";
         private const string DELETE = "DELETE";
+        private const string PATCH = "PATCH";
 
         static GitHubApiBase()
         {
@@ -48,7 +49,7 @@ namespace IronGitHub
             Context.Authorization.UpdateRateLimit(response);
         }
 
-        async public Task<ApiResponse> Complete(HttpWebRequest request)
+        async protected Task<ApiResponse> Complete(HttpWebRequest request)
         {
             HttpWebResponse response = null;
             try
@@ -80,26 +81,38 @@ namespace IronGitHub
             }
         }
 
-        async public Task<ApiResponse<T>> Complete<T>(HttpWebRequest request)
+        async protected Task<ApiResponse<T>> Complete<T>(HttpWebRequest request)
         {
             var apiResponse = await Complete(request);
             var result = apiResponse.HttpResponse.Deserialize<T>();
             return new ApiResponse<T> { HttpResponse = apiResponse.HttpResponse, Result = result };
         }
 
-        async public Task PostAsJson<T>(HttpWebRequest request, T body)
+        async protected Task SendAsJson<TBody>(HttpWebRequest request, TBody body)
         {
-            request.Method = POST;
             request.ContentType = ApplicationJson;
             var requestStream = await request.GetRequestStreamAsync().ConfigureAwait(false);
-
             requestStream.WriteAsJson(body);
         }
 
-        async public Task<ApiResponse> Delete(HttpWebRequest request)
+        async protected Task<ApiResponse<TResult>> PostAsJson<TPost, TResult>(HttpWebRequest request, TPost body)
+        {
+            request.Method = POST;
+            await SendAsJson(request, body);
+            return await Complete<TResult>(request);
+        }
+
+        async protected Task<ApiResponse> Delete(HttpWebRequest request)
         {
             request.Method = DELETE;
             return await Complete(request);
+        }
+
+        async protected Task<ApiResponse<TResult>> Patch<TPatch, TResult>(HttpWebRequest request, TPatch content)
+        {
+            request.Method = PATCH;
+            await SendAsJson(request, content);
+            return await Complete<TResult>(request);
         }
     }
 }

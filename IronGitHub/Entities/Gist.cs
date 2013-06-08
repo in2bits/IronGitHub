@@ -76,11 +76,48 @@ namespace IronGitHub.Entities
             [DataContract]
             public class NewGistFile
             {
-                //[DataMember(Name = "type")]
-                //public string Type { get; set; }
+                [DataMember(Name = "content")]
+                public string Content { get; set; }
+            }
+        }
 
-                [DataMember(Name = "language")]
-                public string Language { get; set; }
+        [DataContract]
+        public class PatchedGistPost
+        {
+            public PatchedGistPost(){}
+
+            public PatchedGistPost(Gist gist)
+            {
+                this.Id = gist.Id;
+
+                this.Description = gist.Description;
+
+                Files = new Dictionary<string, PatchedGistFile>();
+                foreach (var file in gist.Files)
+                    Files.Add(file.Key, new PatchedGistFile(file.Value));
+            }
+
+            public long Id { get; set; }
+
+            [DataMember(Name = "description")]
+            public string Description { get; set; }
+
+            [DataMember(Name = "files")]
+            public IDictionary<string, PatchedGistFile> Files { get; set; }
+
+            [DataContract]
+            public class PatchedGistFile
+            {
+                public PatchedGistFile(){}
+
+                public PatchedGistFile(GistFile gistFile)
+                {
+                    this.Filename = gistFile.Filename;
+                    this.Content = gistFile.Content;
+                }
+
+                [DataMember(Name = "filename")]
+                public string Filename { get; set; }
 
                 [DataMember(Name = "content")]
                 public string Content { get; set; }

@@ -39,9 +39,7 @@ namespace IronGitHub.Apis
         {
             var request = CreateRequest("/gists");
 
-            await PostAsJson(request, newGist);
-
-            var response = await Complete<Gist>(request);
+            var response = await PostAsJson<Gist.NewGistPost, Gist>(request, newGist);
 
             return response.Result;
         }
@@ -64,6 +62,13 @@ namespace IronGitHub.Apis
                 throw new GitHubException(string.Format("Unexpected response code : {0} {1}",
                                                         response.HttpResponse.StatusCode,
                                                         response.HttpResponse.StatusDescription));
+        }
+
+        async public Task<Gist> Patch(Gist.PatchedGistPost patch)
+        {
+            var request = CreateRequest("/gists/" + patch.Id);
+            var response = await Patch<Gist.PatchedGistPost, Gist>(request, patch);
+            return response.Result;
         }
     }
 }

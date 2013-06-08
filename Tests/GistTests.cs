@@ -4,7 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using IronGitHub;
+using IronGitHub.Entities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using ServiceStack.Text;
+using JsonExtensions = IronGitHub.JsonExtensions;
 
 namespace Tests
 {
@@ -68,6 +71,42 @@ namespace Tests
             Assert.IsTrue(gist.CreatedAt <= gist.UpdatedAt);
             Assert.AreEqual("https://api.github.com/gists/5731704", gist.Url);
             Assert.IsNull(gist.User);
+        }
+
+        [TestMethod]
+        async public Task PatchGist()
+        {
+            var files = new Dictionary<string, string>
+                {
+                    {"theAnswer", "42"},
+                    {"the Question", "I dunno"}
+                };
+            var api = GitHubApi.Create();
+            await api.in2bitstest(new[] { Scopes.Gist });
+            var gist = await api.Gists.New(files);
+            Assert.AreEqual("42", gist.Files["theAnswer"].Content);
+            var patch = new Gist.PatchedGistPost(gist);
+            var patchFile = patch.Files["theAnswer"];
+            patchFile.Filename = "theWrongAnswer";
+            patchFile.Content = "43";
+            patch.Files["the Question"] = null;
+            var patchedGist = await api.Gists.Patch(patch);
+            Assert.AreEqual(1, patchedGist.Files.Count);
+            var file = patchedGist.Files["theWrongAnswer"];
+            Assert.IsNotNull(file);
+            Assert.AreEqual("43", file.Content);
+            Assert.AreEqual(gist.Id, patchedGist.Id);
+        }
+
+        [TestMethod]
+        public void DictionaryShouldSerializeNullEntry()
+        {
+            var d = new Dictionary<string, Gist.NewGistPost.NewGistFile>();
+            d.Add("foo", new Gist.NewGistPost.NewGistFile());
+            d.Add("bar", null);
+            JsonExtensions.Init();
+            var json = JsonSerializer.SerializeToString(d);
+            Assert.IsTrue(-1 != json.IndexOf("bar"));
         }
     }
 }
