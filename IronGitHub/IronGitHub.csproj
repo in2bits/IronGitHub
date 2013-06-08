@@ -83,7 +83,9 @@
     <Compile Include="Apis\SearchApi.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="IronGitHub.nuspec" />
+    <None Include="IronGitHub.nuspec">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
