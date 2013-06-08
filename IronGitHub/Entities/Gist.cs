@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace IronGitHub.Entities
@@ -122,6 +123,17 @@ namespace IronGitHub.Entities
                 [DataMember(Name = "content")]
                 public string Content { get; set; }
             }
+        }
+
+        private static readonly Regex GistUrlRegex = new Regex(@"http(?:s)?://(?:api|gist)\.github\.com(?:/gists|/raw|/[^/]+)?/([0-9]+)(?:/.*$)?", RegexOptions.IgnoreCase);
+        public static long ParseIdFromUrl(string url)
+        {
+            var match = GistUrlRegex.Match(url);
+            if (match.Groups.Count < 2)
+                return -1;
+            var group = match.Groups[1];
+            var idString = group.Captures[0].Value;
+            return Convert.ToInt64(idString);
         }
     }
 }

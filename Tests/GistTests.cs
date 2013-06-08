@@ -108,5 +108,29 @@ namespace Tests
             var json = JsonSerializer.SerializeToString(d);
             Assert.IsTrue(-1 != json.IndexOf("bar"));
         }
+
+        [TestMethod]
+        public void ParseIdFromUrl()
+        {
+            var url = "https://api.github.com/gists/5731704";
+            var id = Gist.ParseIdFromUrl(url);
+            Assert.AreEqual(5731704, id);
+        }
+
+        [TestMethod]
+        public void ParseIdFromHtmlUrl()
+        {
+            var url = "https://gist.github.com/5731704";
+            var id = Gist.ParseIdFromUrl(url);
+            Assert.AreEqual(5731704, id);
+        }
+
+        [TestMethod]
+        public void ParseIdFromFileRawUrl()
+        {
+            var url = "https://gist.github.com/raw/5731704/f70d7bba4ae1f07682e0358bd7a2068094fc023b/theAnswer";
+            var id = Gist.ParseIdFromUrl(url);
+            Assert.AreEqual(5731704, id);
+        }
     }
 }
