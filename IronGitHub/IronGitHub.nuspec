@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <!-- http://docs.nuget.org/docs/creating-packages/creating-and-publishing-a-package 
-    nuget package project.csproj
+    nuget pack project.csproj
     nuget push project.nupkg -->
 <package >
   <metadata>
