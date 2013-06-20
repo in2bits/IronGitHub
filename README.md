@@ -16,13 +16,12 @@ Install
 Supports
 ==========
 - Auth via token and app Client ID / Client Secret
-- Gist read, create, delete (public and private)
+- Gist read, create, delete, patch (public and private)
 - Repository read
 - User read
 - Search Users, Repositories
 
 ToDo
 ==========
-- Gist update
 - Search Issues
 - Whatever you want to contribute!
