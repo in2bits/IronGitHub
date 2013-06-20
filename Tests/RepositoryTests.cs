@@ -64,8 +64,8 @@ namespace Tests
             Assert.AreEqual("IronGitHub", repo.Name);
             Assert.AreEqual(0, repo.NetworkCount);
             Assert.AreEqual("https://api.github.com/repos/in2bits/IronGitHub/notifications{?since,all,participating}", repo.NotificationsUrl);
-            Assert.AreEqual(0, repo.OpenIssues);
-            Assert.AreEqual(0, repo.OpenIssuesCount);
+            Assert.AreEqual(2, repo.OpenIssues);
+            Assert.AreEqual(2, repo.OpenIssuesCount);
             Assert.IsNotNull(repo.Permissions);
             var perms = repo.Permissions;
             Assert.AreEqual(false, perms.Admin);
@@ -86,8 +86,8 @@ namespace Tests
             Assert.AreEqual("https://api.github.com/repos/in2bits/IronGitHub/git/trees{/sha}", repo.TreesUrl);
             Assert.IsTrue(new DateTime(2013,6,4,0,13,11) <= repo.UpdatedAt);
             Assert.AreEqual("https://api.github.com/repos/in2bits/IronGitHub", repo.Url);
-            Assert.AreEqual(0, repo.Watchers);
-            Assert.AreEqual(0, repo.WatchersCount);
+            Assert.IsTrue(1 <= repo.Watchers);
+            Assert.IsTrue(1 <= repo.WatchersCount);
         }
 
         [TestMethod]
@@ -114,7 +114,7 @@ namespace Tests
         {
             var api = GitHubApi.Create();
             await api.in2bitstest();
-            var user = api.Users.GetCurrent();
+            var user = api.Users.GetAuthenticatedUser();
         }
     }
 }

@@ -85,12 +85,12 @@ namespace Tests
             await api.in2bitstest(new[] { Scopes.Gist });
             var gist = await api.Gists.New(files);
             Assert.AreEqual("42", gist.Files["theAnswer"].Content);
-            var patch = new Gist.PatchedGistPost(gist);
+            var patch = new Gist.EditGistPost(gist);
             var patchFile = patch.Files["theAnswer"];
             patchFile.Filename = "theWrongAnswer";
             patchFile.Content = "43";
             patch.Files["the Question"] = null;
-            var patchedGist = await api.Gists.Patch(patch);
+            var patchedGist = await api.Gists.Edit(patch);
             Assert.AreEqual(1, patchedGist.Files.Count);
             var file = patchedGist.Files["theWrongAnswer"];
             Assert.IsNotNull(file);

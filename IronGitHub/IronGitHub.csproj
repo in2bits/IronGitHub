@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="ApiResponse.cs" />
     <Compile Include="Apis\GistsApi.cs" />
+    <Compile Include="Apis\IssuesApi.cs" />
     <Compile Include="Application.cs" />
     <Compile Include="Entities\App.cs" />
     <Compile Include="Entities\Authorization.cs" />
@@ -54,7 +55,13 @@
     <Compile Include="Entities\Fork.cs" />
     <Compile Include="Entities\Gist.cs" />
     <Compile Include="Entities\GistFile.cs" />
+    <Compile Include="Entities\Issue.cs" />
+    <Compile Include="Entities\Label.cs" />
+    <Compile Include="Entities\Milestone.cs" />
     <Compile Include="Entities\Permissions.cs" />
+    <Compile Include="Entities\PullRequest.cs" />
+    <Compile Include="Entities\RepositorySorts.cs" />
+    <Compile Include="Entities\UserSorts.cs" />
     <Compile Include="Exceptions\RateLimitExceededException.cs" />
     <Compile Include="Entities\Repository.cs" />
     <Compile Include="Entities\VersionEntry.cs" />
@@ -71,9 +78,11 @@
     <Compile Include="GitHubApiBase.cs" />
     <Compile Include="GitHubApiContext.cs" />
     <Compile Include="HttpExtensions.cs" />
+    <Compile Include="IssueStates.cs" />
     <Compile Include="JsonExtensions.cs" />
     <Compile Include="Apis\MembersApi.cs" />
     <Compile Include="Entities\Organization.cs" />
+    <Compile Include="MilestoneStates.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Apis\RepositoriesApi.cs" />
     <Compile Include="Scopes.cs" />
@@ -81,6 +90,7 @@
     <Compile Include="Entities\User.cs" />
     <Compile Include="Apis\UsersApi.cs" />
     <Compile Include="Apis\SearchApi.cs" />
+    <Compile Include="SortOrders.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="IronGitHub.nuspec">

@@ -11,7 +11,6 @@ namespace IronGitHub
         public MembersApi(GitHubApiContext context)
             : base(context)
         {
-            
         }
     }
 }

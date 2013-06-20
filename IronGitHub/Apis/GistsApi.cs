@@ -15,6 +15,15 @@ namespace IronGitHub.Apis
         {
         }
 
+        /// <summary>
+        /// Create a gist
+        /// </summary>
+        /// <param name="files">Files that make up this gist. The key of which 
+        /// should be a required string filename and the value another 
+        /// required hash with parameters</param>
+        /// <param name="description">(Optional)</param>
+        /// <param name="public">(Optional)</param>
+        /// <returns>The new Gist</returns>
         async public Task<Gist> New(IDictionary<string, string> files, string description = null, bool @public = true)
         {
             var newFiles = new Dictionary<string, Gist.NewGistPost.NewGistFile>();
@@ -23,6 +32,15 @@ namespace IronGitHub.Apis
             return await New(newFiles, description, @public);
         }
 
+        /// <summary>
+        /// Create a gist
+        /// </summary>
+        /// <param name="files">Files that make up this gist. The key of which 
+        /// should be a required string filename and the value another 
+        /// required hash with parameters</param>
+        /// <param name="description">(Optional)</param>
+        /// <param name="public">(Optional)</param>
+        /// <returns>The new Gist</returns>
         async public Task<Gist> New(IDictionary<string, Gist.NewGistPost.NewGistFile> files, string description = null, bool @public = true)
         {
             var gistRequest = new Gist.NewGistPost
@@ -35,6 +53,11 @@ namespace IronGitHub.Apis
             return await New(gistRequest);
         }
 
+        /// <summary>
+        /// Create a gist
+        /// </summary>
+        /// <param name="newGist">The new Gist.NewGistPost to create</param>
+        /// <returns>The new Gist</returns>
         async public Task<Gist> New(Gist.NewGistPost newGist)
         {
             var request = CreateRequest("/gists");
@@ -44,6 +67,11 @@ namespace IronGitHub.Apis
             return response.Result;
         }
 
+        /// <summary>
+        /// Get a single gist
+        /// </summary>
+        /// <param name="id">The Id of the Gist to get</param>
+        /// <returns>The Gist</returns>
         async public Task<Gist> Get(long id)
         {
             var request = CreateRequest("/gists/" + id);
@@ -53,6 +81,11 @@ namespace IronGitHub.Apis
             return response.Result;
         }
 
+        /// <summary>
+        /// Delete a gist
+        /// </summary>
+        /// <param name="gist">The Gist to delete</param>
+        /// <returns>Void</returns>
         async public Task Delete(Gist gist)
         {
             var request = CreateRequest("/gists/" + gist.Id);
@@ -64,10 +97,15 @@ namespace IronGitHub.Apis
                                                         response.HttpResponse.StatusDescription));
         }
 
-        async public Task<Gist> Patch(Gist.PatchedGistPost patch)
+        /// <summary>
+        /// Edit a gist
+        /// </summary>
+        /// <param name="patch">The EditGistPost comprising the edits to be made</param>
+        /// <returns>The edited Gist</returns>
+        async public Task<Gist> Edit(Gist.EditGistPost patch)
         {
             var request = CreateRequest("/gists/" + patch.Id);
-            var response = await Patch<Gist.PatchedGistPost, Gist>(request, patch);
+            var response = await Patch<Gist.EditGistPost, Gist>(request, patch);
             return response.Result;
         }
     }

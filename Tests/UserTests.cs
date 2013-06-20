@@ -12,11 +12,11 @@ namespace Tests
     public class UserTests
     {
         [TestMethod]
-        async public Task GetCurrentUser()
+        async public Task GetAuthenticatedUser()
         {
             var api = GitHubApi.Create();
             await api.in2bitstest();
-            var user = await api.Users.GetCurrent();
+            var user = await api.Users.GetAuthenticatedUser();
         }
 
         [TestMethod]

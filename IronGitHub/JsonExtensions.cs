@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
+using IronGitHub.Entities;
 using ServiceStack.Text;
 
 namespace IronGitHub
@@ -20,8 +21,14 @@ namespace IronGitHub
             if (_initted)
                 return;
             JsConfig.IncludeNullValues = true;
-            JsConfig<Scopes>.SerializeFn = s => s.ToJsonValue();
-            JsConfig<Scopes>.DeSerializeFn = s => s.ToScopesValue();
+            
+            CustomEnumValueSerializer<Scopes>.Init();
+            CustomEnumValueSerializer<IssueStates>.Init();
+            CustomEnumValueSerializer<MilestoneStates>.Init();
+            CustomEnumValueSerializer<SortOrders>.Init();
+            CustomEnumValueSerializer<RepositorySorts>.Init();
+            CustomEnumValueSerializer<UserSorts>.Init();
+            
             _initted = true;
         }
 
@@ -29,38 +36,59 @@ namespace IronGitHub
         {
             JsonSerializer.SerializeToStream(obj, stream);
         }
+    }
 
-        private static Dictionary<Scopes, string> _scopesStrings;
-        private static Dictionary<string, Scopes> _scopesValues;
-        public static string ToJsonValue(this Scopes s)
+    public class CustomEnumValueSerializer<TEnum>
+    {
+        private static Dictionary<TEnum, string> _strings;
+        private static Dictionary<string, TEnum> _values;
+
+        static CustomEnumValueSerializer()
         {
-            if (_scopesStrings == null)
-                InitScopesDictionaries();
-            return _scopesStrings[s];
+            InitDictionaries();
+            Register();
         }
 
-        public static Scopes ToScopesValue(this string s)
+        private CustomEnumValueSerializer()
         {
-            if (_scopesValues == null)
-                InitScopesDictionaries();
-            return _scopesValues[s];
         }
 
-        private static void InitScopesDictionaries()
+        public static void Init()
         {
-            _scopesStrings = new Dictionary<Scopes, string>();
-            _scopesValues = new Dictionary<string, Scopes>();
-            var type = typeof(Scopes);
-            foreach (Scopes s in Enum.GetValues(typeof (Scopes)))
+            //no-op just to allow calling to execute the static constructor
+        }
+
+        public static string ToJsonValue(TEnum s)
+        {
+            return _strings[s];
+        }
+
+        public static TEnum ToValue(string s)
+        {
+            return _values[s];
+        }
+
+        private static void InitDictionaries()
+        {
+            _strings = new Dictionary<TEnum, string>();
+            _values = new Dictionary<string, TEnum>();
+            var type = typeof(TEnum);
+            foreach (TEnum s in Enum.GetValues(typeof(TEnum)))
             {
                 var memInfo = type.GetMember(s.ToString());
-                var dmAttribute = memInfo[0].GetCustomAttributes(typeof (EnumMemberAttribute), false).FirstOrDefault() as EnumMemberAttribute;
-                if (dmAttribute == null || dmAttribute.Value == null)
-                    _scopesStrings[s] = s.ToString();
+                var enumMemberAttribute = memInfo[0].GetCustomAttributes(typeof(EnumMemberAttribute), false).FirstOrDefault() as EnumMemberAttribute;
+                if (enumMemberAttribute == null || enumMemberAttribute.Value == null)
+                    _strings[s] = s.ToString();
                 else
-                    _scopesStrings[s] = dmAttribute.Value;
-                _scopesValues[_scopesStrings[s]] = s;
+                    _strings[s] = enumMemberAttribute.Value;
+                _values[_strings[s]] = s;
             }
+        }
+
+        private static void Register()
+        {
+            JsConfig<TEnum>.SerializeFn = ToJsonValue;
+            JsConfig<TEnum>.DeSerializeFn = ToValue;
         }
     }
 }

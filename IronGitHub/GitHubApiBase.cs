@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
 using IronGitHub.Exceptions;
@@ -29,11 +30,31 @@ namespace IronGitHub
 
         public GitHubApiContext Context { get; private set; }
 
-        protected HttpWebRequest CreateRequest(string path)
+        protected HttpWebRequest CreateRequest(string path, IDictionary<string, string> parameters = null)
         {
             Context.Authorization.CheckRateLimit();
 
-            var uri = new Uri("https://" + Context.Configuration.Domain + path);
+            var uriString = "https://" + Context.Configuration.Domain + path;
+            if (parameters != null)
+            {
+                var separated = false;
+                foreach (KeyValuePair<string, string> pair in parameters)
+                {
+                    if (string.IsNullOrEmpty(pair.Value))
+                        continue;
+                    if (!separated)
+                    {
+                        uriString += "?";
+                        separated = true;
+                    }
+                    else
+                    {
+                        uriString += "&";
+                    }
+                    uriString += string.Format("{0}={1}", pair.Key, Uri.EscapeDataString(pair.Value));
+                }
+            }
+            var uri = new Uri(uriString);
             var request = WebRequest.CreateHttp(uri);
             var auth = Context.Authorization;
             if (auth != Authorization.Anonymous)

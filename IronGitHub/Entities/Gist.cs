@@ -83,11 +83,11 @@ namespace IronGitHub.Entities
         }
 
         [DataContract]
-        public class PatchedGistPost
+        public class EditGistPost
         {
-            public PatchedGistPost(){}
+            public EditGistPost(){}
 
-            public PatchedGistPost(Gist gist)
+            public EditGistPost(Gist gist)
             {
                 this.Id = gist.Id;
 

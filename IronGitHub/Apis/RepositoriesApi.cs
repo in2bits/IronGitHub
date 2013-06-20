@@ -10,6 +10,14 @@ namespace IronGitHub.Apis
         {
         }
 
+        /// <summary>
+        /// Get a Repository
+        /// </summary>
+        /// <param name="owner">The owner of the Repository to get</param>
+        /// <param name="repo">The Repository to get</param>
+        /// <returns>The Repository.  The parent and source objects are present 
+        /// when the repo is a fork. parent is the repo this repo was forked 
+        /// from, source is the ultimate source for the network.</returns>
         async public Task<Repository> Get(string owner, string repo)
         {
             var request = CreateRequest("/repos/" + owner + "/" + repo);
@@ -19,11 +27,18 @@ namespace IronGitHub.Apis
             return response.Result;
         }
 
-        async public Task<IEnumerable<Repository>> List(uint sinceId = 0)
+        /// <summary>
+        /// List all Repositories
+        /// </summary>
+        /// <param name="since">The integer ID of the last Repository that 
+        /// you’ve seen.</param>
+        /// <returns>This provides a dump of every repository, in the order 
+        /// that they were created.</returns>
+        async public Task<IEnumerable<Repository>> List(uint since = 0)
         {
             var path = "/repositories";
-            if (sinceId != 0)
-                path += "?since=" + sinceId;
+            if (since != 0)
+                path += "?since=" + since;
             
             var request = CreateRequest(path);
 

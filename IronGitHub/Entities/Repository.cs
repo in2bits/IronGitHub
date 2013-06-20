@@ -5,7 +5,59 @@ using System.Runtime.Serialization;
 namespace IronGitHub.Entities
 {
     [DataContract]
-    public class Repository
+    public abstract class RepositoryBase
+    {
+        [DataMember(Name = "created_at")]
+        public DateTime CreatedAt { get; set; }
+
+        [DataMember(Name = "description")]
+        public string Description { get; set; }
+
+        [DataMember(Name = "fork")]
+        public bool Fork { get; set; }
+
+        [DataMember(Name = "forks")]
+        public int Forks { get; set; }
+
+        [DataMember(Name = "has_downloads")]
+        public bool HasDownloads { get; set; }
+
+        [DataMember(Name = "has_issues")]
+        public bool HasIssues { get; set; }
+
+        [DataMember(Name = "has_wiki")]
+        public bool HasWiki { get; set; }
+
+        [DataMember(Name = "homepage")]
+        public string Homepage { get; set; }
+
+        [DataMember(Name = "language")]
+        public string Language { get; set; }
+
+        [DataMember(Name = "name")]
+        public string Name { get; set; }
+
+        [DataMember(Name = "open_issues")]
+        public int OpenIssues { get; set; }
+
+        [DataMember(Name = "private")]
+        public bool Private { get; set; }
+
+        [DataMember(Name = "pushed_at")]
+        public DateTime PushedAt { get; set; }
+
+        [DataMember(Name = "size")]
+        public long Size { get; set; }
+
+        [DataMember(Name = "url")]
+        public string Url { get; set; }
+
+        [DataMember(Name = "watchers")]
+        public int Watchers { get; set; }
+    }
+
+    [DataContract]
+    public class Repository : RepositoryBase
     {
         [DataMember(Name = "archive_url")]
         public string ArchiveUrl { get; set; }
@@ -40,26 +92,14 @@ namespace IronGitHub.Entities
         [DataMember(Name = "contributors_url")]
         public string ContributorsUrl { get; set; }
 
-        [DataMember(Name = "created_at")]
-        public DateTime CreatedAt { get; set; }
-
         [DataMember(Name = "default_branch")]
         public string DefaultBranch { get; set; }
-
-        [DataMember(Name = "description")]
-        public string Description { get; set; }
 
         [DataMember(Name = "downloads_url")]
         public string DownloadsUrl { get; set; }
 
         [DataMember(Name = "events_url")]
         public string EventsUrl { get; set; }
-
-        [DataMember(Name = "fork")]
-        public bool Fork { get; set; }
-
-        [DataMember(Name = "forks")]
-        public int Forks { get; set; }
 
         [DataMember(Name = "forks_count")]
         public int ForksCount { get; set; }
@@ -81,18 +121,6 @@ namespace IronGitHub.Entities
 
         [DataMember(Name = "git_url")]
         public string GitUrl { get; set; }
-
-        [DataMember(Name = "has_downloads")]
-        public bool HasDownloads { get; set; }
-
-        [DataMember(Name = "has_issues")]
-        public bool HasIssues { get; set; }
-
-        [DataMember(Name = "has_wiki")]
-        public bool HasWiki { get; set; }
-
-        [DataMember(Name = "homepage")]
-        public string Homepage { get; set; }
 
         [DataMember(Name = "hooks_url")]
         public string HooksUrl { get; set; }
@@ -118,9 +146,6 @@ namespace IronGitHub.Entities
         [DataMember(Name = "labels_url")]
         public string LabelsUrl { get; set; }
 
-        [DataMember(Name = "language")]
-        public string Language { get; set; }
-
         [DataMember(Name = "languages_url")]
         public string LanguagesUrl { get; set; }
 
@@ -136,17 +161,11 @@ namespace IronGitHub.Entities
         [DataMember(Name = "mirror_url")]
         public string MirrorUrl { get; set; }
 
-        [DataMember(Name = "name")]
-        public string Name { get; set; }
-
         [DataMember(Name = "network_count")]
         public int NetworkCount { get; set; }
 
         [DataMember(Name = "notifications_url")]
         public string NotificationsUrl { get; set; }
-
-        [DataMember(Name = "open_issues")]
-        public int OpenIssues { get; set; }
 
         [DataMember(Name = "open_issues_count")]
         public int OpenIssuesCount { get; set; }
@@ -160,17 +179,8 @@ namespace IronGitHub.Entities
         [DataMember(Name = "permissions")]
         public Permissions Permissions { get; set; }
 
-        [DataMember(Name = "private")]
-        public bool Private { get; set; }
-
         [DataMember(Name = "pulls_url")]
         public string PullsUrl { get; set; }
-
-        [DataMember(Name = "pushed_at")]
-        public DateTime PushedAt { get; set; }
-
-        [DataMember(Name = "size")]
-        public long Size { get; set; }
 
         [DataMember(Name = "ssh_url")]
         public string SshUrl { get; set; }
@@ -202,20 +212,39 @@ namespace IronGitHub.Entities
         [DataMember(Name = "updated_at")]
         public DateTime UpdatedAt { get; set; }
 
-        [DataMember(Name = "url")]
-        public string Url { get; set; }
-
-        [DataMember(Name = "watchers")]
-        public int Watchers { get; set; }
-
         [DataMember(Name = "watchers_count")]
         public int WatchersCount { get; set; }
 
         [DataContract]
-        public class RepositoryList
+        public class RepositorySearchResults
         {
             [DataMember(Name = "repositories")]
-            public IEnumerable<Repository> Repositories { get; set; }
+            public IEnumerable<RepositoryResult> Repositories { get; set; }
+
+            [DataContract]
+            public class RepositoryResult : RepositoryBase
+            {
+                [DataMember(Name = "created")]
+                public DateTime Created { get; set; }
+
+                [DataMember(Name = "followers")]
+                public int Followers { get; set; }
+
+                [DataMember(Name = "owner")]
+                public string Owner { get; set; }
+
+                [DataMember(Name = "pushed")]
+                public DateTime Pushed { get; set; }
+
+                [DataMember(Name = "score")]
+                public double Score { get; set; }
+
+                [DataMember(Name = "type")]
+                public string Type { get; set; }
+
+                [DataMember(Name = "username")]
+                public string Username { get; set; }
+            }
         }
     }
 }

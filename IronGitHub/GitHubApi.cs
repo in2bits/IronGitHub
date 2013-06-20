@@ -42,6 +42,12 @@ namespace IronGitHub
             get { return _gistsApi ?? (_gistsApi = new GistsApi(Context)); }
         }
 
+        private IssuesApi _issuesApi;
+        public IssuesApi Issues
+        {
+            get { return _issuesApi ?? (_issuesApi = new IssuesApi(Context)); }
+        }
+
         private SearchApi _searchApi;
         public SearchApi Search
         {
