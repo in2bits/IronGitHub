@@ -48,6 +48,7 @@
     <Compile Include="ApiResponse.cs" />
     <Compile Include="Apis\GistsApi.cs" />
     <Compile Include="Apis\IssuesApi.cs" />
+    <Compile Include="Apis\OrganizationsApi.cs" />
     <Compile Include="Application.cs" />
     <Compile Include="Entities\App.cs" />
     <Compile Include="Entities\Authorization.cs" />
@@ -63,6 +64,7 @@
     <Compile Include="Entities\Permissions.cs" />
     <Compile Include="Entities\PullRequest.cs" />
     <Compile Include="Entities\RepositorySorts.cs" />
+    <Compile Include="Entities\RepositoryTypes.cs" />
     <Compile Include="Entities\UserSorts.cs" />
     <Compile Include="Exceptions\RateLimitExceededException.cs" />
     <Compile Include="Entities\Repository.cs" />
