@@ -13,8 +13,8 @@
     <projectUrl>https://github.com/in2bits/IronGitHub</projectUrl>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <description>$description$</description>
-    <releaseNotes>Initial release - supports auth, Gist create/read/delete, Repository read, User read, Search Users, Search Repositories.</releaseNotes>
+    <releaseNotes>Supports auth, Gist create/read/delete, Repository read, User read, Organization read, Search Users, Search Repositories.</releaseNotes>
     <copyright>Copyright 2013 in2bits (Tim Erickson)</copyright>
-    <tags>github api</tags>
+    <tags>github api v3 gist</tags>
   </metadata>
 </package>
