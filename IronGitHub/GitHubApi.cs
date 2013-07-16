@@ -13,6 +13,8 @@ namespace IronGitHub
         {
         }
 
+        public GitHubApi() : base(new GitHubApiContext()) { }
+
         public static GitHubApi Create()
         {
             return new GitHubApi(new GitHubApiContext());
@@ -46,6 +48,12 @@ namespace IronGitHub
         public IssuesApi Issues
         {
             get { return _issuesApi ?? (_issuesApi = new IssuesApi(Context)); }
+        }
+
+        private OrganizationsApi _organizationsApi;
+        public OrganizationsApi Organizations
+        {
+            get { return _organizationsApi ?? (_organizationsApi = new OrganizationsApi(Context)); }
         }
 
         private SearchApi _searchApi;

@@ -26,8 +26,9 @@ namespace IronGitHub
             CustomEnumValueSerializer<IssueStates>.Init();
             CustomEnumValueSerializer<MilestoneStates>.Init();
             CustomEnumValueSerializer<SortOrders>.Init();
-            CustomEnumValueSerializer<RepositorySorts>.Init();
-            CustomEnumValueSerializer<UserSorts>.Init();
+			CustomEnumValueSerializer<RepositorySorts>.Init();
+			CustomEnumValueSerializer<RepositoryTypes>.Init();
+			CustomEnumValueSerializer<UserSorts>.Init();
             
             _initted = true;
         }
