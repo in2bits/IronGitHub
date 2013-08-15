@@ -98,4 +98,11 @@ namespace IronGitHub.Entities
             public Repository Repository { get; set; }
         }
     }
+
+    public enum IssueAction
+    {
+        opened, 
+        closed,
+        reopened
+    }
 }

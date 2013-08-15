@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Runtime.Serialization;
 
 namespace IronGitHub.Entities
 {
@@ -18,5 +13,13 @@ namespace IronGitHub.Entities
 
         [DataMember(Name = "patch_url")]
         public string PatchUrl { get; set; }
+    }
+
+    public enum PullRequestAction
+    {
+        opened, 
+        closed, 
+        synchronize, 
+        reopened
     }
 }

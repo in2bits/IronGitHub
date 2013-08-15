@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.Serialization;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace IronGitHub.Entities
 {
@@ -135,5 +132,11 @@ namespace IronGitHub.Entities
             var idString = group.Captures[0].Value;
             return Convert.ToInt64(idString);
         }
+    }
+
+    public enum GistAction
+    {
+        create,
+        update
     }
 }

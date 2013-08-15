@@ -247,4 +247,9 @@ namespace IronGitHub.Entities
             }
         }
     }
+
+    public enum RepositoryMemberAction
+    {
+        added
+    }
 }
