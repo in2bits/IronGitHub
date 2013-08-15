@@ -10,6 +10,11 @@ namespace IronGitHub
 
         public readonly string DefaultUserAgent;
 
+        /// <summary>
+        /// This is here to prevent a breaking change in the Library.
+        /// The DefaultDomain actually changes for GitHub Enterprise, so this change
+        /// allows for GHE support.
+        /// </summary>
         public Configuration() : this(DefaultDomain)
         {
         }

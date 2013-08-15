@@ -56,6 +56,12 @@ namespace IronGitHub
             get { return _organizationsApi ?? (_organizationsApi = new OrganizationsApi(Context)); }
         }
 
+        private HookApi _hookApi;
+        public HookApi Hooks
+        {
+            get { return _hookApi ?? (_hookApi = new HookApi(Context)); }
+        }
+
         private SearchApi _searchApi;
         public SearchApi Search
         {
