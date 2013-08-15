@@ -10,17 +10,20 @@ namespace IronGitHub
 
         public readonly string DefaultUserAgent;
 
-        public Configuration()
+        public Configuration() : this(DefaultDomain)
         {
-            Domain = DefaultDomain;
+        }
+
+        public Configuration(string defaultDomain)
+        {
+            Domain = defaultDomain;
             var version = "0.1";
             var versionAttribute = Assembly.GetExecutingAssembly().CustomAttributes
-                .First(x => x.AttributeType == typeof (AssemblyFileVersionAttribute));
+                .First(x => x.AttributeType == typeof(AssemblyFileVersionAttribute));
             if (versionAttribute != null)
                 version = versionAttribute.ConstructorArguments[0].Value as string;
             UserAgent = "IronGitHub API v" + version;
         }
-
         public string Domain { get; set; }
 
         public string UserAgent { get; set; }

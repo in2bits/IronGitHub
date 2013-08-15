@@ -5,7 +5,7 @@ using System.Runtime.Serialization;
 namespace IronGitHub.Entities
 {
     [DataContract]
-    public class WebHookBase
+    public class HookBase
     {
         [DataMember(Name = "name")]
         public string Name { get; set; }
@@ -30,7 +30,7 @@ namespace IronGitHub.Entities
     }
 
     [DataContract]
-    public class WebHook : WebHookBase
+    public class Hook : HookBase
     {
         [DataMember(Name = "url")]
         public string Url { get; set; }
@@ -44,16 +44,20 @@ namespace IronGitHub.Entities
         [DataMember(Name = "id")]
         public int Id { get; set; }
 
-        /// <summary>
-        /// This is only used for Editing (PATCH) a hook
-        /// </summary>
-        [DataMember(Name = "add_events")]
-        public IEnumerable<SupportedEvents> AddEvents { get; set; }
+        [DataContract]
+        public class PatchHook : HookBase
+        {
+            /// <summary>
+            /// This is only used for Editing (PATCH) a hook
+            /// </summary>
+            [DataMember(Name = "add_events")]
+            public IEnumerable<SupportedEvents> AddEvents { get; set; }
 
-        /// <summary>
-        /// This is only used for Editing (PATCH) a hook
-        /// </summary>
-        [DataMember(Name = "remove_events")]
-        public IEnumerable<SupportedEvents> RemoveEvents { get; set; }
+            /// <summary>
+            /// This is only used for Editing (PATCH) a hook
+            /// </summary>
+            [DataMember(Name = "remove_events")]
+            public IEnumerable<SupportedEvents> RemoveEvents { get; set; }
+        }
     }
 }
