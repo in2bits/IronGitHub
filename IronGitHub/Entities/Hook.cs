@@ -48,35 +48,12 @@ namespace IronGitHub.Entities
         /// This is only used for Editing (PATCH) a hook
         /// </summary>
         [DataMember(Name = "add_events")]
-        public IEnumerable<string> AddEvents { get; set; }
+        public IEnumerable<SupportedEvents> AddEvents { get; set; }
 
         /// <summary>
         /// This is only used for Editing (PATCH) a hook
         /// </summary>
         [DataMember(Name = "remove_events")]
-        public IEnumerable<string> RemoveEvents { get; set; }
+        public IEnumerable<SupportedEvents> RemoveEvents { get; set; }
     }
-
-    //public enum SupportedEvents
-    //{
-    //   commit_comment,
-    //  create,
-    //  delete,
-    //  download,
-    //  follow,
-    //  fork,
-    //  fork_apply,
-    //  gist,
-    //  gollum,
-    //  issue_comment,
-    //  issues,
-    //  member,
-    //  public,
-    //  pull_request,
-    //  pull_request_review_comment,
-    //  push,
-    //  status,
-    //  team_add,
-    //  watch
-    //}
 }

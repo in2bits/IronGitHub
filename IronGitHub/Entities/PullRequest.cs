@@ -15,11 +15,16 @@ namespace IronGitHub.Entities
         public string PatchUrl { get; set; }
     }
 
+    [DataContract]
     public enum PullRequestAction
     {
-        opened, 
-        closed, 
-        synchronize, 
-        reopened
+        [EnumMember(Value = "opened")]
+        Opened,
+        [EnumMember(Value = "closed")]
+        Closed,
+        [EnumMember(Value = "synchronize")]
+        Synchronize,
+        [EnumMember(Value = "reopened")]
+        Reopened
     }
 }

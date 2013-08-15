@@ -172,9 +172,8 @@ namespace IronGitHub.Entities
             }
         }
 
-        //TODO: figure out how this payload is structured
         [DataMember(Name = "pages")]
-        public IEnumerable<object> Pages { get; set; }
+        public IEnumerable<Page> Pages { get; set; }
     }
 
     [DataContract]
@@ -281,5 +280,123 @@ namespace IronGitHub.Entities
 
         [DataMember(Name = "pull_request")]
         public PullRequest PullRequest { get; set; }
+    }
+
+    [DataContract]
+    public class PullRequestReviewCommentEvent
+    {
+        public string HookName
+        {
+            get
+            {
+                return "pull_request_review_comment";
+            }
+        }
+
+        [DataMember(Name = "comment")]
+        public Comment Comment { get; set; }
+    }
+
+    public class PushEvent
+    {
+        public string HookName
+        {
+            get
+            {
+                return "push";
+            }
+        }
+
+        [DataMember(Name = "head")]
+        public string Head { get; set; }
+
+        [DataMember(Name = "ref")]
+        public string Ref { get; set; }
+
+        [DataMember(Name = "size")]
+        public int Size { get; set; }
+
+        [DataMember(Name = "commits")]
+        public IEnumerable<Commit> Commits { get; set; }
+    }
+
+    public class TeamAddEvent
+    {
+        public string HookName
+        {
+            get
+            {
+                return "team_add";
+            }
+        }
+
+        [DataMember(Name = "team")]
+        public Team Team { get; set; }
+
+        [DataMember(Name = "user")]
+        public Entity User { get; set; }
+
+        [DataMember(Name = "repo")]
+        public Repository Repository { get; set; }
+    }
+
+    /// <summary>
+    /// The event’s actor is the watcher, and the event’s repo is the watched repository.
+    /// </summary>
+    public class WatchEvent
+    {
+        public string HookName
+        {
+            get
+            {
+                return "watch";
+            }
+        }
+
+        [DataMember(Name = "action")]
+        public string Action { get; set; }
+    }
+
+    [DataContract]
+    public enum SupportedEvents
+    {
+        [EnumMember(Value = "commit_comment")]
+        CommitComment,
+        [EnumMember(Value = "create")]
+        Create,
+        [EnumMember(Value = "delete")]
+        Delete,
+        [EnumMember(Value = "download")]
+        Download,
+        [EnumMember(Value = "follow")]
+        Follow,
+        [EnumMember(Value = "fork")]
+        Fork,
+        [EnumMember(Value = "fork_apply")]
+        ForkApply,
+        [EnumMember(Value = "gist")]
+        Gist,
+        [EnumMember(Value = "gollum")]
+        Gollum,
+        [EnumMember(Value = "issue_comment")]
+        IssueComment,
+        [EnumMember(Value = "issues")]
+        Issues,
+        [EnumMember(Value = "member")]
+        Member,
+        [EnumMember(Value = "public")]
+        Public,
+        [EnumMember(Value = "pull_request")]
+        PullRequest,
+        [EnumMember(Value = "pull_request_review_comment")]
+        PullRequestReviewComment,
+        [EnumMember(Value = "push")]
+        Push,
+        [EnumMember(Value = "status")]
+        Status,
+        [EnumMember(Value = "team_add")]
+        TeamAdd,
+        [EnumMember(Value = "watch")]
+        Watch
     }
 }

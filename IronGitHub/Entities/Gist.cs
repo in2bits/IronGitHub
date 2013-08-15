@@ -134,9 +134,13 @@ namespace IronGitHub.Entities
         }
     }
 
+    [DataContract]
     public enum GistAction
     {
-        create,
-        update
+        [EnumMember(Value="create")]
+        Create,
+        
+        [EnumMember(Value="update")]
+        Update
     }
 }

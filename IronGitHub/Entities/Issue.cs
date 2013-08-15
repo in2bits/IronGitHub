@@ -99,10 +99,14 @@ namespace IronGitHub.Entities
         }
     }
 
+    [DataContract]
     public enum IssueAction
     {
-        opened, 
-        closed,
-        reopened
+        [EnumMember(Value = "opened")]
+        Opened,
+        [EnumMember(Value = "closed")]
+        Closed,
+        [EnumMember(Value = "reopened")]
+        Reopened
     }
 }
