@@ -15,7 +15,12 @@ namespace Tests
     {
         async public static Task in2bitstest(this GitHubApi api, IEnumerable<Scopes> scopes = null, string note = null)
         {
-            await TestAccount.Auth("in2bitstest", api, scopes);
+            await LoadTestAuth(api, "in2bitstest", scopes);
+        }
+
+        async public static Task LoadTestAuth(this GitHubApi api, string name, IEnumerable<Scopes> scopes = null, string note = null)
+        {
+            await TestAccount.Auth(name, api, scopes);
         }
 
         public static bool Matches(this IEnumerable<Scopes> these, IEnumerable<Scopes> those)
