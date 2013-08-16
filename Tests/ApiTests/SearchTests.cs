@@ -20,8 +20,8 @@ namespace Tests
 
             Assert.AreEqual(new DateTime(2009, 2, 25, 3, 57, 50, DateTimeKind.Utc), user.Created);
             Assert.AreEqual(new DateTime(2009, 2, 25, 3, 57, 50, DateTimeKind.Utc), user.CreatedAt);
-            Assert.AreEqual(4, user.Followers);
-            Assert.AreEqual(4, user.FollowersCount);
+            //Assert.AreEqual(4, user.Followers);
+            //Assert.AreEqual(4, user.FollowersCount);
             Assert.AreEqual("Tim Erickson", user.FullName);
             Assert.AreEqual("e9fbbfd2de96fdb0cec592a4b6792f0e", user.GravatarId);
             Assert.AreEqual("user-57726", user.Id);
@@ -29,8 +29,8 @@ namespace Tests
             Assert.AreEqual("Seattle, WA", user.Location);
             Assert.AreEqual("timerickson", user.Login);
             Assert.AreEqual("Tim Erickson", user.Name);
-            Assert.AreEqual(4, user.PublicRepoCount);
-            Assert.AreEqual(4, user.Repos);
+            //Assert.AreEqual(4, user.PublicRepoCount);
+            //Assert.AreEqual(4, user.Repos);
             Assert.IsTrue(0 < user.Score);
             Assert.AreEqual("user", user.Type);
             Assert.AreEqual("timerickson", user.Username);
@@ -48,16 +48,17 @@ namespace Tests
             Assert.AreEqual(new DateTime(2013, 5, 26, 2, 25, 58, DateTimeKind.Utc), repo.Created);
             Assert.AreEqual(new DateTime(2013, 5, 26, 2, 25, 58, DateTimeKind.Utc), repo.CreatedAt);
             Assert.AreEqual("C# GitHub Api", repo.Description);
-            Assert.AreEqual(1, repo.Followers);
+            //TODO: These aren't good tests. People can dynamically follow and fork so these numbers aren't static
+            //Assert.AreEqual(1, repo.Followers);
+            //Assert.AreEqual(0, repo.Forks);
             Assert.AreEqual(false, repo.Fork);
-            Assert.AreEqual(0, repo.Forks);
             Assert.AreEqual(true, repo.HasDownloads);
             Assert.AreEqual(true, repo.HasIssues);
             Assert.AreEqual(true, repo.HasWiki);
             Assert.AreEqual(null, repo.Homepage);
             Assert.AreEqual("C#", repo.Language);
             Assert.AreEqual("IronGitHub", repo.Name);
-            Assert.AreEqual(2, repo.OpenIssues);
+            //Assert.AreEqual(2, repo.OpenIssues);
             Assert.AreEqual("in2bits", repo.Owner);
             Assert.AreEqual(false, repo.Private);
             Assert.IsTrue(new DateTime(2013, 6, 4, 0, 13, 8, DateTimeKind.Utc) <= repo.Pushed);
@@ -111,15 +112,15 @@ namespace Tests
             Assert.AreEqual(new DateTime(2009, 2, 25, 3, 57, 50, DateTimeKind.Utc), user.Created);
             Assert.AreEqual(new DateTime(2009, 2, 25, 3, 57, 50, DateTimeKind.Utc), user.CreatedAt);
             Assert.AreEqual("tim@in2bits.org", user.Email);
-            Assert.AreEqual(4, user.FollowersCount);
-            Assert.AreEqual(3, user.FollowingCount);
+            //Assert.AreEqual(4, user.FollowersCount);
+            //Assert.AreEqual(3, user.FollowingCount);
             Assert.AreEqual("e9fbbfd2de96fdb0cec592a4b6792f0e", user.GravatarId);
             Assert.AreEqual(57726, user.Id);
             Assert.AreEqual("Seattle, WA", user.Location);
             Assert.AreEqual("timerickson", user.Login);
             Assert.AreEqual("Tim Erickson", user.Name);
             Assert.IsTrue(1 <= user.PublicGistCount);
-            Assert.AreEqual(4, user.PublicRepoCount);
+            //Assert.AreEqual(4, user.PublicRepoCount);
             Assert.AreEqual("User", user.Type);
         }
     }
