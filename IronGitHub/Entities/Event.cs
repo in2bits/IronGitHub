@@ -1,12 +1,72 @@
-﻿using System.Runtime.Serialization;
+﻿using System.Collections.Generic;
+using System.Runtime.Serialization;
 
 namespace IronGitHub.Entities
 {
-    using System.Collections.Generic;
+    /// <summary>
+    /// http://developer.github.com/v3/activity/events/types
+    /// </summary>
+    [DataContract]
+    public abstract class EventBase
+    {
+        public SupportedEvents HookName { get; private set; }
+
+        protected EventBase(SupportedEvents supportedEvent)
+        {
+            HookName = supportedEvent;
+        }
+    }
 
     [DataContract]
-    public class EventBase
+    public class CommitCommentEvent : EventBase
     {
+        public CommitCommentEvent() : base(SupportedEvents.CommitComment) { }
+
+        [DataMember(Name = "comment")]
+        public Comment Comment { get; set; }
+    }
+
+    /// <summary>
+    /// Represents a created repository, branch, or tag.
+    /// </summary>
+    [DataContract]
+    public class CreateEvent : EventBase
+    {
+        public CreateEvent() : base(SupportedEvents.Create) { }
+
+        /// <summary>
+        /// The object that was created: “repository”, “branch”, or “tag”
+        /// </summary>
+        [DataMember(Name = "ref_type")]
+        public string RefType { get; set; }
+
+        /// <summary>
+        /// The git ref (or null if only a repository was created).
+        /// </summary>
+        [DataMember(Name = "ref")]
+        public string Ref { get; set; }
+
+        /// <summary>
+        /// The name of the repository’s master branch.
+        /// </summary>
+        [DataMember(Name = "master_branch")]
+        public string MasterBranch { get; set; }
+
+        /// <summary>
+        /// The repository’s current description.
+        /// </summary>
+        [DataMember(Name = "description")]
+        public string Description { get; set; }
+    }
+
+    /// <summary>
+    /// Represents a deleted branch or tag.
+    /// </summary>
+    [DataContract]
+    public class DeleteEvent : EventBase
+    {
+        public DeleteEvent() : base(SupportedEvents.Delete) { }
+
         /// <summary>
         /// The object that was created: “repository”, “branch”, or “tag”
         /// </summary>
@@ -21,96 +81,27 @@ namespace IronGitHub.Entities
     }
 
     [DataContract]
-    public class CommitCommentEvent
+    public class DownloadEvent : EventBase
     {
-        public string HookName
-        {
-            get
-            {
-                return "commit_comment";
-            }
-        }
-
-        [DataMember(Name = "comment")]
-        public Comment Comment { get; set; }
-    }
-
-    /// <summary>
-    /// Represents a created repository, branch, or tag.
-    /// </summary>
-    [DataContract]
-    public class CreateEvent : EventBase
-    {
-        public string HookName
-        {
-            get
-            {
-                return "create";
-            }
-        }
-
-        [DataMember(Name = "master_branch")]
-        public string MasterBranch { get; set; }
-
-        [DataMember(Name = "description")]
-        public string Description { get; set; }
-    }
-
-    /// <summary>
-    /// Represents a deleted branch or tag.
-    /// </summary>
-    [DataContract]
-    public class DeleteEvent : EventBase
-    {
-        public string HookName
-        {
-            get
-            {
-                return "delete";
-            }
-        }
-    }
-
-    [DataContract]
-    public class DownloadEvent
-    {
-        public string HookName
-        {
-            get
-            {
-                return "download";
-            }
-        }
+        public DownloadEvent() : base(SupportedEvents.Download) { }
 
         [DataMember(Name = "download")]
         public Download Download { get; set; }
     }
 
     [DataContract]
-    public class FollowEvent
+    public class FollowEvent : EventBase
     {
-        public string HookName
-        {
-            get
-            {
-                return "follow";
-            }
-        }
+        public FollowEvent() : base(SupportedEvents.Follow) { }
 
         [DataMember(Name = "user")]
         public Entity User { get; set; }
     }
 
     [DataContract]
-    public class ForkEvent
+    public class ForkEvent : EventBase
     {
-        public string HookName
-        {
-            get
-            {
-                return "fork";
-            }
-        }
+        public ForkEvent() : base(SupportedEvents.Fork) { }
 
         [DataMember(Name = "forkee")]
         public Repository Forkee { get; set; }
@@ -120,36 +111,33 @@ namespace IronGitHub.Entities
     /// Triggered when a patch is applied in the Fork Queue.
     /// </summary>
     [DataContract]
-    public class ForkApplyEvent
+    public class ForkApplyEvent : EventBase
     {
-        public string HookName
-        {
-            get
-            {
-                return "fork_apply";
-            }
-        }
+        public ForkApplyEvent() : base(SupportedEvents.ForkApply) { }
 
+        /// <summary>
+        /// The branch name the patch is applied to.
+        /// </summary>
         [DataMember(Name = "head")]
         public string Head { get; set; }
 
+        /// <summary>
+        /// SHA of the repo state before the patch.
+        /// </summary>
         [DataMember(Name = "before")]
         public string Before { get; set; }
 
+        /// <summary>
+        /// SHA of the repo state before the patch.
+        /// </summary>
         [DataMember(Name = "after")]
         public string After { get; set; }
     }
 
     [DataContract]
-    public class GistEvent
+    public class GistEvent : EventBase
     {
-        public string HookName
-        {
-            get
-            {
-                return "gist";
-            }
-        }
+        public GistEvent() : base(SupportedEvents.Gist) { }
 
         /// <summary>
         /// The action that was performed: “create” or “update”
@@ -157,39 +145,36 @@ namespace IronGitHub.Entities
         [DataMember(Name = "action")]
         public GistAction Action { get; set; }
 
-        [DataMember(Name="gist")]
+        [DataMember(Name = "gist")]
         public Gist Gist { get; set; }
     }
 
     [DataContract]
-    public class GollumEvent
+    public class GollumEvent : EventBase
     {
-        public string HookName
-        {
-            get
-            {
-                return "gollum";
-            }
-        }
+        public GollumEvent() : base(SupportedEvents.Gollum) { }
 
+        /// <summary>
+        /// The pages that were updated.
+        /// </summary>
         [DataMember(Name = "pages")]
         public IEnumerable<Page> Pages { get; set; }
     }
 
     [DataContract]
-    public class IssueCommentEvent
+    public class IssueCommentEvent : EventBase
     {
-        public string HookName
-        {
-            get
-            {
-                return "issue_comment";
-            }
-        }
+        public IssueCommentEvent() : base(SupportedEvents.IssueComment) { }
 
+        /// <summary>
+        /// The action that was performed on the comment.
+        /// </summary>
         [DataMember(Name = "action")]
         public string Action { get; set; }
 
+        /// <summary>
+        /// The issue the comment belongs to.
+        /// </summary>
         [DataMember(Name = "action")]
         public Issue Issue { get; set; }
 
@@ -198,15 +183,9 @@ namespace IronGitHub.Entities
     }
 
     [DataContract]
-    public class IssuesEvent
+    public class IssuesEvent : EventBase
     {
-        public string HookName
-        {
-            get
-            {
-                return "issues";
-            }
-        }
+        public IssuesEvent() : base(SupportedEvents.Issues) { }
 
         /// <summary>
         /// The action that was performed: “opened”, “closed”, or “reopened”.
@@ -222,24 +201,18 @@ namespace IronGitHub.Entities
     /// Triggered when a user is added as a collaborator to a repository.
     /// </summary>
     [DataContract]
-    public class MemberEvent
+    public class MemberEvent : EventBase
     {
-        public string HookName
-        {
-            get
-            {
-                return "member";
-            }
-        }
+        public MemberEvent() : base(SupportedEvents.Member) { }
+
+        [DataMember(Name = "Member")]
+        public Entity Member { get; set; }
 
         /// <summary>
         /// The action that was performed: “added”.
         /// </summary>
         [DataMember(Name = "action")]
         public RepositoryMemberAction Action { get; set; }
-
-        [DataMember(Name = "Member")]
-        public Entity Member { get; set; }
     }
 
     /// <summary>
@@ -247,27 +220,15 @@ namespace IronGitHub.Entities
     /// It has an empty payload
     /// </summary>
     [DataContract]
-    public class PublicEvent
+    public class PublicEvent : EventBase
     {
-        public string HookName
-        {
-            get
-            {
-                return "public";
-            }
-        }
+        public PublicEvent() : base(SupportedEvents.Public) { }
     }
 
     [DataContract]
-    public class PullRequestEvent
+    public class PullRequestEvent : EventBase
     {
-        public string HookName
-        {
-            get
-            {
-                return "pull_request";
-            }
-        }
+        public PullRequestEvent() : base(SupportedEvents.PullRequest) { }
 
         /// <summary>
         /// The action that was performed: “opened”, “closed”, “synchronize”, or “reopened”.
@@ -275,6 +236,9 @@ namespace IronGitHub.Entities
         [DataMember(Name = "action")]
         public PullRequestAction Action { get; set; }
 
+        /// <summary>
+        /// The pull request number.
+        /// </summary>
         [DataMember(Name = "number")]
         public int Number { get; set; }
 
@@ -283,36 +247,33 @@ namespace IronGitHub.Entities
     }
 
     [DataContract]
-    public class PullRequestReviewCommentEvent
+    public class PullRequestReviewCommentEvent : EventBase
     {
-        public string HookName
-        {
-            get
-            {
-                return "pull_request_review_comment";
-            }
-        }
+        public PullRequestReviewCommentEvent() : base(SupportedEvents.PullRequestReviewComment) { }
 
         [DataMember(Name = "comment")]
         public Comment Comment { get; set; }
     }
 
-    public class PushEvent
+    public class PushEvent : EventBase
     {
-        public string HookName
-        {
-            get
-            {
-                return "push";
-            }
-        }
+        public PushEvent() : base(SupportedEvents.Push) { }
 
+        /// <summary>
+        /// The SHA of the HEAD commit on the repository.
+        /// </summary>
         [DataMember(Name = "head")]
         public string Head { get; set; }
 
+        /// <summary>
+        /// The full Git ref that was pushed. Example: “refs/heads/master”
+        /// </summary>
         [DataMember(Name = "ref")]
         public string Ref { get; set; }
 
+        /// <summary>
+        /// The number of commits in the push.
+        /// </summary>
         [DataMember(Name = "size")]
         public int Size { get; set; }
 
@@ -320,22 +281,25 @@ namespace IronGitHub.Entities
         public IEnumerable<Commit> Commits { get; set; }
     }
 
-    public class TeamAddEvent
+    public class TeamAddEvent : EventBase
     {
-        public string HookName
-        {
-            get
-            {
-                return "team_add";
-            }
-        }
+        public TeamAddEvent() : base(SupportedEvents.TeamAdd) { }
 
+        /// <summary>
+        /// The team that was modified. Note: older events may not include this in the payload.
+        /// </summary>
         [DataMember(Name = "team")]
         public Team Team { get; set; }
 
+        /// <summary>
+        /// The user that was added to this team.
+        /// </summary>
         [DataMember(Name = "user")]
         public Entity User { get; set; }
 
+        /// <summary>
+        /// The repository that was added to this team.
+        /// </summary>
         [DataMember(Name = "repo")]
         public Repository Repository { get; set; }
     }
@@ -343,15 +307,9 @@ namespace IronGitHub.Entities
     /// <summary>
     /// The event’s actor is the watcher, and the event’s repo is the watched repository.
     /// </summary>
-    public class WatchEvent
+    public class WatchEvent : EventBase
     {
-        public string HookName
-        {
-            get
-            {
-                return "watch";
-            }
-        }
+        public WatchEvent() : base(SupportedEvents.Watch) { }
 
         [DataMember(Name = "action")]
         public string Action { get; set; }

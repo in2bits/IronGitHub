@@ -14,21 +14,36 @@ namespace IronGitHub.Entities
         [DataMember(Name = "id")]
         public string Id { get; set; }
 
+        /// <summary>
+        /// The SHA of the commit.
+        /// </summary>
         [DataMember(Name = "sha")]
         public string Sha { get; set; }
 
+        /// <summary>
+        /// The commit message.
+        /// </summary>
         [DataMember(Name = "message")]
         public string Message { get; set; }
 
+        /// <summary>
+        /// The git author of the commit.
+        /// </summary>
         [DataMember(Name = "author")]
         public CommitAuthor Author { get; set; }
 
         [DataMember(Name = "commiter")]
         public CommitAuthor Committer { get; set; }
 
+        /// <summary>
+        /// Points to the commit API resource.
+        /// </summary>
         [DataMember(Name = "url")]
         public string Url { get; set; }
 
+        /// <summary>
+        /// Whether this commit is distinct from any that have been pushed before.
+        /// </summary>
         [DataMember(Name = "distinct")]
         public bool Distinct { get; set; }
 
@@ -53,12 +68,21 @@ namespace IronGitHub.Entities
         [DataContract]
         public class CommitAuthor
         {
+            /// <summary>
+            /// The git author’s name.
+            /// </summary>
             [DataMember(Name = "name")]
             public string Name { get; set; }
 
+            /// <summary>
+            /// The GitHub author’s username.
+            /// </summary>
             [DataMember(Name = "username")]
             public string Username { get; set; }
 
+            /// <summary>
+            /// The git author’s email address.
+            /// </summary>
             [DataMember(Name = "email")]
             public string Email { get; set; }
         }
