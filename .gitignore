@@ -93,7 +93,7 @@ AppPackages/
 
 # Others
 [Bb]in
-[Oo]bj
+[Oo]bjgit 
 sql
 TestResults
 [Tt]est[Rr]esult*
@@ -103,7 +103,6 @@ ClientBin
 ~$*
 *.dbmdl
 Generated_Code #added for RIA/Silverlight projects
-testaccount.*.json #added to ignore future test account settings 
 
 # Backup & report files from converting an old project file to a newer
 # Visual Studio version. Backup files are not needed, because we have git ;-)
