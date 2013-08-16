@@ -57,15 +57,16 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="GistTests.cs" />
-    <Compile Include="IssueTests.cs" />
-    <Compile Include="OrganizationTests.cs" />
-    <Compile Include="RepositoryTests.cs" />
-    <Compile Include="SearchTests.cs" />
+    <Compile Include="ApiTests\GistTests.cs" />
+    <Compile Include="ApiTests\HookTests.cs" />
+    <Compile Include="ApiTests\IssueTests.cs" />
+    <Compile Include="ApiTests\OrganizationTests.cs" />
+    <Compile Include="ApiTests\RepositoryTests.cs" />
+    <Compile Include="ApiTests\SearchTests.cs" />
     <Compile Include="TestExtensions.cs" />
-    <Compile Include="AuthTests.cs" />
+    <Compile Include="ApiTests\AuthTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UserTests.cs" />
+    <Compile Include="ApiTests\UserTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\IronGitHub\IronGitHub.csproj">

@@ -1,12 +1,7 @@
-﻿using System;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using IronGitHub;
 using IronGitHub.Entities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using ServiceStack.Text;
 
 namespace Tests
 {

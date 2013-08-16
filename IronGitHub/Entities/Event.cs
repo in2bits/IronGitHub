@@ -9,11 +9,11 @@ namespace IronGitHub.Entities
     [DataContract]
     public abstract class EventBase
     {
-        public SupportedEvents HookName { get; private set; }
+        public SupportedEvents EventName { get; private set; }
 
         protected EventBase(SupportedEvents supportedEvent)
         {
-            HookName = supportedEvent;
+            EventName = supportedEvent;
         }
     }
 
