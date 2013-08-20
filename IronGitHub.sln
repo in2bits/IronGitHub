@@ -12,6 +12,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{744C69
 		.nuget\NuGet.targets = .nuget\NuGet.targets
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntegrationTests", "IntegrationTests\IntegrationTests.csproj", "{B1D93A15-4069-4BB0-9706-7AB0DD17625F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTests\UnitTests.csproj", "{591FFECE-2193-4633-9600-17AE215F0F26}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -26,6 +30,14 @@ Global
 		{AF271AB1-F591-4720-B035-97857A7FEBBA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AF271AB1-F591-4720-B035-97857A7FEBBA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AF271AB1-F591-4720-B035-97857A7FEBBA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B1D93A15-4069-4BB0-9706-7AB0DD17625F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1D93A15-4069-4BB0-9706-7AB0DD17625F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B1D93A15-4069-4BB0-9706-7AB0DD17625F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B1D93A15-4069-4BB0-9706-7AB0DD17625F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{591FFECE-2193-4633-9600-17AE215F0F26}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{591FFECE-2193-4633-9600-17AE215F0F26}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{591FFECE-2193-4633-9600-17AE215F0F26}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{591FFECE-2193-4633-9600-17AE215F0F26}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
