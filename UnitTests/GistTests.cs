@@ -31,14 +31,13 @@ namespace UnitTests
     [TestFixture]
     public class GistUrlParseTests
     {
-        [Datapoint]
-        public string ApiUrl = "https://api.github.com/gists/5731704";
-
-        [Datapoint]
-        public string HtmlUrl = "https://api.github.com/gists/5731704";
-
-        [Datapoint]
-        public string RawUrl = "https://gist.github.com/raw/5731704/f70d7bba4ae1f07682e0358bd7a2068094fc023b/theAnswer";
+        [Datapoints]
+        public string[] GistUrls = new[]
+        {
+            "https://api.github.com/gists/5731704",
+            "https://gist.github.com/anonymous/5731704",
+            "https://gist.github.com/raw/5731704/f70d7bba4ae1f07682e0358bd7a2068094fc023b/theAnswer"
+        };
 
         [Theory]
         public void ParseUrl(string url)
