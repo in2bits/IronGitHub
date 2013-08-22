@@ -50,7 +50,6 @@ namespace IntegrationTests
         {
             const long gistId = 6287413;
             var api = GitHubApi.Create();
-            await api.in2bitstest();
 
             var gist = await api.Gists.Get(gistId);
 
