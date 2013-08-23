@@ -41,8 +41,7 @@ namespace IntegrationTests
             issue.User.Should().NotBeNullOrEmpty();
 
             // Assignee
-            issue.Assignee.Should().NotBeNull();
-            issue.Assignee.Login.Should().Be("apitestaccount");
+            issue.Assignee.ShouldBeApiTestAccount();
 
             // Labels
             issue.Labels.Should().HaveCount(2);
@@ -56,6 +55,7 @@ namespace IntegrationTests
             issue.Milestone.Title.Should().Be("milestone1");
             issue.Milestone.Description.Should().Be("Milestone with a description");
             issue.Milestone.Number.Should().Be(1);
+            issue.Milestone.Creator.ShouldBeApiTestAccount();
             issue.Milestone.OpenIssues.Should().Be(1);
             issue.Milestone.ClosedIssues.Should().Be(0);
             issue.Milestone.State.Should().Be(MilestoneStates.Open);
