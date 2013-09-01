@@ -64,7 +64,7 @@ namespace IntegrationTests
             user.Blog.Should().Be("http://example.com");
             user.Location.Should().Be("The Moon");
             user.Hireable.Should().BeFalse();
-            user.Email.Should().Be("test@example.com");
+            user.Email.Should().Be("apitestaccount@example.com");
         }
     }
 
