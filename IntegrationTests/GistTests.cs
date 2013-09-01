@@ -7,12 +7,11 @@ using FluentAssertions;
 using IronGitHub;
 using IronGitHub.Entities;
 using NUnit.Framework;
-using Tests;
 
 namespace IntegrationTests
 {
     [TestFixture]
-    public class GistTests
+    public class GistTests : WithGitHubApi
     {
         [Test]
         async public Task CreateNewAnonymousGist()
@@ -22,15 +21,15 @@ namespace IntegrationTests
                     {"theAnswer", "42"},
                     {"the Question", "I dunno"}
                 };
-            var api = GitHubApi.Create();
 
-            var gist = await api.Gists.New(files);
+            var gist = await Api.Gists.New(files);
 
             gist.Id.Should().NotBe(null);
             gist.Files.Count.Should().Be(2);
         }
 
         [Test]
+        [Category("Authenticated")]
         async public Task CreateAndDeleteUserGist()
         {
             var files = new Dictionary<string, string>
@@ -38,20 +37,18 @@ namespace IntegrationTests
                     {"theAnswer", "42"},
                     {"the Question", "I dunno"}
                 };
-            var api = GitHubApi.Create();
-            await api.in2bitstest(new[] { Scopes.Gist });
+            await Authorize(new[] { Scopes.Gist });
             
-            var gist = await api.Gists.New(files);
-            await api.Gists.Delete(gist);
+            var gist = await Api.Gists.New(files);
+            await Api.Gists.Delete(gist);
         }
 
         [Test]
         async public Task GetGist()
         {
             const long gistId = 6287413;
-            var api = GitHubApi.Create();
 
-            var gist = await api.Gists.Get(gistId);
+            var gist = await Api.Gists.Get(gistId);
 
             gist.Id.Should().Be(gistId);
             gist.Description.Should().Be("This gist has a description!");
@@ -97,6 +94,7 @@ namespace IntegrationTests
         }
 
         [Test]
+        [Category("Authenticated")]
         async public Task PatchGist()
         {
             var files = new Dictionary<string, string>
@@ -104,16 +102,15 @@ namespace IntegrationTests
                     {"theAnswer", "42"},
                     {"the Question", "I dunno"}
                 };
-            var api = GitHubApi.Create();
-            await api.in2bitstest(new[] { Scopes.Gist });
-            var gist = await api.Gists.New(files);
+            await Authorize(new[] { Scopes.Gist });
+            var gist = await Api.Gists.New(files);
 
             var patch = new Gist.EditGistPost(gist);
             var patchFile = patch.Files["theAnswer"];
             patchFile.Filename = "theWrongAnswer";
             patchFile.Content = "43";
             patch.Files["the Question"] = null;
-            var patchedGist = await api.Gists.Edit(patch);
+            var patchedGist = await Api.Gists.Edit(patch);
 
             patchedGist.Files.Should().HaveCount(1);
             patchedGist.Files["theWrongAnswer"].Should().NotBeNull();

@@ -10,14 +10,12 @@ using NUnit.Framework;
 namespace IntegrationTests
 {
     [TestFixture]
-    class IssueTests
+    public class IssueTests : WithGitHubApi
     {
         [Test]
         async public Task GetIssueWithAssignedUserAndMilestone()
         {
-            var api = GitHubApi.Create();
-
-            var issue = await api.Issues.Get("apitestaccount", "apitest", 1);
+            var issue = await Api.Issues.Get("apitestaccount", "apitest", 1);
 
             issue.Number.Should().Be(1);
             issue.Id.Should().Be(18332016);
@@ -78,9 +76,7 @@ namespace IntegrationTests
         [Test]
         async public Task GetIssueWithPullRequest()
         {
-            var api = GitHubApi.Create();
-
-            var issue = await api.Issues.Get("apitestaccount", "apitest", 2);
+            var issue = await Api.Issues.Get("apitestaccount", "apitest", 2);
 
             // Pull request
             issue.PullRequest.HtmlUrl.Should().Be("https://github.com/apitestaccount/apitest/pull/2");
@@ -91,9 +87,7 @@ namespace IntegrationTests
         [Test]
         async public Task GetClosedIssue()
         {
-            var api = GitHubApi.Create();
-
-            var issue = await api.Issues.Get("apitestaccount", "apitest", 3);
+            var issue = await Api.Issues.Get("apitestaccount", "apitest", 3);
 
             issue.State.Should().Be(IssueStates.Closed);
             issue.ClosedAt.Should().BeAfter(issue.CreatedAt);

@@ -13,17 +13,43 @@ using NUnit.Framework;
 namespace IntegrationTests
 {
     [TestFixture]
-    class UserTests
+    class UserTests : WithGitHubApi
     {
         [Test]
         async public Task GetUserFromId()
         {
-            var api = GitHubApi.Create();
-
-            var user = await api.Users.Get(5274545);
+            var user = await Api.Users.Get(5274545);
 
             user.ShouldBeApiTestAccount();
+            CheckExtendedInfo(user);
+        }
 
+        [Test]
+        [Category("Authenticated")]
+        async public Task GetAuthenticatedUser()
+        {
+            await Authorize();
+
+            var user = await Api.Users.GetAuthenticatedUser();
+
+            if (IntegrationTestParameters.GitHubUsername != "apitestaccount")
+            {
+                Assert.Inconclusive("The GetAuthenticatedUser test is written for apitestaccount");
+            }
+
+            user.ShouldBeApiTestAccount();
+            CheckExtendedInfo(user);
+        }
+
+        [Test]
+        [ExpectedException(typeof(NotFoundException))]
+        async public Task GetInvalidUser()
+        {
+            await Api.Users.Get(0);
+        }
+
+        private static void CheckExtendedInfo(User user)
+        {
             // Extended info
             user.PublicRepos.Should().NotBe(null);
             user.Followers.Should().NotBe(null);
@@ -31,15 +57,14 @@ namespace IntegrationTests
             user.CreatedAt.ToUniversalTime().Should().Be(new DateTime(2013, 08, 21, 01, 37, 40, DateTimeKind.Utc));
             user.UpdatedAt.ToUniversalTime().Should().BeAfter(user.CreatedAt);
             user.PublicGists.Should().NotBe(null);
-        }
 
-        [Test]
-        [ExpectedException(typeof(NotFoundException))]
-        async public Task GetInvalidUser()
-        {
-            var api = GitHubApi.Create();
-
-            await api.Users.Get(0);
+            // Bio
+            user.Name.Should().Be("Test Account");
+            user.Company.Should().Be("Test, Inc.");
+            user.Blog.Should().Be("http://example.com");
+            user.Location.Should().Be("The Moon");
+            user.Hireable.Should().BeFalse();
+            user.Email.Should().Be("test@example.com");
         }
     }
 

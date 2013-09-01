@@ -4,19 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using FluentAssertions;
-using IronGitHub;
 using NUnit.Framework;
 
 namespace IntegrationTests
 {
-    class RepositoryTests
+    class RepositoryTests : WithGitHubApi
     {
         [Test]
         async public Task GetRepository()
         {
-            var api = GitHubApi.Create();
-
-            var repo = await api.Repositories.Get("apitestaccount", "apitest");
+            var repo = await Api.Repositories.Get("apitestaccount", "apitest");
 
             repo.Name.Should().Be("apitest");
             repo.FullName.Should().Be("apitestaccount/apitest");

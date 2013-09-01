@@ -9,7 +9,7 @@ using IronGitHub;
 using ServiceStack.Text;
 using Authorization = IronGitHub.Entities.Authorization;
 
-namespace Tests
+namespace IntegrationTests
 {
     public static class TestExtensions
     {
