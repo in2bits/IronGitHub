@@ -8,6 +8,7 @@ using NUnit.Framework;
 
 namespace IntegrationTests
 {
+    [TestFixture]
     class OrganizationTests : WithGitHubApi
     {
         [Test]
