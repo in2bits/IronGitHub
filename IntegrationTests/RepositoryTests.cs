@@ -46,5 +46,22 @@ namespace IntegrationTests
             repo.HasDownloads.Should().BeTrue();
             repo.HasWiki.Should().BeTrue();
         }
+
+        [Test]
+        async public Task ListRepositores()
+        {
+            var repos = await Api.Repositories.List();
+
+            repos.Should().NotBeEmpty();
+        }
+
+        [Test]
+        async public Task ListRepositoresSince()
+        {
+            var repos = await Api.Repositories.List(300);
+
+            repos.Should().NotBeEmpty();
+            repos.First().Id.Should().BeGreaterOrEqualTo(300);
+        }
     }
 }
