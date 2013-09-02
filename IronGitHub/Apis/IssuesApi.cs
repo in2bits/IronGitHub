@@ -52,7 +52,7 @@ namespace IronGitHub.Apis
             var response = await Complete<IEnumerable<Issue.IssueItem>>(request);
 
             return response.Result;
-        } 
+        }
 
         /// <summary>
         /// Get a single issue
@@ -66,6 +66,21 @@ namespace IronGitHub.Apis
             var request = CreateRequest(string.Format("/repos/{0}/{1}/issues/{2}", owner, repo, number));
 
             var response = await Complete<Issue>(request);
+
+            return response.Result;
+        }
+
+        /// <summary>
+        /// List all issues for a given repository
+        /// </summary>
+        /// <param name="owner">Owner of the repository of the issue</param>
+        /// <param name="repo">Repository of the issue</param>
+        /// <returns>The Issue</returns>
+        async public Task<IEnumerable<Issue.IssueItem>> Get(string owner, string repo)
+        {
+            var request = CreateRequest(string.Format("/repos/{0}/{1}/issues", owner, repo));
+
+            var response = await Complete<IEnumerable<Issue.IssueItem>>(request);
 
             return response.Result;
         }
