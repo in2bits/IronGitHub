@@ -1,6 +1,8 @@
 IronGitHub
 ==========
 
+<a href="http://ci.johnduhart.me/project.html?projectId=IronGitHub&branch_IronGitHub=__all_branches__&guest=1"><img src="http://ci.johnduhart.me/app/rest/builds/buildType:(id:IronGitHub_IronGithubCi)/statusIcon" /></a>
+
 C# client for GitHub Api v3
 
 Why
