@@ -47,8 +47,8 @@ namespace IntegrationTests
             repo.Username.Should().Be("in2bits");
             repo.Owner.Should().Be("in2bits");
             repo.Name.Should().Be("IronGitHub");
-            repo.Homepage.Should().BeNull();
-            repo.Description.Should().Be("C# GitHub Api");
+            repo.Homepage.Should().BeNullOrEmpty();
+            repo.Description.Should().Be("C# GitHub Api v3");
             repo.Language.Should().Be("C#");
             repo.Watchers.Should().BeGreaterThan(0);
             repo.Followers.Should().BeGreaterThan(0);
