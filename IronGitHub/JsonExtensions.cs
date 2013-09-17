@@ -35,6 +35,7 @@ namespace IronGitHub
             CustomEnumValueSerializer<PullRequestAction>.Init();
             CustomEnumValueSerializer<RepositoryMemberAction>.Init();
             CustomEnumValueSerializer<Team.PermissionTypes>.Init();
+            CustomEnumValueSerializer<HookName>.Init();
 
             _initted = true;
         }

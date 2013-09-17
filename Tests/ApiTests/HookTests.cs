@@ -44,7 +44,7 @@ namespace Tests.ApiTests
             Assert.IsFalse(string.IsNullOrEmpty(RequestBinUrl));
 
             var api = GitHubApi.Create();
-            await api.in2bitstest();
+            await api.in2bitstest(new []{Scopes.User, Scopes.Repo});
             _tempHook = await api.Hooks.Create(_testUsername, _testRepo, new HookBase()
                                                 {
                                                     Name = HookName.Weblate,
