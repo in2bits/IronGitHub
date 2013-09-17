@@ -39,14 +39,15 @@ namespace IntegrationTests
                 return;
             }
 
-            // Attempt to load in account information from a file
-            if (!File.Exists("testaccount.json"))
+            // Attempt to load in account information from a file, which if we don't want included in the project
+            // should be loaded from the root of the test project itself.
+            if (!File.Exists("../../testaccount.json"))
             {
                 throw new Exception("Create the testaccount.json file before running tessts");
             }
 
             Dictionary<string, string> account;
-            using (var fs = File.Open("testaccount.json", FileMode.Open))
+            using (var fs = File.Open("../../testaccount.json", FileMode.Open))
             {
                 account = JsonSerializer.DeserializeFromStream<Dictionary<string,string>>(fs);
             }

@@ -54,6 +54,7 @@
   <ItemGroup>
     <Compile Include="AuthTests.cs" />
     <Compile Include="GistTests.cs" />
+    <Compile Include="HookTests.cs" />
     <Compile Include="IntegrationTestParameters.cs" />
     <Compile Include="IssueTests.cs" />
     <Compile Include="OrganizationTests.cs" />

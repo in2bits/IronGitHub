@@ -107,9 +107,6 @@
     <Compile Include="SortOrders.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="IronGitHub.nuspec">
-      <SubType>Designer</SubType>
-    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

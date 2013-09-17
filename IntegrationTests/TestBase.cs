@@ -10,13 +10,17 @@ namespace IntegrationTests
 {
     public class WithGitHubApi
     {
-        private static List<Authorization> _authorizations = new List<Authorization>();
+        //private static List<Authorization> _authorizations = new List<Authorization>();
+
+        private GitHubApiContext _context;
+        
         protected GitHubApi Api;
 
         [SetUp]
         public void CreateGitHubApi()
         {
-            Api = new GitHubApi();
+            _context = new GitHubApiContext();
+            Api = new GitHubApi(_context);
         }
 
         /// <summary>
@@ -25,20 +29,21 @@ namespace IntegrationTests
         /// <param name="scopes">The scopes to request access to</param>
         protected async Task Authorize(IEnumerable<Scopes> scopes = null)
         {
-            var authorization = _authorizations.FirstOrDefault(x => x.Scopes.Matches(scopes));
+            //var authorization = Api.Context.Authorization.FirstOrDefault(x => x.Scopes.Matches(scopes));
 
-            if (authorization == null)
-            {
-                authorization = await Api.Authorize(
+            //if (authorization == null)
+            //{
+                var authorization = await Api.Authorize(
                     new NetworkCredential(IntegrationTestParameters.GitHubUsername, IntegrationTestParameters.GitHubPassword),
                     scopes,
                     "IronGithub Integration Test");
-                _authorizations.Add(authorization);
-            }
-            else
-            {
                 Api.Context.Authorize(authorization);
-            }
+                //_authorizations.Add(authorization);
+            //}
+            //else
+            //{
+            //    Api.Context.Authorize(authorization);
+            //}
         }
     }
 }

@@ -1,19 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
+
 using IronGitHub;
 using IronGitHub.Entities;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using IronGitHub.Exceptions;
+using FluentAssertions;
+using NUnit.Framework;
 
-namespace Tests.ApiTests
+namespace IntegrationTests
 {
-    using System.Linq;
-
-    using IronGitHub.Exceptions;
-
-    [TestClass]
-    public class HookTests
+    public class HookTests : WithGitHubApi
     {
         private const string _testUsername = "in2bitstest";
         private const string _testRepo = "IronGitHub";
@@ -21,12 +20,13 @@ namespace Tests.ApiTests
         private Hook _tempHook;
 
         private string _requestBinUrl;
+
         private string RequestBinUrl
         {
             get
             {
                 //If we've made one for this test run let's use that instead of making a new one
-                return _requestBinUrl ?? BuildNewRequestBinUrl();
+                return this._requestBinUrl ?? this.BuildNewRequestBinUrl();
             }
         }
 
@@ -36,56 +36,53 @@ namespace Tests.ApiTests
         /// one hook of a given type can exist for a user+repo combination.
         /// </summary>
         /// <returns></returns>
-        [TestInitialize]
+        [SetUp]
         async public void Setup()
         {
             //Step through this and copy the value of RequestBinUrl if you want to visit
             //your Requestb.in.  Remember to put ?inspect at the end of the URL to view in a browser
-            Assert.IsFalse(string.IsNullOrEmpty(RequestBinUrl));
+            Assert.IsFalse(string.IsNullOrEmpty(this.RequestBinUrl));
 
-            var api = GitHubApi.Create();
-            await api.in2bitstest(new []{Scopes.User, Scopes.Repo});
-            _tempHook = await api.Hooks.Create(_testUsername, _testRepo, new HookBase()
-                                                {
-                                                    Name = HookName.Weblate,
-                                                    IsActive = true,
-                                                    Events = new[] { SupportedEvents.Push },
-                                                    Config = new Dictionary<string, string>()
-                                                             {
-                                                                 {"url", RequestBinUrl}
-                                                             }
-                                                });
+            //this.Api = GitHubApi.Create();
+
+            //await Authorize(new[] { Scopes.Repo });
+
+            //this._tempHook = await this.Api.Hooks.Create(_testUsername, _testRepo, new HookBase()
+            //                                    {
+            //                                        Name = HookName.Weblate,
+            //                                        IsActive = true,
+            //                                        Events = new[] { SupportedEvents.Push },
+            //                                        Config = new Dictionary<string, string>()
+            //                                                 {
+            //                                                     {"url", this.RequestBinUrl}
+            //                                                 }
+            //                                    });
         }
 
         /// <summary>
         /// We don't want to leave the Setup Hook laying around, so let's clean it up
         /// </summary>
         /// <returns></returns>
-        [TestCleanup]
+        [TearDown]
         async public void TearDown()
         {
-            var api = GitHubApi.Create();
-            await api.in2bitstest();
-            await api.Hooks.Delete(_testUsername, _testRepo, _tempHook.Id);
+            //await this.Api.Hooks.Delete(_testUsername, _testRepo, this._tempHook.Id);
         }
 
-        [TestMethod]
+        [Test]
         async public Task GetHooks()
         {
-            var api = GitHubApi.Create();
-            await api.in2bitstest();
-            var hooks = await api.Hooks.Get(_testUsername, _testRepo);
-            Assert.Equals(1, hooks.Count());
+            await Authorize(new[] { Scopes.Repo });
+            var hooks = await Api.Hooks.Get(_testUsername, _testRepo);
+            hooks.Count().Should().Be(1);
         }
 
-        [TestMethod]
+        [Test]
         async public Task GetSingleHook()
         {
-            var api = GitHubApi.Create();
-            await api.in2bitstest();
-            var hook = await api.Hooks.GetById(_testUsername, _testRepo, _tempHook.Id);
+            var hook = await this.Api.Hooks.GetById(_testUsername, _testRepo, this._tempHook.Id);
 
-            var expectedConfig = new Dictionary<string, string>() { { "url", RequestBinUrl } };
+            var expectedConfig = new Dictionary<string, string>() { { "url", this.RequestBinUrl } };
 
             Assert.AreEqual(HookName.Weblate, hook.Name);
             Assert.IsTrue(hook.IsActive);
@@ -93,13 +90,11 @@ namespace Tests.ApiTests
             Assert.AreEqual(expectedConfig, hook.Config);
         }
 
-        [TestMethod]
+        [Test]
         async public Task CreateWebHook()
         {
-            var api = GitHubApi.Create();
-            await api.in2bitstest();
             var now = DateTime.Now;
-            var hook = await api.Hooks.Create(_testUsername,
+            var hook = await this.Api.Hooks.Create(_testUsername,
                                               _testRepo,
                                               new HookBase()
                                                 {
@@ -108,7 +103,7 @@ namespace Tests.ApiTests
                                                     Events = new[] { SupportedEvents.Push },
                                                     Config = new Dictionary<string, string>()
                                                                 {
-                                                                    {"url", RequestBinUrl},
+                                                                    {"url", this.RequestBinUrl},
                                                                     {"content-type", "json"}
                                                                 }
                                                 });
@@ -116,19 +111,16 @@ namespace Tests.ApiTests
             Assert.IsTrue(hook.CreatedAt > now);
         }
 
-        [TestMethod]
+        [Test]
         async public Task EditWebHook()
         {
-            var api = GitHubApi.Create();
-            await api.in2bitstest();
-
             var newRequestBinUrl = this.BuildNewRequestBinUrl();
 
             var expectedConfig = new Dictionary<string, string>() { { "url", newRequestBinUrl }, { "content-type", "json" } };
 
-            var existingHook = (await api.Hooks.Get(_testUsername, _testRepo)).First(s => s.Name == HookName.Web);
+            var existingHook = (await this.Api.Hooks.Get(_testUsername, _testRepo)).First(s => s.Name == HookName.Web);
 
-            var editedHook = await api.Hooks.Edit(_testUsername,
+            var editedHook = await this.Api.Hooks.Edit(_testUsername,
                                             _testRepo,
                                             existingHook.Id,
                                             new Hook.PatchHook()
@@ -146,18 +138,15 @@ namespace Tests.ApiTests
             Assert.IsTrue(editedHook.UpdatedAt > existingHook.UpdatedAt);
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(GitHubErrorException),AllowDerivedTypes = true)]
+        [Test]
+        [ExpectedException(typeof(GitHubErrorException))]
         async public Task DeleteWebHook()
         {
-            var api = GitHubApi.Create();
-            await api.in2bitstest();
+            var existingHook = (await this.Api.Hooks.Get(_testUsername, _testRepo)).First(s => s.Name == HookName.Web);
 
-            var existingHook = (await api.Hooks.Get(_testUsername, _testRepo)).First(s => s.Name == HookName.Web);
+            await this.Api.Hooks.Delete(_testUsername, _testRepo, existingHook.Id);
 
-            await api.Hooks.Delete(_testUsername, _testRepo, existingHook.Id);
-
-            await api.Hooks.GetById(_testUsername, _testRepo, existingHook.Id);
+            await this.Api.Hooks.GetById(_testUsername, _testRepo, existingHook.Id);
         }
 
         private string BuildNewRequestBinUrl()
@@ -171,7 +160,10 @@ namespace Tests.ApiTests
             requestStream.WriteAsJson("{'private': false}");
             var response = (HttpWebResponse)request.GetResponse();
             var payload = response.Deserialize<RequestBinResponse>();
-            return uriString + payload.Name;
+            var output = uriString + payload.Name;
+
+            Console.WriteLine(output);
+            return output;
         }
     }
 
