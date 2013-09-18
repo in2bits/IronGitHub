@@ -24,7 +24,7 @@ namespace IronGitHub.Apis
         {
             var request = CreateRequest(string.Format("/repos/{0}/{1}/hooks", owner, repo));
 
-            var response = await Complete<IEnumerable<Hook>>(request);
+            var response = await Complete<IEnumerable<Hook>>(request).ConfigureAwait(false);
 
             return response.Result;
         }
@@ -40,7 +40,7 @@ namespace IronGitHub.Apis
         {
             var request = CreateRequest(string.Format("/repos/{0}/{1}/hooks/{2}", owner, repo, id));
 
-            var response = await Complete<Hook>(request);
+            var response = await Complete<Hook>(request).ConfigureAwait(false);
 
             return response.Result;
         }
@@ -56,7 +56,7 @@ namespace IronGitHub.Apis
         {
             var request = CreateRequest(string.Format("/repos/{0}/{1}/hooks", owner, repo));
 
-            var post = await PostAsJson<HookBase, Hook>(request, hook);
+            var post = await PostAsJson<HookBase, Hook>(request, hook).ConfigureAwait(false);
             
             return post.Result;
         }
@@ -75,9 +75,9 @@ namespace IronGitHub.Apis
         /// <returns>The complete hook returned by GitHub</returns>
         async public Task<Hook> Edit(string owner, string repo, int id, Hook.PatchHook hook)
         {
-            var request = CreateRequest(string.Format("/repos/{0}/{1}/hooks", owner, repo));
+            var request = CreateRequest(string.Format("/repos/{0}/{1}/hooks/{2}", owner, repo, id));
 
-            var response = await Patch<Hook.PatchHook, Hook>(request, hook);
+            var response = await Patch<Hook.PatchHook, Hook>(request, hook).ConfigureAwait(false);
 
             return response.Result;
         }
@@ -93,7 +93,7 @@ namespace IronGitHub.Apis
         {
             var request = CreateRequest(string.Format("/repos/{0}/{1}/hooks/{2}", owner, repo, id));
 
-            var response = await Delete(request);
+            var response = await Delete(request).ConfigureAwait(false);
 
             if (response.HttpResponse.StatusCode != HttpStatusCode.NoContent)
                 throw new GitHubException(string.Format("Unexpected response code : {0} {1}",
@@ -114,7 +114,7 @@ namespace IronGitHub.Apis
         {
             var request = CreateRequest(string.Format("/repos/{0}/{1}/hooks/{2}/tests", owner, repo, id));
 
-            var response = await Complete(request);
+            var response = await Complete(request).ConfigureAwait(false);
 
             if (response.HttpResponse.StatusCode != HttpStatusCode.NoContent)
                 throw new GitHubException(string.Format("Unexpected response code : {0} {1}",

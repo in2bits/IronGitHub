@@ -10,17 +10,12 @@ namespace IntegrationTests
 {
     public class WithGitHubApi
     {
-        //private static List<Authorization> _authorizations = new List<Authorization>();
-
-        private GitHubApiContext _context;
-        
         protected GitHubApi Api;
 
         [SetUp]
         public void CreateGitHubApi()
         {
-            _context = new GitHubApiContext();
-            Api = new GitHubApi(_context);
+            Api = GitHubApi.Create();
         }
 
         /// <summary>
@@ -29,21 +24,17 @@ namespace IntegrationTests
         /// <param name="scopes">The scopes to request access to</param>
         protected async Task Authorize(IEnumerable<Scopes> scopes = null)
         {
-            //var authorization = Api.Context.Authorization.FirstOrDefault(x => x.Scopes.Matches(scopes));
-
-            //if (authorization == null)
-            //{
+            if (Api.Context.Authorization == Authorization.Anonymous || 
+                (scopes != null && 
+                Api.Context.Authorization.Scopes != null &&
+                !Api.Context.Authorization.Scopes.Intersect(scopes).Any()))
+            {
                 var authorization = await Api.Authorize(
-                    new NetworkCredential(IntegrationTestParameters.GitHubUsername, IntegrationTestParameters.GitHubPassword),
-                    scopes,
-                    "IronGithub Integration Test");
+                                        new NetworkCredential(IntegrationTestParameters.GitHubUsername, IntegrationTestParameters.GitHubPassword),
+                                        scopes,
+                                        "IronGithub Integration Test");
                 Api.Context.Authorize(authorization);
-                //_authorizations.Add(authorization);
-            //}
-            //else
-            //{
-            //    Api.Context.Authorize(authorization);
-            //}
+            }
         }
     }
 }

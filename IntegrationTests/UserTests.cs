@@ -13,7 +13,7 @@ using NUnit.Framework;
 namespace IntegrationTests
 {
     [TestFixture]
-    class UserTests : WithGitHubApi
+    public class UserTests : WithGitHubApi
     {
         [Test]
         async public Task GetUserFromId()

@@ -90,7 +90,7 @@ namespace IronGitHub
             if (note != null)
                 authRequest.Note = note;
 
-            return await Authorize(credential, authRequest);
+            return await Authorize(credential, authRequest).ConfigureAwait(false);
         }
 
         async private Task<Authorization> Authorize(NetworkCredential credential, Authorization.AuthorizeRequest authRequest)

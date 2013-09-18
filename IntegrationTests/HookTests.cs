@@ -1,176 +1,216 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Threading.Tasks;
 
 using IronGitHub;
 using IronGitHub.Entities;
-using IronGitHub.Exceptions;
+
 using FluentAssertions;
 using NUnit.Framework;
 
 namespace IntegrationTests
 {
+    using System.Threading.Tasks;
+
+    using IronGitHub.Exceptions;
+
+    [TestFixture]
     public class HookTests : WithGitHubApi
     {
         private const string _testUsername = "in2bitstest";
         private const string _testRepo = "IronGitHub";
 
-        private Hook _tempHook;
+        private Dictionary<string, string> _config;
 
-        private string _requestBinUrl;
+        private SupportedEvents[] _events;
 
-        private string RequestBinUrl
+        private string _postUrl;
+
+        private string PostUrl
         {
             get
             {
+                // This used to leverage Requestb.in, but they got mad at us for hitting their API too much.
+                // We don't actually hit the Hooks that are created in these tests so using Google seems ok.
+
                 //If we've made one for this test run let's use that instead of making a new one
-                return this._requestBinUrl ?? this.BuildNewRequestBinUrl();
+                if (string.IsNullOrEmpty(this._postUrl)) this._postUrl = "http://www.google.com";
+
+                return this._postUrl;
             }
         }
 
-        /// <summary>
-        /// We need to ensure that a hook exists for our tests so we create one. We don't create
-        /// a "Web" hook because that's the type of hook we want to run our tests against and only
-        /// one hook of a given type can exist for a user+repo combination.
-        /// </summary>
-        /// <returns></returns>
-        [SetUp]
-        async public void Setup()
+        [TestFixtureSetUp]
+        public void FixtureSetup()
         {
-            //Step through this and copy the value of RequestBinUrl if you want to visit
-            //your Requestb.in.  Remember to put ?inspect at the end of the URL to view in a browser
-            Assert.IsFalse(string.IsNullOrEmpty(this.RequestBinUrl));
-
-            //this.Api = GitHubApi.Create();
-
-            //await Authorize(new[] { Scopes.Repo });
-
-            //this._tempHook = await this.Api.Hooks.Create(_testUsername, _testRepo, new HookBase()
-            //                                    {
-            //                                        Name = HookName.Weblate,
-            //                                        IsActive = true,
-            //                                        Events = new[] { SupportedEvents.Push },
-            //                                        Config = new Dictionary<string, string>()
-            //                                                 {
-            //                                                     {"url", this.RequestBinUrl}
-            //                                                 }
-            //                                    });
+            _config = new Dictionary<string, string>() { { "url", this.PostUrl }, { "content-type", "json" } };
+            _events = new[] { SupportedEvents.Push };
         }
 
-        /// <summary>
-        /// We don't want to leave the Setup Hook laying around, so let's clean it up
-        /// </summary>
-        /// <returns></returns>
-        [TearDown]
-        async public void TearDown()
-        {
-            //await this.Api.Hooks.Delete(_testUsername, _testRepo, this._tempHook.Id);
-        }
-
-        [Test]
-        async public Task GetHooks()
+        //[SetUp]
+        async public Task Setup()
         {
             await Authorize(new[] { Scopes.Repo });
-            var hooks = await Api.Hooks.Get(_testUsername, _testRepo);
-            hooks.Count().Should().Be(1);
+
+            await ClearHooks();
+        }
+
+        //[TearDown]
+        async public Task TearDown()
+        {
+            await ClearHooks();
         }
 
         [Test]
-        async public Task GetSingleHook()
+        [Category("Authenticated")]
+        async public void GetHooks()
         {
-            var hook = await this.Api.Hooks.GetById(_testUsername, _testRepo, this._tempHook.Id);
+            await this.Setup();
+            await Api.Hooks.Create(_testUsername, _testRepo, new HookBase()
+            {
+                Name = HookName.Web,
+                IsActive = true,
+                Events = _events,
+                Config = _config
+            });
 
-            var expectedConfig = new Dictionary<string, string>() { { "url", this.RequestBinUrl } };
+            // Get that hook and make sure it's right.
+            var hooksPreDelete = await Api.Hooks.Get(_testUsername, _testRepo);
+            hooksPreDelete.Count().Should().Be(1);
+            
+            var hook = hooksPreDelete.FirstOrDefault();
+            hook.Config.ShouldBeEquivalentTo(_config);
+            hook.Events.ShouldBeEquivalentTo(_events);
+            hook.Name.Should().Be(HookName.Web);
+            hook.IsActive.Should().BeTrue();
+            hook.Url.Should().Be("https://api.github.com/repos/in2bitstest/IronGitHub/hooks/" + hook.Id);
 
-            Assert.AreEqual(HookName.Weblate, hook.Name);
-            Assert.IsTrue(hook.IsActive);
-            Assert.AreEqual(new[] { SupportedEvents.Push }, hook.Events);
-            Assert.AreEqual(expectedConfig, hook.Config);
+            await this.TearDown().ConfigureAwait(false);
         }
 
         [Test]
-        async public Task CreateWebHook()
+        [Category("Authenticated")]
+        async public void GetSingleHook()
         {
-            var now = DateTime.Now;
-            var hook = await this.Api.Hooks.Create(_testUsername,
-                                              _testRepo,
-                                              new HookBase()
-                                                {
-                                                    Name = HookName.Web,
-                                                    IsActive = true,
-                                                    Events = new[] { SupportedEvents.Push },
-                                                    Config = new Dictionary<string, string>()
-                                                                {
-                                                                    {"url", this.RequestBinUrl},
-                                                                    {"content-type", "json"}
-                                                                }
-                                                });
-            Assert.IsTrue(hook.Id > 0);
-            Assert.IsTrue(hook.CreatedAt > now);
+            await this.Setup();
+            // Create a hook so we know there is one.
+            var tempHook = await Api.Hooks.Create(_testUsername, _testRepo, new HookBase()
+                            {
+                                Name = HookName.Twilio,
+                                IsActive = true,
+                                Events = _events,
+                                Config = _config
+                            });
+
+            var hook = await Api.Hooks.GetById(_testUsername, _testRepo, tempHook.Id);
+            hook.Config.ShouldBeEquivalentTo(_config);
+            hook.Events.ShouldBeEquivalentTo(_events);
+            hook.Name.Should().Be(HookName.Twilio);
+            hook.IsActive.Should().BeTrue();
+            hook.Url.Should().Be("https://api.github.com/repos/in2bitstest/IronGitHub/hooks/" + tempHook.Id);
+
+            await this.TearDown().ConfigureAwait(false);
         }
 
         [Test]
-        async public Task EditWebHook()
+        [Category("Authenticated")]
+        async public void CreateWebHook()
         {
-            var newRequestBinUrl = this.BuildNewRequestBinUrl();
+            await this.Setup();
+            var tempHook = await Api.Hooks.Create(_testUsername, _testRepo, new HookBase()
+            {
+                Name = HookName.Twitter,
+                IsActive = true,
+                Events = _events,
+                Config = _config
+            });
 
-            var expectedConfig = new Dictionary<string, string>() { { "url", newRequestBinUrl }, { "content-type", "json" } };
+            var hook = await Api.Hooks.GetById(_testUsername, _testRepo, tempHook.Id);
+            hook.Config.ShouldAllBeEquivalentTo(_config);
+            hook.Events.ShouldAllBeEquivalentTo(_events);
+            hook.Id.Should().Be(tempHook.Id);
+            hook.Name.Should().Be(HookName.Twitter);
+            hook.IsActive.Should().BeTrue();
+            hook.Url.Should().Be("https://api.github.com/repos/in2bitstest/IronGitHub/hooks/" + tempHook.Id);
 
-            var existingHook = (await this.Api.Hooks.Get(_testUsername, _testRepo)).First(s => s.Name == HookName.Web);
+            await this.TearDown();
+        }
 
-            var editedHook = await this.Api.Hooks.Edit(_testUsername,
-                                            _testRepo,
-                                            existingHook.Id,
+        [Test]
+        [Category("Authenticated")]
+        async public void EditWebHook()
+        {
+            await this.Setup();
+            const string newUrl = "http://www.yahoo.com";
+            var newConfig = new Dictionary<string, string>() { { "url", newUrl }, { "content-type", "json" } };
+
+            // Create your hook
+            var tempHook = await Api.Hooks.Create(_testUsername, _testRepo, new HookBase()
+                            {
+                                Name = HookName.Trello,
+                                IsActive = true,
+                                Events = _events,
+                                Config = _config
+                            });
+
+            var editedHook = await Api.Hooks.Edit(_testUsername, _testRepo, tempHook.Id,
                                             new Hook.PatchHook()
                                             {
+                                                IsActive = true,
                                                 AddEvents = new[] { SupportedEvents.PullRequest },
-                                                Config = expectedConfig
+                                                Config = newConfig,
                                             });
 
-            Assert.AreEqual(existingHook.Id, editedHook.Id);
-            Assert.AreEqual(existingHook.IsActive, editedHook.IsActive);
-            Assert.AreEqual(HookName.Web, editedHook.Name);
-            Assert.IsTrue(editedHook.IsActive);
-            Assert.AreEqual(new[] { SupportedEvents.Push, SupportedEvents.PullRequest }, editedHook.Events);
-            Assert.AreEqual(expectedConfig, editedHook.Config);
-            Assert.IsTrue(editedHook.UpdatedAt > existingHook.UpdatedAt);
+            editedHook.Id.Should().Be(tempHook.Id);
+            editedHook.IsActive.Should().BeTrue();
+            editedHook.Name.Should().Be(HookName.Trello);
+            editedHook.Events.ShouldBeEquivalentTo(new[] { SupportedEvents.Push, SupportedEvents.PullRequest });
+            editedHook.Config.ShouldAllBeEquivalentTo(newConfig);
+
+            //TODO: Figure out why GitHub isn't updating the UpdatedAt field post-update
+            //editedHook.UpdatedAt.Should().BeAfter(tempHook.UpdatedAt);
+
+            await this.TearDown().ConfigureAwait(false);
         }
 
         [Test]
-        [ExpectedException(typeof(GitHubErrorException))]
-        async public Task DeleteWebHook()
+        [Category("Authenticated")]
+        [ExpectedException(typeof(NotFoundException))]
+        async public void DeleteWebHook()
         {
-            var existingHook = (await this.Api.Hooks.Get(_testUsername, _testRepo)).First(s => s.Name == HookName.Web);
+            //await this.Setup();
 
-            await this.Api.Hooks.Delete(_testUsername, _testRepo, existingHook.Id);
+            // Create your hook
+            var tempHook = await Api.Hooks.Create(_testUsername, _testRepo, new HookBase()
+                            {
+                                Name = HookName.Toggl,
+                                IsActive = true,
+                                Events = _events,
+                                Config = _config
+                            });
 
-            await this.Api.Hooks.GetById(_testUsername, _testRepo, existingHook.Id);
+            // Clean up your mess
+            await Api.Hooks.Delete(_testUsername, _testRepo, tempHook.Id);
+
+            try
+            {
+                await Api.Hooks.GetById(_testUsername, _testRepo, tempHook.Id);
+            }
+            finally
+            {
+                this.TearDown().Wait();
+            }
         }
 
-        private string BuildNewRequestBinUrl()
+        async private Task ClearHooks()
         {
-            const string uriString = "http://requestb.in/";
+            // Remove any leftover hooks out there
+            var hooksPreDelete = await Api.Hooks.Get(_testUsername, _testRepo);
 
-            var uri = new Uri(uriString + "api/v1/bins");
-            var request = WebRequest.CreateHttp(uri);
-            request.Method = "POST";
-            var requestStream = request.GetRequestStream();
-            requestStream.WriteAsJson("{'private': false}");
-            var response = (HttpWebResponse)request.GetResponse();
-            var payload = response.Deserialize<RequestBinResponse>();
-            var output = uriString + payload.Name;
-
-            Console.WriteLine(output);
-            return output;
+            foreach (var hook in hooksPreDelete)
+            {
+                await this.Api.Hooks.Delete(_testUsername, _testRepo, hook.Id);
+            }
         }
-    }
-
-    class RequestBinResponse
-    {
-        public string Name { get; set; }
-        public int RequestCount { get; set; }
-        public bool Private { get; set; }
     }
 }

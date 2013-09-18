@@ -8,7 +8,8 @@ using NUnit.Framework;
 
 namespace IntegrationTests
 {
-    class RepositoryTests : WithGitHubApi
+    [TestFixture]
+    public class RepositoryTests : WithGitHubApi
     {
         [Test]
         async public Task GetRepository()

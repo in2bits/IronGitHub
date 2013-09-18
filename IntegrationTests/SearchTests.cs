@@ -10,7 +10,7 @@ using NUnit.Framework;
 namespace IntegrationTests
 {
     [TestFixture]
-    class SearchTests : WithGitHubApi
+    public class SearchTests : WithGitHubApi
     {
         [Test]
         async public Task SearchUsers()
