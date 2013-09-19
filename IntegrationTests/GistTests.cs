@@ -13,6 +13,12 @@ namespace IntegrationTests
     [TestFixture]
     public class GistTests : WithGitHubApi
     {
+        [TestFixtureSetUp]
+        public void Setup()
+        {
+            this.CreateGitHubApi();
+        }
+
         [Test]
         async public Task CreateNewAnonymousGist()
         {

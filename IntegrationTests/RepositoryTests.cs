@@ -11,6 +11,12 @@ namespace IntegrationTests
     [TestFixture]
     public class RepositoryTests : WithGitHubApi
     {
+        [TestFixtureSetUp]
+        public void Setup()
+        {
+            this.CreateGitHubApi();
+        }
+
         [Test]
         async public Task GetRepository()
         {

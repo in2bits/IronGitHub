@@ -15,6 +15,12 @@ namespace IntegrationTests
     [TestFixture]
     public class UserTests : WithGitHubApi
     {
+        [SetUp]
+        public void Setup()
+        {
+            this.CreateGitHubApi();
+        }
+
         [Test]
         async public Task GetUserFromId()
         {
