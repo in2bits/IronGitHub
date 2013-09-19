@@ -1,19 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 using IronGitHub;
 using IronGitHub.Entities;
+using IronGitHub.Exceptions;
 
 using FluentAssertions;
 using NUnit.Framework;
 
 namespace IntegrationTests
 {
-    using System.Threading.Tasks;
-
-    using IronGitHub.Exceptions;
-
     [TestFixture]
     public class HookTests : WithGitHubApi
     {
@@ -47,25 +45,12 @@ namespace IntegrationTests
             _events = new[] { SupportedEvents.Push };
         }
 
-        //[SetUp]
-        async public Task Setup()
-        {
-            await Authorize(new[] { Scopes.Repo });
-
-            await ClearHooks();
-        }
-
-        //[TearDown]
-        async public Task TearDown()
-        {
-            await ClearHooks();
-        }
-
         [Test]
         [Category("Authenticated")]
-        async public void GetHooks()
+        async public Task GetHooks()
         {
-            await this.Setup();
+            //await this.Setup();
+            await Authorize(new[] { Scopes.Repo });
             await Api.Hooks.Create(_testUsername, _testRepo, new HookBase()
             {
                 Name = HookName.Web,
@@ -77,7 +62,7 @@ namespace IntegrationTests
             // Get that hook and make sure it's right.
             var hooksPreDelete = await Api.Hooks.Get(_testUsername, _testRepo);
             hooksPreDelete.Count().Should().Be(1);
-            
+
             var hook = hooksPreDelete.FirstOrDefault();
             hook.Config.ShouldBeEquivalentTo(_config);
             hook.Events.ShouldBeEquivalentTo(_events);
@@ -85,14 +70,17 @@ namespace IntegrationTests
             hook.IsActive.Should().BeTrue();
             hook.Url.Should().Be("https://api.github.com/repos/in2bitstest/IronGitHub/hooks/" + hook.Id);
 
-            await this.TearDown().ConfigureAwait(false);
+            //await this.Api.Hooks.Delete(_testUsername, _testRepo, hook.Id);
+            await this.ClearHooks();
         }
 
         [Test]
         [Category("Authenticated")]
-        async public void GetSingleHook()
+        async public Task GetSingleHook()
         {
-            await this.Setup();
+            //await this.Setup();
+            await Authorize(new[] { Scopes.Repo });
+
             // Create a hook so we know there is one.
             var tempHook = await Api.Hooks.Create(_testUsername, _testRepo, new HookBase()
                             {
@@ -109,14 +97,16 @@ namespace IntegrationTests
             hook.IsActive.Should().BeTrue();
             hook.Url.Should().Be("https://api.github.com/repos/in2bitstest/IronGitHub/hooks/" + tempHook.Id);
 
-            await this.TearDown().ConfigureAwait(false);
+            //await this.Api.Hooks.Delete(_testUsername, _testRepo, hook.Id);
+            await this.ClearHooks();
         }
 
         [Test]
         [Category("Authenticated")]
-        async public void CreateWebHook()
+        async public Task CreateWebHook()
         {
-            await this.Setup();
+            await Authorize(new[] { Scopes.Repo });
+
             var tempHook = await Api.Hooks.Create(_testUsername, _testRepo, new HookBase()
             {
                 Name = HookName.Twitter,
@@ -133,14 +123,16 @@ namespace IntegrationTests
             hook.IsActive.Should().BeTrue();
             hook.Url.Should().Be("https://api.github.com/repos/in2bitstest/IronGitHub/hooks/" + tempHook.Id);
 
-            await this.TearDown();
+            //await this.Api.Hooks.Delete(_testUsername, _testRepo, hook.Id);
+            await this.ClearHooks();
         }
 
         [Test]
         [Category("Authenticated")]
-        async public void EditWebHook()
+        async public Task EditWebHook()
         {
-            await this.Setup();
+            await Authorize(new[] { Scopes.Repo });
+
             const string newUrl = "http://www.yahoo.com";
             var newConfig = new Dictionary<string, string>() { { "url", newUrl }, { "content-type", "json" } };
 
@@ -153,7 +145,7 @@ namespace IntegrationTests
                                 Config = _config
                             });
 
-            var editedHook = await Api.Hooks.Edit(_testUsername, _testRepo, tempHook.Id,
+            var hook = await Api.Hooks.Edit(_testUsername, _testRepo, tempHook.Id,
                                             new Hook.PatchHook()
                                             {
                                                 IsActive = true,
@@ -161,24 +153,25 @@ namespace IntegrationTests
                                                 Config = newConfig,
                                             });
 
-            editedHook.Id.Should().Be(tempHook.Id);
-            editedHook.IsActive.Should().BeTrue();
-            editedHook.Name.Should().Be(HookName.Trello);
-            editedHook.Events.ShouldBeEquivalentTo(new[] { SupportedEvents.Push, SupportedEvents.PullRequest });
-            editedHook.Config.ShouldAllBeEquivalentTo(newConfig);
+            hook.Id.Should().Be(tempHook.Id);
+            hook.IsActive.Should().BeTrue();
+            hook.Name.Should().Be(HookName.Trello);
+            hook.Events.ShouldBeEquivalentTo(new[] { SupportedEvents.Push, SupportedEvents.PullRequest });
+            hook.Config.ShouldAllBeEquivalentTo(newConfig);
 
             //TODO: Figure out why GitHub isn't updating the UpdatedAt field post-update
             //editedHook.UpdatedAt.Should().BeAfter(tempHook.UpdatedAt);
 
-            await this.TearDown().ConfigureAwait(false);
+            //await this.Api.Hooks.Delete(_testUsername, _testRepo, hook.Id);
+            await this.ClearHooks();
         }
 
         [Test]
         [Category("Authenticated")]
         [ExpectedException(typeof(NotFoundException))]
-        async public void DeleteWebHook()
+        async public Task DeleteWebHook()
         {
-            //await this.Setup();
+            await Authorize(new[] { Scopes.Repo });
 
             // Create your hook
             var tempHook = await Api.Hooks.Create(_testUsername, _testRepo, new HookBase()
@@ -190,16 +183,9 @@ namespace IntegrationTests
                             });
 
             // Clean up your mess
-            await Api.Hooks.Delete(_testUsername, _testRepo, tempHook.Id);
-
-            try
-            {
-                await Api.Hooks.GetById(_testUsername, _testRepo, tempHook.Id);
-            }
-            finally
-            {
-                this.TearDown().Wait();
-            }
+            //await Api.Hooks.Delete(_testUsername, _testRepo, tempHook.Id);
+            await this.ClearHooks();
+            await Api.Hooks.GetById(_testUsername, _testRepo, tempHook.Id);
         }
 
         async private Task ClearHooks()

@@ -63,7 +63,6 @@ namespace IronGitHub
             }
             request.UserAgent = Context.Configuration.UserAgent;
             request.KeepAlive = false;
-            request.ReadWriteTimeout = 1000;
             return request;
         }
 
@@ -75,6 +74,7 @@ namespace IronGitHub
         async protected Task<ApiResponse> Complete(HttpWebRequest request)
         {
             HttpWebResponse response = null;
+
             try
             {
                 response = (HttpWebResponse) await request.GetResponseAsync().ConfigureAwait(false);
