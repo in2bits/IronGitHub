@@ -89,7 +89,7 @@ namespace IntegrationTests
             hook.Events.ShouldBeEquivalentTo(_events);
             hook.Name.Should().Be(HookName.Web);
             hook.IsActive.Should().BeTrue();
-            hook.Url.Should().Be("https://api.github.com/repos/in2bitstest/IronGitHub/hooks/" + hook.Id);
+            hook.Url.Should().Be(string.Format("https://api.github.com/repos/{0}/IronGitHub/hooks/{1}", _testUsername, hook.Id));
         }
 
         [Test]
@@ -101,7 +101,7 @@ namespace IntegrationTests
             hook.Events.ShouldBeEquivalentTo(_events);
             hook.Name.Should().Be(HookName.Web);
             hook.IsActive.Should().BeTrue();
-            hook.Url.Should().Be("https://api.github.com/repos/in2bitstest/IronGitHub/hooks/" + _tempHook.Id);
+            hook.Url.Should().Be(string.Format("https://api.github.com/repos/{0}/IronGitHub/hooks/{1}", _testUsername, _tempHook.Id));
         }
 
         [Test]
@@ -114,7 +114,7 @@ namespace IntegrationTests
             hook.Id.Should().Be(_tempHook.Id);
             hook.Name.Should().Be(HookName.Web);
             hook.IsActive.Should().BeTrue();
-            hook.Url.Should().Be("https://api.github.com/repos/in2bitstest/IronGitHub/hooks/" + _tempHook.Id);
+            hook.Url.Should().Be(string.Format("https://api.github.com/repos/{0}/IronGitHub/hooks/{1}", _testUsername, _tempHook.Id));
         }
 
         [Test]
