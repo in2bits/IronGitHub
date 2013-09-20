@@ -4,19 +4,15 @@ using System.Threading.Tasks;
 
 using IronGitHub;
 using IronGitHub.Entities;
-using IronGitHub.Exceptions;
 
 using FluentAssertions;
 using NUnit.Framework;
 
 namespace IntegrationTests
 {
-    using System.Threading;
-
     [TestFixture]
     public class HookTests : WithGitHubApi
     {
-        private object _lockObject = new object();
         private static readonly string _testUsername = IntegrationTestParameters.GitHubUsername;
         private const string _testRepo = "IronGitHub";
 
