@@ -33,8 +33,8 @@ namespace IntegrationTests
             user.FullName.Should().Be("Test Account");
             user.Location.Should().Be("The Moon");
             user.Type.Should().Be("user");
-            user.PublicRepoCount.Should().Be(1);
-            user.Repos.Should().Be(1);
+            user.PublicRepoCount.Should().Be(2);
+            user.Repos.Should().Be(2);
             user.Followers.Should().BeGreaterOrEqualTo(0);
             user.FollowersCount.Should().BeGreaterOrEqualTo(0);
             user.Score.Should().BeGreaterThan(0);
@@ -107,7 +107,7 @@ namespace IntegrationTests
             var user = results.Users.FirstOrDefault();
 
             user.Should().NotBeNull();
-            user.PublicRepoCount.Should().Be(1);
+            user.PublicRepoCount.Should().Be(2);
             user.PublicGistCount.Should().BeGreaterOrEqualTo(0);
             user.FollowersCount.Should().BeGreaterOrEqualTo(0);
             user.FollowingCount.Should().Be(0);

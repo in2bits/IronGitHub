@@ -156,6 +156,8 @@ namespace IntegrationTests
             _events = new[] { SupportedEvents.Push, SupportedEvents.PullRequest };
         }
 
+        // We test the delete functionality in TestFixtureSetUp and TestFixtureTearDown.  However
+        // this test causes the whole suite to hang no matter how it is written.
         //[Test]
         //[Category("Authenticated")]
         //[ExpectedException(typeof(NotFoundException))]
