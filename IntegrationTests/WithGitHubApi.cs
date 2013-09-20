@@ -8,11 +8,10 @@ using Authorization = IronGitHub.Entities.Authorization;
 
 namespace IntegrationTests
 {
-    using System;
-
     public class WithGitHubApi
     {
         private object _lockObject = new object();
+
         protected GitHubApi Api;
 
         //[SetUp]
