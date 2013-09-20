@@ -28,7 +28,7 @@ namespace IntegrationTests
             user.Location.Should().Be("The Moon");
             user.Type.Should().Be("user");
             user.PublicRepoCount.Should().BeGreaterOrEqualTo(1);
-            user.Repos.Should().Be(1);
+            user.Repos.Should().BeGreaterOrEqualTo(1);
             user.Followers.Should().BeGreaterOrEqualTo(0);
             user.FollowersCount.Should().BeGreaterOrEqualTo(0);
             user.Score.Should().BeGreaterThan(0);
