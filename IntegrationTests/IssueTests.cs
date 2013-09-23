@@ -98,5 +98,13 @@ namespace IntegrationTests
             issue.State.Should().Be(IssueStates.Closed);
             issue.ClosedAt.Should().BeAfter(issue.CreatedAt);
         }
+
+        [Test]
+        async public Task GetIssuesForRepo()
+        {
+            var issues = await Api.Issues.GetForRepository("apitestaccount", "apitest");
+
+            issues.Count().Should().BeGreaterOrEqualTo(1);
+        }
     }
 }
