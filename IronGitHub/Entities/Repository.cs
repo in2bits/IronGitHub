@@ -247,4 +247,11 @@ namespace IronGitHub.Entities
             }
         }
     }
+
+    [DataContract]
+    public enum RepositoryMemberAction
+    {
+        [EnumMember(Value = "added")]
+        Added
+    }
 }

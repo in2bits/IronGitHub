@@ -62,6 +62,7 @@ namespace IronGitHub
                 request.Headers["Authorization"] = "token " + auth.Token;
             }
             request.UserAgent = Context.Configuration.UserAgent;
+            request.KeepAlive = false;
             return request;
         }
 
@@ -73,9 +74,10 @@ namespace IronGitHub
         async protected Task<ApiResponse> Complete(HttpWebRequest request)
         {
             HttpWebResponse response = null;
+
             try
             {
-                response = (HttpWebResponse) await request.GetResponseAsync();
+                response = (HttpWebResponse) await request.GetResponseAsync().ConfigureAwait(false);
                 return new ApiResponse {HttpResponse = response};
             }
             catch (WebException wex)

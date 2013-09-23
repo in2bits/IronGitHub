@@ -14,6 +14,12 @@ namespace IntegrationTests
     [TestFixture]
     public class AuthTests : WithGitHubApi
     {
+        [SetUp]
+        public void Setup()
+        {
+            this.CreateGitHubApi();
+        }
+
         [Test]
         public void AuthorizeDefaultCredential()
         {
