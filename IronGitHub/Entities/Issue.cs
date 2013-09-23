@@ -98,4 +98,15 @@ namespace IronGitHub.Entities
             public Repository Repository { get; set; }
         }
     }
+
+    [DataContract]
+    public enum IssueAction
+    {
+        [EnumMember(Value = "opened")]
+        Opened,
+        [EnumMember(Value = "closed")]
+        Closed,
+        [EnumMember(Value = "reopened")]
+        Reopened
+    }
 }

@@ -9,8 +9,14 @@ using NUnit.Framework;
 namespace IntegrationTests
 {
     [TestFixture]
-    class OrganizationTests : WithGitHubApi
+    public class OrganizationTests : WithGitHubApi
     {
+        [TestFixtureSetUp]
+        public void Setup()
+        {
+            this.CreateGitHubApi();
+        }
+
         [Test]
         async public Task GetOrganization()
         {

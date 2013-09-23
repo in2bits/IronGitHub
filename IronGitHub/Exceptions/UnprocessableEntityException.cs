@@ -7,7 +7,7 @@ namespace IronGitHub.Exceptions
     {
         public UnprocessableEntityException(HttpWebResponse response, GitHubErrorResponse errorResponse)
             : base(response, errorResponse)
-        {
+        {           
             if ((int) response.StatusCode != 422)
                 throw new ArgumentException("Response must be a 422");
         }

@@ -29,7 +29,14 @@ namespace IronGitHub
 			CustomEnumValueSerializer<RepositorySorts>.Init();
 			CustomEnumValueSerializer<RepositoryTypes>.Init();
 			CustomEnumValueSerializer<UserSorts>.Init();
-            
+            CustomEnumValueSerializer<SupportedEvents>.Init();
+            CustomEnumValueSerializer<GistAction>.Init();
+            CustomEnumValueSerializer<IssueAction>.Init();
+            CustomEnumValueSerializer<PullRequestAction>.Init();
+            CustomEnumValueSerializer<RepositoryMemberAction>.Init();
+            CustomEnumValueSerializer<Team.PermissionTypes>.Init();
+            CustomEnumValueSerializer<HookName>.Init();
+
             _initted = true;
         }
 

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
 using IronGitHub.Apis;
@@ -56,6 +55,12 @@ namespace IronGitHub
             get { return _organizationsApi ?? (_organizationsApi = new OrganizationsApi(Context)); }
         }
 
+        private HookApi _hookApi;
+        public HookApi Hooks
+        {
+            get { return _hookApi ?? (_hookApi = new HookApi(Context)); }
+        }
+
         private SearchApi _searchApi;
         public SearchApi Search
         {
@@ -85,7 +90,7 @@ namespace IronGitHub
             if (note != null)
                 authRequest.Note = note;
 
-            return await Authorize(credential, authRequest);
+            return await Authorize(credential, authRequest).ConfigureAwait(false);
         }
 
         async private Task<Authorization> Authorize(NetworkCredential credential, Authorization.AuthorizeRequest authRequest)

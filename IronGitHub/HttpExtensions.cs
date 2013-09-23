@@ -3,7 +3,7 @@ using System.IO;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
-using IronGitHub.Exceptions;
+
 using ServiceStack.Text;
 
 namespace IronGitHub

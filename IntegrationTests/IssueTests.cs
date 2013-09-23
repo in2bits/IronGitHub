@@ -12,6 +12,12 @@ namespace IntegrationTests
     [TestFixture]
     public class IssueTests : WithGitHubApi
     {
+        [TestFixtureSetUp]
+        public void Setup()
+        {
+            this.CreateGitHubApi();
+        }
+
         [Test]
         async public Task GetIssueWithAssignedUserAndMilestone()
         {

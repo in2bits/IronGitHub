@@ -94,7 +94,7 @@ AppPackages/
 
 # Others
 [Bb]in
-[Oo]bj
+[Oo]bjgit 
 sql
 TestResults
 [Tt]est[Rr]esult*
@@ -112,3 +112,4 @@ Backup*/
 UpgradeLog*.XML
 
 artifacts
+testaccount.json

@@ -33,9 +33,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ServiceStack.Text, Version=3.9.58.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="ServiceStack.Text, Version=3.9.59.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\ServiceStack.Text.3.9.58\lib\net35\ServiceStack.Text.dll</HintPath>
+      <HintPath>..\packages\ServiceStack.Text.3.9.62\lib\net35\ServiceStack.Text.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -51,22 +51,30 @@
     <Compile Include="Apis\GistsApi.cs" />
     <Compile Include="Apis\IssuesApi.cs" />
     <Compile Include="Apis\OrganizationsApi.cs" />
+    <Compile Include="Apis\HookApi.cs" />
     <Compile Include="Application.cs" />
     <Compile Include="Entities\App.cs" />
     <Compile Include="Entities\Authorization.cs" />
     <Compile Include="Configuration.cs" />
     <Compile Include="Entities\ChangeStatus.cs" />
+    <Compile Include="Entities\Comment.cs" />
+    <Compile Include="Entities\Commit.cs" />
+    <Compile Include="Entities\Download.cs" />
     <Compile Include="Entities\Entity.cs" />
+    <Compile Include="Entities\Event.cs" />
     <Compile Include="Entities\Fork.cs" />
     <Compile Include="Entities\Gist.cs" />
     <Compile Include="Entities\GistFile.cs" />
+    <Compile Include="Entities\Hook.cs" />
     <Compile Include="Entities\Issue.cs" />
     <Compile Include="Entities\Label.cs" />
     <Compile Include="Entities\Milestone.cs" />
+    <Compile Include="Entities\Page.cs" />
     <Compile Include="Entities\Permissions.cs" />
     <Compile Include="Entities\PullRequest.cs" />
     <Compile Include="Entities\RepositorySorts.cs" />
     <Compile Include="Entities\RepositoryTypes.cs" />
+    <Compile Include="Entities\Team.cs" />
     <Compile Include="Entities\UserSorts.cs" />
     <Compile Include="Exceptions\RateLimitExceededException.cs" />
     <Compile Include="Entities\Repository.cs" />
@@ -99,9 +107,6 @@
     <Compile Include="SortOrders.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="IronGitHub.nuspec">
-      <SubType>Designer</SubType>
-    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
