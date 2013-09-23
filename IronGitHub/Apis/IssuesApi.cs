@@ -76,7 +76,7 @@ namespace IronGitHub.Apis
         /// <param name="owner">Owner of the repository of the issues</param>
         /// <param name="repo">Repository of the issues</param>
         /// <returns>List of IssueItems</returns>
-        async public Task<IEnumerable<Issue.IssueItem>> Get(string owner, string repo)
+        async public Task<IEnumerable<Issue.IssueItem>> GetForRepository(string owner, string repo)
         {
             var request = CreateRequest(string.Format("/repos/{0}/{1}/issues", owner, repo));
 

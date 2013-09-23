@@ -102,7 +102,7 @@ namespace IntegrationTests
         [Test]
         async public Task GetIssuesForRepo()
         {
-            var issues = await Api.Issues.Get("apitestaccount", "apitest");
+            var issues = await Api.Issues.GetForRepository("apitestaccount", "apitest");
 
             issues.Count().Should().BeGreaterOrEqualTo(1);
         }
