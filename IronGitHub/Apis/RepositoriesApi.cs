@@ -46,5 +46,26 @@ namespace IronGitHub.Apis
 
             return response.Result;
         }
+
+        /// <summary>
+        /// List Repositories of the Authenticated user
+        /// </summary>
+        /// <param name="since">The integer ID of the last Repository that 
+        /// you’ve seen.</param>
+        /// <param name="sort">The sort</param>
+        /// <param name="sortDirection">Direction to sort</param>
+        /// <returns>This provides a dump of the current users repository</returns>
+        async public Task<IEnumerable<Repository>> ListMine(uint since = 0, string sort = "updated", string sortDirection = null)
+        {
+            var path = "/user/repos?sort=" + sort;
+            if (since != 0)
+                path += "&since=" + since;
+            if (sortDirection != null)
+                path += "&direction=" + sortDirection;
+
+            var request = CreateRequest(path);
+            var response = await Complete<IEnumerable<Repository>>(request);
+            return response.Result;
+        }
     }
 }
