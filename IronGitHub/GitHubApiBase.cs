@@ -55,7 +55,7 @@ namespace IronGitHub
                 }
             }
             var uri = new Uri(uriString);
-            var request = WebRequest.CreateHttp(uri);
+            var request = (HttpWebRequest)WebRequest.Create(uri);
             var auth = Context.Authorization;
             if (auth != Authorization.Anonymous)
             {

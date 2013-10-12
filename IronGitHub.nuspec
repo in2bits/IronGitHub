@@ -4,7 +4,7 @@
     nuget push project.nupkg -->
 <package >
   <metadata>
-    <id>$id$</id>
+    <id>IronGitHub</id>
     <version>$version$</version>
     <title>IronGitHub</title>
     <authors>in2bits (Tim Erickson)</authors>
@@ -12,9 +12,24 @@
     <licenseUrl>https://github.com/in2bits/IronGitHub/blob/master/License.txt</licenseUrl>
     <projectUrl>https://github.com/in2bits/IronGitHub</projectUrl>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
-    <description>$description$</description>
+    <description>C# client for GitHub Api v3</description>
     <releaseNotes>Supports auth, Gist create/read/delete, Repository read, User read, Organization read, Search Users, Search Repositories.</releaseNotes>
     <copyright>Copyright 2013 in2bits (Tim Erickson)</copyright>
     <tags>github api v3 gist</tags>
+    <dependencies>
+      <group targetFramework="net45">
+        <dependency id="ServiceStack.Text" version="3.9.62" />
+      </group>
+      <group targetFramework="net40">
+        <dependency id="Microsoft.Bcl.Async" version="1.0.16"/>
+        <dependency id="ServiceStack.Text" version="3.9.62" />
+      </group>
+    </dependencies>
   </metadata>
+  <files>
+    <file src="net40\IronGitHub.dll" target="lib\net40\" />
+    <file src="net40\IronGitHub.pdb" target="lib\net40\" />
+    <file src="net45\IronGitHub.dll" target="lib\net45\" />
+    <file src="net45\IronGitHub.pdb" target="lib\net45\" />
+  </files>
 </package>

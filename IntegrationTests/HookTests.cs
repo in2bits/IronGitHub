@@ -51,7 +51,7 @@ namespace IntegrationTests
                 .ContinueWith(
                     t =>
                     {
-                        Task.Delay(10000);
+                        TaskEx.Delay(10000);
                         _tempHook =
                             Api.Hooks.Create(
                                 _testUsername,

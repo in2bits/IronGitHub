@@ -22,10 +22,11 @@ namespace IronGitHub
         {
             Domain = defaultDomain;
             var version = "0.1";
-            var versionAttribute = Assembly.GetExecutingAssembly().CustomAttributes
-                .First(x => x.AttributeType == typeof(AssemblyFileVersionAttribute));
+            var versionAttribute = Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyFileVersionAttribute), true)
+                .OfType<AssemblyFileVersionAttribute>()
+                .First();
             if (versionAttribute != null)
-                version = versionAttribute.ConstructorArguments[0].Value as string;
+                version = versionAttribute.Version.ToString();
             UserAgent = "IronGitHub API v" + version;
         }
         public string Domain { get; set; }
