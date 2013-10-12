@@ -26,6 +26,26 @@ namespace IronGitHub.Apis
         }
 
         /// <summary>
+        /// Create a new issue
+        /// </summary>
+        /// <param name="repoFullName">Repository full name, i.e org/repoName</param>
+        /// <param name="issueTitle">Title</param>
+        /// <param name="issueBody">Body of the issue</param>
+        /// <returns></returns>
+        async public Task<Issue> New(string repoFullName, string issueTitle, string issueBody)
+        {
+            var request = CreateRequest(string.Format("/repos/{0}/issues", repoFullName));
+
+            var response = await PostAsJson<NewIssue, Issue>(request, new NewIssue
+            {
+                Title = issueTitle,
+                Body = issueBody
+            });
+
+            return response.Result;
+        }
+
+        /// <summary>
         /// List all issues across owned and member repositories for the 
         /// authenticated user.
         /// </summary>

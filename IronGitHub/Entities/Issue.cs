@@ -100,6 +100,16 @@ namespace IronGitHub.Entities
     }
 
     [DataContract]
+    public class NewIssue
+    {
+        [DataMember(Name = "title")]
+        public string Title { get; set; }
+
+        [DataMember(Name = "body")]
+        public string Body { get; set; }
+    }
+
+    [DataContract]
     public enum IssueAction
     {
         [EnumMember(Value = "opened")]
