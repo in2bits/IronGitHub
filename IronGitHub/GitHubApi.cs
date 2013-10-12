@@ -93,6 +93,28 @@ namespace IronGitHub
             return await Authorize(credential, authRequest).ConfigureAwait(false);
         }
 
+        /// <summary>
+        /// If you have previously authenticated, you can use the existing id and token
+        /// </summary>
+        /// <param name="authorizationId"></param>
+        /// <param name="token"></param>
+        /// <returns></returns>
+        public Authorization Authorize(string authorizationId, string token)
+        {
+            var authorization = new Authorization
+            {
+                Id = authorizationId,
+                Token = token
+            };
+            Context.Authorize(authorization);
+            return authorization;
+        }
+
+        public bool IsAuthenticated()
+        {
+            return Context.Authorization != Authorization.Anonymous;
+        }
+
         async private Task<Authorization> Authorize(NetworkCredential credential, Authorization.AuthorizeRequest authRequest)
         {
             var request = CreateRequest("/authorizations");
