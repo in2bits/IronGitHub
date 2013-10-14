@@ -78,7 +78,7 @@ namespace IntegrationTests
             gist.Files["file.txt"].Content.Should().Be("It has text too!");
             gist.Files["file.txt"].Size.Should().Be(16);
             gist.Files["file.txt"].RawUrl.Should()
-                .Be("https://gist.github.com/raw/6287413/d598c68a9b50654d1242f0e0881728f64d97d85c/file.txt");
+                .Be("https://gist.github.com/johnduhart/6287413/raw/d598c68a9b50654d1242f0e0881728f64d97d85c/file.txt");
             gist.Files["code.rb"].Filename.Should().Be("code.rb");
             gist.Files["code.rb"].Type.Should().Be("application/ruby");
             gist.Files["code.rb"].Language.Should().Be("Ruby");
