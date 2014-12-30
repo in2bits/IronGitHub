@@ -56,7 +56,6 @@
     <Compile Include="HookTests.cs" />
     <Compile Include="IntegrationTestParameters.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SearchTests.cs" />
     <Compile Include="WithGitHubApi.cs" />
   </ItemGroup>
   <ItemGroup>

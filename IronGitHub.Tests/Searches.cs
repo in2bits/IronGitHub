@@ -1,32 +1,32 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using IronGitHub.Tests.Helpers;
 using FluentAssertions;
-using IronGitHub;
-using NUnit.Framework;
 
-namespace IntegrationTests
+
+namespace IronGitHub.Tests
 {
-    [TestFixture]
-    public class SearchTests : WithGitHubApi
+    [TestClass]
+    public class Searches : AuthenticationBoilerPlate
     {
-        [TestFixtureSetUp]
-        public void Setup()
+        [TestMethod]
+        public void Should_Setup_GitHub_Api()
         {
             this.CreateGitHubApi();
+            this.Api.Should().NotBeNull();
         }
 
-        [Test]
-        async public Task SearchUsers()
+        [TestMethod]
+        public void Should_Search_Users()
         {
-            var userList = await Api.Search.Users("apitestaccount");
+            Should_Setup_GitHub_Api();
+
+            var userList = Api.Search.Users("apitestaccount").GetAwaiter().GetResult();
             var user = userList.Users.FirstOrDefault(x => x.Username == "apitestaccount");
 
             user.Should().NotBeNull();
             user.Id.Should().Be("user-5274545");
-            user.GravatarId.Should().Be("9894bc04988dffccbc00e20037eda4ba");
             user.Username.Should().Be("apitestaccount");
             user.Login.Should().Be("apitestaccount");
             user.Name.Should().Be("Test Account");
@@ -42,10 +42,12 @@ namespace IntegrationTests
             user.Created.ToUniversalTime().Should().Be(new DateTime(2013, 08, 21, 01, 37, 40, DateTimeKind.Utc));
         }
 
-        [Test]
-        async public Task SearchRepositories()
+        [TestMethod]
+        public void Should_Search_Repositories()
         {
-            var repoList = await Api.Search.Repositories("IronGithub"); // apitest is too generic
+            Should_Setup_GitHub_Api();
+          
+            var repoList = Api.Search.Repositories("IronGithub").GetAwaiter().GetResult();
             var repo = repoList.Repositories.FirstOrDefault(x => x.Url == "https://github.com/in2bits/IronGitHub");
 
             repo.Should().NotBeNull();
@@ -74,23 +76,23 @@ namespace IntegrationTests
             repo.PushedAt.ToUniversalTime().Should().BeAfter(repo.Created);
         }
 
-        [Test]
-        async public Task SearchIssues()
+        [TestMethod]
+        public void Should_Search_Issues()
         {
-            const string issueName = "Open issue";
+            Should_Setup_GitHub_Api();
 
-            var issueList = await Api.Search.Issues("apitestaccount", "apitest", IssueStates.Open, issueName);
+            var issueName = "Open issue";
+            var issueList = Api.Search.Issues("apitestaccount", "apitest", IssueStates.Open, issueName).GetAwaiter().GetResult();
             var issue = issueList.Issues.FirstOrDefault(x => x.Title == issueName);
 
             issue.Should().NotBeNull();
-            issue.Labels.Should().Contain(new[] {"label1", "label2"});
+            issue.Labels.Should().Contain(new[] { "label1", "label2" });
             issue.Votes.Should().BeGreaterOrEqualTo(0);
             issue.Number.Should().Be(1);
             issue.Position.Should().BeGreaterThan(0);
             issue.Title.Should().Be("Open issue");
             issue.Body.Should().Be("This is an open issue assigned to me with a milesone");
             issue.User.Should().Be("apitestaccount");
-            issue.GravatarId.Should().Be("9894bc04988dffccbc00e20037eda4ba");
             issue.State.Should().Be(IssueStates.Open);
             issue.Comments.Should().BeGreaterThan(0);
             issue.HtmlUrl.Should().Be("https://github.com/apitestaccount/apitest/issues/1");
@@ -98,12 +100,14 @@ namespace IntegrationTests
             issue.UpdatedAt.ToUniversalTime().Should().BeAfter(issue.CreatedAt);
         }
 
-        [Test]
-        async public Task SearchEmail()
+        [TestMethod]
+        public void Should_Search_By_Email()
         {
+            Should_Setup_GitHub_Api();
+
             var email = "apitestaccount@example.com";
 
-            var results = await Api.Search.Email(email);
+            var results = Api.Search.Email(email).GetAwaiter().GetResult();
             var user = results.Users.FirstOrDefault();
 
             user.Should().NotBeNull();
@@ -121,7 +125,7 @@ namespace IntegrationTests
             user.Id.Should().Be(5274545);
             user.Login.Should().Be("apitestaccount");
             user.Type.Should().Be("User");
-            user.GravatarId.Should().Be("9894bc04988dffccbc00e20037eda4ba");
         }
+
     }
 }

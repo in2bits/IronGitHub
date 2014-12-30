@@ -75,20 +75,48 @@ namespace IronGitHub.Entities
             public IEnumerable<IssueResult> Issues { get; set; }
 
             [DataContract]
-            public class IssueResult : IssueBase
+            public class IssueResult
             {
-                [DataMember(Name = "gravatar_id")]
-                public string GravatarId { get; set; }
-
                 [DataMember(Name = "labels")]
                 public IEnumerable<string> Labels { get; set; }
 
-                [DataMember(Name = "position")]
-                public double Position { get; set; }
-
                 [DataMember(Name = "votes")]
                 public int Votes { get; set; }
+
+                [DataMember(Name = "number")]
+                public int Number { get; set; }
+
+                [DataMember(Name = "position")]
+                public float Position { get; set; }
+
+                [DataMember(Name = "title")]
+                public string Title { get; set; }
+
+                [DataMember(Name = "body")]
+                public string Body { get; set; }
+
+                [DataMember(Name = "user")]
+                public string User { get; set; }
+
+                [DataMember(Name = "gravatar_id")]
+                public string GravatarId { get; set; }
+
+                [DataMember(Name = "state")]
+                public IssueStates State { get; set; }
+
+                [DataMember(Name = "comments")]
+                public int Comments { get; set; }
+
+                [DataMember(Name = "html_url")]
+                public string HtmlUrl { get; set; }
+
+                [DataMember(Name = "updated_at")]
+                public DateTime UpdatedAt { get; set; }
+
+                [DataMember(Name = "created_at")]
+                public DateTime CreatedAt { get; set; }
             }
+
         }
 
         [DataContract]
