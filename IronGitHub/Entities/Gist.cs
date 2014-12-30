@@ -127,9 +127,12 @@ namespace IronGitHub.Entities
         public static string ParseIdFromUrl(string url)
         {
             var match = GistUrlRegex.Match(url);
+
             if (match.Groups.Count < 2)
-                return string.Empty;
+                return null;
+
             var group = match.Groups[1];
+
             return group.Captures[0].Value;
         }
     }

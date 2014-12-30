@@ -100,6 +100,44 @@ namespace IntegrationTests
         }
 
         [Test]
+        async public Task GetGistWithAlphaCharacters()
+        {
+            const string gistId = "1369b1c8534772dade3595079eaff05e18655bae";
+
+            var gist = await Api.Gists.Get(gistId);
+
+            gist.Id.Should().Be(gistId);
+            gist.Description.Should().Be("Testing Alphanumeric Gist ID");
+            gist.Public.Should().BeTrue();
+            gist.Comments.Should().BeGreaterOrEqualTo(1);
+
+            // URLs
+            gist.CommentsUrl.Should().Be("https://api.github.com/gists/72ad0b833911ee7fdafe/comments");
+            gist.CommitsUrl.Should().Be("https://api.github.com/gists/72ad0b833911ee7fdafe/commits");
+            gist.ForksUrl.Should().Be("https://api.github.com/gists/72ad0b833911ee7fdafe/forks");
+            gist.GitPushUrl.Should().Be("https://gist.github.com/72ad0b833911ee7fdafe.git");
+            gist.GitPullUrl.Should().Be("https://gist.github.com/72ad0b833911ee7fdafe.git");
+            gist.HtmlUrl.Should().Be("https://gist.github.com/72ad0b833911ee7fdafe");
+
+            // Files
+            gist.Files.Should().HaveCount(1);
+            gist.Files.Should().ContainKeys("Charge.js");
+            gist.Files["Charge.js"].RawUrl.Should()
+                .Be("https://gist.githubusercontent.com/erik5388/72ad0b833911ee7fdafe/raw/49e7cf6ab9a7b375eb9843ff6607cc4df3ab7135/Charge.js");
+
+            // User
+            gist.User.Should().NotBeNull();
+            gist.User.Login.Should().Be("erik5388");
+
+            // Revisions
+            gist.History.Should().HaveCount(2);
+            var firstRevision = gist.History.Last();
+            firstRevision.Version.Should().Be("57a4103e0d38945654fa252352e934f7e0eb7690");
+            firstRevision.Url.Should()
+                .Be("https://api.github.com/gists/72ad0b833911ee7fdafe/57a4103e0d38945654fa252352e934f7e0eb7690");
+        }
+
+        [Test]
         [Category("Authenticated")]
         async public Task PatchGist()
         {

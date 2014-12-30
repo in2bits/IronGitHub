@@ -21,4 +21,23 @@ namespace UnitTests
             Gist.ParseIdFromUrl(url).Should().Be("5731704");
         }
     }
+
+    [TestFixture]
+    public class GistAlphaNumericUrlParseTests
+    {
+        [Datapoints]
+        public string[] GistUrls = new[]
+        {
+            "https://api.github.com/gists/72ad0b833911ee7fdafe",
+            "https://gist.github.com/erik5388/72ad0b833911ee7fdafe",
+            "https://gist.githubusercontent.com/erik5388/72ad0b833911ee7fdafe/raw/49e7cf6ab9a7b375eb9843ff6607cc4df3ab7135/Charge.js"
+        };
+        
+        [Theory]
+        public void ParseUrl(string url)
+        {
+            Gist.ParseIdFromUrl(url).Should().Be("72ad0b833911ee7fdafe");
+        }
+    }
+
 }
