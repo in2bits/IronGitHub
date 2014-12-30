@@ -65,6 +65,7 @@
     <Compile Include="Helpers\TestConfiguration.cs" />
     <Compile Include="Issues.cs" />
     <Compile Include="Organizations.cs" />
+    <Compile Include="Users.cs" />
     <Compile Include="Utilities.cs" />
     <Compile Include="Api.cs" />
     <Compile Include="Gists.cs" />
