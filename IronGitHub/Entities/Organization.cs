@@ -36,5 +36,8 @@ namespace IronGitHub.Entities
         [DataMember(Name = "created_at")]
         public DateTime CreatedAt { get; set; }
 
+        [DataMember(Name = "updated_at")]
+        public DateTime UpdatedAt { get; set; }
+
     }
 }

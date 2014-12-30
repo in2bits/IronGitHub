@@ -1,26 +1,27 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using IronGitHub.Tests.Helpers;
 using FluentAssertions;
-using NUnit.Framework;
 
-namespace IntegrationTests
+namespace IronGitHub.Tests
 {
-    [TestFixture]
-    public class OrganizationTests : WithGitHubApi
+    [TestClass]
+    public class Organizations : AuthenticationBoilerPlate
     {
-        [TestFixtureSetUp]
-        public void Setup()
+        [TestMethod]
+        public void Should_Setup_GitHub_Api()
         {
             this.CreateGitHubApi();
+            this.Api.Should().NotBeNull();
         }
 
-        [Test]
-        async public Task GetOrganization()
+        [TestMethod]
+        public void Should_Get_Organization()
         {
-            var organization = await Api.Organizations.GetOrganization("apitestorganization");
+            Should_Setup_GitHub_Api();
+
+            var organization = Api.Organizations.GetOrganization("apitestorganization").GetAwaiter().GetResult();
 
             organization.Name.Should().Be("Api Test Org");
             organization.Login.Should().Be("apitestorganization");
@@ -35,7 +36,8 @@ namespace IntegrationTests
             organization.FollowingCount.Should().Be(0);
             organization.FollowersCount.Should().BeGreaterOrEqualTo(0);
             organization.CreatedAt.ToUniversalTime().Should().Be(new DateTime(2013, 9, 1, 18, 43, 0, DateTimeKind.Utc));
-            // No updated_at?
+            organization.UpdatedAt.ToUniversalTime().Should().Be(new DateTime(2013, 9, 1, 18, 50, 48, DateTimeKind.Utc));
         }
+
     }
 }

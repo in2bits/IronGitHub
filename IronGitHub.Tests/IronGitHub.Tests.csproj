@@ -64,6 +64,7 @@
     <Compile Include="Helpers\AuthenticationBoilerPlate.cs" />
     <Compile Include="Helpers\TestConfiguration.cs" />
     <Compile Include="Issues.cs" />
+    <Compile Include="Organizations.cs" />
     <Compile Include="Utilities.cs" />
     <Compile Include="Api.cs" />
     <Compile Include="Gists.cs" />
