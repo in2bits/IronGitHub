@@ -102,7 +102,7 @@ namespace IntegrationTests
         [Test]
         async public Task GetGistWithAlphaCharacters()
         {
-            const string gistId = "1369b1c8534772dade3595079eaff05e18655bae";
+            const string gistId = "72ad0b833911ee7fdafe";
 
             var gist = await Api.Gists.Get(gistId);
 
