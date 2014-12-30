@@ -32,7 +32,7 @@ namespace IronGitHub.Entities
         public DateTime UpdatedAt { get; set; }
 
         [DataMember(Name = "user")]
-        public string User { get; set; }
+        public Owner User { get; set; }
     }
 
     [DataContract]

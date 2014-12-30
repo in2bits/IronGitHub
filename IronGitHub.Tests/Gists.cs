@@ -150,7 +150,7 @@ namespace IronGitHub.Tests
         }
 
         [TestMethod]
-        public void Should_Path_Gist()
+        public void Should_Create_And_Update_Gist()
         {
             Should_Setup_GitHub_Api();
 
@@ -175,6 +175,9 @@ namespace IronGitHub.Tests
             patchedGist.Files["theWrongAnswer"].Should().NotBeNull();
             patchedGist.Files["theWrongAnswer"].Content.Should().Be("43");
             patchedGist.Id.Should().Be(gist.Id);
+
+            // Remove when done.
+            Api.Gists.Delete(patchedGist).GetAwaiter().GetResult();
 
         }
     }
