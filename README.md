@@ -5,6 +5,8 @@ A robust .Net client for Github's Api (v3)
 
 Install
 ==========
+![alt text](https://images.pmoney.com/bb274e67 "via Nuget")
+
 [via NuGet](https://nuget.org/packages/IronGitHub/)
 
 License
