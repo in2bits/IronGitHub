@@ -4,7 +4,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using IronGitHub.Tests.Helpers;
 using FluentAssertions;
 
-
 namespace IronGitHub.Tests
 {
     [TestClass]
