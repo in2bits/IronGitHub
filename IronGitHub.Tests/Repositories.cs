@@ -1,26 +1,27 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using IronGitHub.Tests.Helpers;
 using FluentAssertions;
-using NUnit.Framework;
 
-namespace IntegrationTests
+namespace IronGitHub.Tests
 {
-    [TestFixture]
-    public class RepositoryTests : WithGitHubApi
+    [TestClass]
+    public class Repositories : AuthenticationBoilerPlate
     {
-        [TestFixtureSetUp]
-        public void Setup()
+        [TestMethod]
+        public void Should_Setup_GitHub_Api()
         {
             this.CreateGitHubApi();
+            this.Api.Should().NotBeNull();
         }
 
-        [Test]
-        async public Task GetRepository()
+        [TestMethod]
+        public void Should_Get_Repository()
         {
-            var repo = await Api.Repositories.Get("apitestaccount", "apitest");
+            Should_Setup_GitHub_Api();
+
+            var repo = Api.Repositories.Get("apitestaccount", "apitest").GetAwaiter().GetResult();
 
             repo.Name.Should().Be("apitest");
             repo.FullName.Should().Be("apitestaccount/apitest");
@@ -50,23 +51,9 @@ namespace IntegrationTests
             repo.HasIssues.Should().BeTrue();
             repo.HasDownloads.Should().BeTrue();
             repo.HasWiki.Should().BeTrue();
-        }
 
-        [Test]
-        async public Task ListRepositores()
-        {
-            var repos = await Api.Repositories.List();
+            repo.Owner.Should().NotBeNull();
 
-            repos.Should().NotBeEmpty();
-        }
-
-        [Test]
-        async public Task ListRepositoresSince()
-        {
-            var repos = await Api.Repositories.List(300);
-
-            repos.Should().NotBeEmpty();
-            repos.First().Id.Should().BeGreaterOrEqualTo(300);
         }
     }
 }

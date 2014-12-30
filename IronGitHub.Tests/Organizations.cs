@@ -25,7 +25,7 @@ namespace IronGitHub.Tests
 
             organization.Name.Should().Be("Api Test Org");
             organization.Login.Should().Be("apitestorganization");
-            organization.Id.Should().Be(5359692.ToString());
+            organization.Id.Should().Be("5359692");
             organization.Type.Should().Be("Organization");
             organization.Blog.Should().Be("http://example.com");
             organization.Location.Should().Be("The Moon");

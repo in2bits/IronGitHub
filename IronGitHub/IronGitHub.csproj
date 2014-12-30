@@ -60,7 +60,6 @@
     <Compile Include="Entities\Comment.cs" />
     <Compile Include="Entities\Commit.cs" />
     <Compile Include="Entities\Download.cs" />
-    <Compile Include="Entities\Entity.cs" />
     <Compile Include="Entities\Event.cs" />
     <Compile Include="Entities\Fork.cs" />
     <Compile Include="Entities\Gist.cs" />

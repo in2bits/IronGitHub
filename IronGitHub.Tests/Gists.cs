@@ -94,7 +94,7 @@ namespace IronGitHub.Tests
             gist.Owner.Should().NotBeNull();
             gist.Owner.Type.Should().Be("User");
             gist.Owner.Login.Should().Be("johnduhart");
-            gist.Owner.Id.Should().Be(113642);
+            gist.Owner.Id.Should().Be("113642");
 
             // Revisions
             gist.History.Should().HaveCount(2);
@@ -140,7 +140,7 @@ namespace IronGitHub.Tests
             gist.Owner.Should().NotBeNull();
             gist.Owner.Type.Should().Be("User");
             gist.Owner.Login.Should().Be("erik5388");
-            gist.Owner.Id.Should().Be(183147);
+            gist.Owner.Id.Should().Be("183147");
 
             // Revisions
             gist.History.Should().HaveCount(2);

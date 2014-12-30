@@ -12,7 +12,7 @@ namespace IronGitHub.Entities
         public string Login { get; set; }
 
         [DataMember(Name = "id")]
-        public int Id { get; set; }
+        public string Id { get; set; }
 
         [DataMember(Name = "avatar_url")]
         public string AvatarUrl { get; set; }

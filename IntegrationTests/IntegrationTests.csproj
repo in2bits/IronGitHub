@@ -58,7 +58,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RepositoryTests.cs" />
     <Compile Include="SearchTests.cs" />
-    <Compile Include="UserTests.cs" />
     <Compile Include="WithGitHubApi.cs" />
   </ItemGroup>
   <ItemGroup>

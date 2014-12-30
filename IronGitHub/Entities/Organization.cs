@@ -4,7 +4,7 @@ using System.Runtime.Serialization;
 namespace IronGitHub.Entities
 {
     [DataContract]
-    public class Organization : Entity
+    public class Organization : Owner
     {
         [DataMember(Name = "name")]
         public string Name { get; set; }

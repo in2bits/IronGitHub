@@ -10,8 +10,10 @@ namespace IronGitHub.Tests.Helpers
     public static class TestConfiguration
     {
         public static string GitHubUsername = "...";
+
         public static string GitHubPassword = "...";
-        public static string TestRequestIdentifierDescription = string.Format("IronGithub Integration Test - {0}", DateTime.Now.ToShortTimeString());
+
+        public static string TestRequestIdentifierDescription { get { return string.Format("IronGithub Integration Test - {0}", Guid.NewGuid().ToString("D")); } }
     }
 
     public static class UserConfiguration

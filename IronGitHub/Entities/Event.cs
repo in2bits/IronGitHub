@@ -95,7 +95,7 @@ namespace IronGitHub.Entities
         public FollowEvent() : base(SupportedEvents.Follow) { }
 
         [DataMember(Name = "user")]
-        public Entity User { get; set; }
+        public Owner User { get; set; }
     }
 
     [DataContract]
@@ -206,7 +206,7 @@ namespace IronGitHub.Entities
         public MemberEvent() : base(SupportedEvents.Member) { }
 
         [DataMember(Name = "Member")]
-        public Entity Member { get; set; }
+        public Owner Member { get; set; }
 
         /// <summary>
         /// The action that was performed: “added”.
@@ -295,7 +295,7 @@ namespace IronGitHub.Entities
         /// The user that was added to this team.
         /// </summary>
         [DataMember(Name = "user")]
-        public Entity User { get; set; }
+        public Owner User { get; set; }
 
         /// <summary>
         /// The repository that was added to this team.

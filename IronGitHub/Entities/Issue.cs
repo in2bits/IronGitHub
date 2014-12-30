@@ -39,7 +39,7 @@ namespace IronGitHub.Entities
     public class Issue : IssueBase
     {
         [DataMember(Name = "assignee")]
-        public Entity Assignee { get; set; }
+        public Owner Assignee { get; set; }
 
         [DataMember(Name = "closed_at")]
         public DateTime? ClosedAt { get; set; }
