@@ -55,5 +55,24 @@ namespace IronGitHub.Tests
             repo.Owner.Should().NotBeNull();
 
         }
+
+        [TestMethod]
+        public void Should_Get_All_Repositories()
+        {
+            Should_Setup_GitHub_Api();
+
+            var repos = Api.Repositories.List().GetAwaiter().GetResult();
+            repos.Should().NotBeEmpty();
+        }
+
+        [TestMethod]
+        public void Should_Get_All_Repositories_With_Since_Query()
+        {
+            Should_Setup_GitHub_Api();
+
+            var repos = Api.Repositories.List("300").GetAwaiter().GetResult();
+            repos.Should().NotBeEmpty();
+            repos.First().Id.Should().BeGreaterOrEqualTo(300);
+        }
     }
 }

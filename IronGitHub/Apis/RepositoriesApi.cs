@@ -34,10 +34,11 @@ namespace IronGitHub.Apis
         /// you’ve seen.</param>
         /// <returns>This provides a dump of every repository, in the order 
         /// that they were created.</returns>
-        async public Task<IEnumerable<Repository>> List(uint since = 0)
+        async public Task<IEnumerable<Repository>> List(string since = "0")
         {
             var path = "/repositories";
-            if (since != 0)
+            
+            if (since != "0")
                 path += "?since=" + since;
             
             var request = CreateRequest(path);
