@@ -59,6 +59,9 @@ namespace IronGitHub.Entities
         [DataMember(Name = "user")]
         public User User { get; set; }
 
+        [DataMember(Name = "owner")]
+        public Owner Owner { get; set; }
+
         [DataContract]
         public class NewGistPost
         {
@@ -122,16 +125,16 @@ namespace IronGitHub.Entities
             }
         }
 
-        private static readonly Regex GistUrlRegex = new Regex(@"http(?:s)?://(?:api|gist)\.github\.com(?:/gists|/raw|/[^/]+)?/([0-9]+)(?:/.*$)?", RegexOptions.IgnoreCase);
+        private static readonly Regex GistUrlRegex = new Regex(@"http(?:s)?://(?:api|gist)\.(github|githubusercontent)\.com(?:/gists|/raw|/[^/]+)?/([a-zA-Z0-9]+)(?:/.*$)?", RegexOptions.IgnoreCase);
 
         public static string ParseIdFromUrl(string url)
         {
             var match = GistUrlRegex.Match(url);
 
-            if (match.Groups.Count < 2)
+            if (match.Groups.Count < 3)
                 return null;
 
-            var group = match.Groups[1];
+            var group = match.Groups[2];
 
             return group.Captures[0].Value;
         }

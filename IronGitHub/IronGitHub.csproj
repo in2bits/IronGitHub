@@ -69,6 +69,7 @@
     <Compile Include="Entities\Issue.cs" />
     <Compile Include="Entities\Label.cs" />
     <Compile Include="Entities\Milestone.cs" />
+    <Compile Include="Entities\Owner.cs" />
     <Compile Include="Entities\Page.cs" />
     <Compile Include="Entities\Permissions.cs" />
     <Compile Include="Entities\PullRequest.cs" />
