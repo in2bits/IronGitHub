@@ -27,7 +27,7 @@ namespace IronGitHub.Tests
 
         private static SupportedEvents[] Events { get; set; }
 
-        private static Uri PostUrl = new Uri("https://www.google.com/");
+        private static Uri PostUrl = new Uri(string.Format("https://api.github.com/repos/{0}/{1}", Username, Repository));
 
         #endregion Test Variables
 
@@ -36,12 +36,38 @@ namespace IronGitHub.Tests
         {
             this.CreateGitHubApi();
             this.Api.Should().NotBeNull();
-            
+
+            Username.Should().NotBeNullOrEmpty();
+            Repository.Should().NotBeNullOrEmpty();
+
             SetupHooks();
 
             Events.Should().NotBeNull();
             WebHook.Should().NotBeNull();
         }
+
+        [TestMethod]
+        public void Should_Get_WebHooks()
+        {
+
+            Should_Setup_GitHub_Api();
+
+            // Get that hook and make sure it's right.
+            var hooksPreDelete = Api.Hooks.Get(Username, Repository)
+                .GetAwaiter()
+                .GetResult();
+            
+            hooksPreDelete.Count().Should().Be(1);
+
+            var hook = hooksPreDelete.FirstOrDefault();
+
+            hook.Config.ShouldBeEquivalentTo(BaseConfiguration);
+            hook.Events.ShouldBeEquivalentTo(Events);
+            hook.Name.Should().Be(HookName.Web);
+            hook.IsActive.Should().BeTrue();
+            hook.Url.Should().Be(string.Format("https://api.github.com/repos/{0}/{1}/hooks/{2}", Username, Repository, hook.Id));
+        }
+
 
         # region Hook helpers
         private void SetupHooks()
