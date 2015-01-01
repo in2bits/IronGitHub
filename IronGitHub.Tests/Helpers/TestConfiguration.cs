@@ -14,6 +14,8 @@ namespace IronGitHub.Tests.Helpers
 
         public static string GitHubPassword = Convert.ToString(ConfigurationManager.AppSettings["Password"]);
 
+        public static string GitHubRepository = Convert.ToString(ConfigurationManager.AppSettings["Repository"]);
+
         public static string TestRequestIdentifierDescription { get { return string.Format("IronGithub Integration Test - {0}", Guid.NewGuid().ToString("D")); } }
     }
 }
