@@ -1,6 +1,8 @@
 IronGitHub
 ==========
 
+[![zettersten MyGet Build Status](https://www.myget.org/BuildSource/Badge/zettersten?identifier=05148b85-d560-44a1-ad70-3bccbdcdd90e)](https://www.myget.org/)
+
 A robust .Net client for Github's Api (v3)
 
 Install
