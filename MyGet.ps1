@@ -8,7 +8,7 @@ msbuild .\IronGitHub.sln
 '@
 
 $msTest = @'
-mstest /testcontainer:'.\IronGitHub.Tests\bin\Debug\IronGitHub.Tests.dll'
+%VsTestConsole% /testcontainer:'.\IronGitHub.Tests\bin\Debug\IronGitHub.Tests.dll'
 '@
 
 (gc .\IronGitHub.Tests\app.config).replace('key="Username" value=""','key="Username" value="' + $username + '"') | sc .\IronGitHub.Tests\app.config
