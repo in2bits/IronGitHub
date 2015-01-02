@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IronGitHub", "IronGitHub\IronGitHub.csproj", "{C5B5317F-6AA9-4918-82B0-6FADDF5A6BF9}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{744C69A7-0D76-4ECC-BC71-C4AA64C3A674}"
@@ -10,9 +12,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{744C69
 		.nuget\NuGet.targets = .nuget\NuGet.targets
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntegrationTests", "IntegrationTests\IntegrationTests.csproj", "{B1D93A15-4069-4BB0-9706-7AB0DD17625F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IronGitHub.Tests", "IronGitHub.Tests\IronGitHub.Tests.csproj", "{FC7F101D-CFB2-43BE-AAC6-1C9E71C0EAD0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTests\UnitTests.csproj", "{591FFECE-2193-4633-9600-17AE215F0F26}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{9E71961C-DA2E-480C-A46F-65F0FCD4C334}"
+	ProjectSection(SolutionItems) = preProject
+		MyGet.ps1 = MyGet.ps1
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -24,14 +29,10 @@ Global
 		{C5B5317F-6AA9-4918-82B0-6FADDF5A6BF9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C5B5317F-6AA9-4918-82B0-6FADDF5A6BF9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C5B5317F-6AA9-4918-82B0-6FADDF5A6BF9}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B1D93A15-4069-4BB0-9706-7AB0DD17625F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B1D93A15-4069-4BB0-9706-7AB0DD17625F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B1D93A15-4069-4BB0-9706-7AB0DD17625F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B1D93A15-4069-4BB0-9706-7AB0DD17625F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{591FFECE-2193-4633-9600-17AE215F0F26}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{591FFECE-2193-4633-9600-17AE215F0F26}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{591FFECE-2193-4633-9600-17AE215F0F26}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{591FFECE-2193-4633-9600-17AE215F0F26}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FC7F101D-CFB2-43BE-AAC6-1C9E71C0EAD0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FC7F101D-CFB2-43BE-AAC6-1C9E71C0EAD0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FC7F101D-CFB2-43BE-AAC6-1C9E71C0EAD0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FC7F101D-CFB2-43BE-AAC6-1C9E71C0EAD0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

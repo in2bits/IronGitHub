@@ -149,9 +149,6 @@ namespace IronGitHub.Entities
         [DataMember(Name = "languages_url")]
         public string LanguagesUrl { get; set; }
 
-        [DataMember(Name = "master_branch")]
-        public string MasterBranch { get; set; }
-
         [DataMember(Name = "merges_url")]
         public string MergesUrl { get; set; }
 
@@ -171,10 +168,10 @@ namespace IronGitHub.Entities
         public int OpenIssuesCount { get; set; }
 
         [DataMember(Name = "organization")]
-        public Entity Organization { get; set; }
+        public Organization Organization { get; set; }
 
         [DataMember(Name = "owner")]
-        public Entity Owner { get; set; }
+        public Owner Owner { get; set; }
 
         [DataMember(Name = "permissions")]
         public Permissions Permissions { get; set; }

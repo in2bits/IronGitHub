@@ -4,7 +4,7 @@ using System.Runtime.Serialization;
 namespace IronGitHub.Entities
 {
     [DataContract]
-    public class Organization : Entity
+    public class Organization : Owner
     {
         [DataMember(Name = "name")]
         public string Name { get; set; }
@@ -35,6 +35,9 @@ namespace IronGitHub.Entities
 
         [DataMember(Name = "created_at")]
         public DateTime CreatedAt { get; set; }
+
+        [DataMember(Name = "updated_at")]
+        public DateTime UpdatedAt { get; set; }
 
     }
 }

@@ -1,40 +1,31 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using FluentAssertions;
-using IronGitHub;
-using NUnit.Framework;
 
-namespace UnitTests
+namespace IronGitHub.Tests
 {
-    [TestFixture]
-    class GitHubApiTests
+    [TestClass]
+    public class Api
     {
-        [Test]
-        public void GitHubApiCreate()
+        [TestMethod]
+        public void Should_Construct_GitHub_Api()
         {
             var api = GitHubApi.Create();
-
             api.Should().BeOfType<GitHubApi>();
         }
 
-        [Test]
-        public void DefaultContext()
+        [TestMethod]
+        public void Should_Construct_GitHub_Api_With_Context()
         {
             var api = new GitHubApi();
-
             api.Context.Should().BeOfType<GitHubApiContext>();
         }
 
-        [Test]
-        public void CustomContext()
+        [TestMethod]
+        public void Should_Construct_GitHub_Api_With_Custom_Context()
         {
             var context = new GitHubApiContext();
-
             var api = new GitHubApi(context);
-
             api.Context.Should().BeSameAs(context);
         }
     }

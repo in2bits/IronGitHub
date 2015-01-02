@@ -30,7 +30,7 @@ namespace IronGitHub.Entities
         public string CommitId { get; set; }
 
         [DataMember(Name = "user")]
-        public Entity User { get; set; }
+        public Owner User { get; set; }
 
         [DataMember(Name = "created_at")]
         public string CreatedAt { get; set; }

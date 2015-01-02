@@ -33,9 +33,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ServiceStack.Text, Version=3.9.59.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="ServiceStack.Text, Version=4.0.35.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\ServiceStack.Text.3.9.62\lib\net35\ServiceStack.Text.dll</HintPath>
+      <HintPath>..\packages\ServiceStack.Text.4.0.35\lib\net40\ServiceStack.Text.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -60,7 +60,6 @@
     <Compile Include="Entities\Comment.cs" />
     <Compile Include="Entities\Commit.cs" />
     <Compile Include="Entities\Download.cs" />
-    <Compile Include="Entities\Entity.cs" />
     <Compile Include="Entities\Event.cs" />
     <Compile Include="Entities\Fork.cs" />
     <Compile Include="Entities\Gist.cs" />
@@ -69,6 +68,7 @@
     <Compile Include="Entities\Issue.cs" />
     <Compile Include="Entities\Label.cs" />
     <Compile Include="Entities\Milestone.cs" />
+    <Compile Include="Entities\Owner.cs" />
     <Compile Include="Entities\Page.cs" />
     <Compile Include="Entities\Permissions.cs" />
     <Compile Include="Entities\PullRequest.cs" />

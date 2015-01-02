@@ -41,7 +41,7 @@ namespace IronGitHub.Apis
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        async public Task<User> Get(int id)
+        async public Task<User> Get(string id)
         {
             var request = CreateRequest("/user/" + id);
             var response = await Complete<User>(request);

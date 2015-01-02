@@ -14,7 +14,8 @@ namespace IronGitHub
         /// The DefaultDomain actually changes for GitHub Enterprise, so this change
         /// allows for GHE support.
         /// </summary>
-        public Configuration() : this(DefaultDomain)
+        public Configuration()
+            : this(DefaultDomain)
         {
         }
 
@@ -28,6 +29,7 @@ namespace IronGitHub
                 version = versionAttribute.ConstructorArguments[0].Value as string;
             UserAgent = "IronGitHub API v" + version;
         }
+
         public string Domain { get; set; }
 
         public string UserAgent { get; set; }

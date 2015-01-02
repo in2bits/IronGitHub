@@ -1,29 +1,30 @@
 IronGitHub
 ==========
 
-<a href="http://ci.johnduhart.me/project.html?projectId=IronGitHub&branch_IronGitHub=__all_branches__&guest=1"><img src="http://ci.johnduhart.me/app/rest/builds/buildType:(id:IronGitHub_IronGithubCi)/statusIcon" /></a>
+[![zettersten MyGet Build Status](https://www.myget.org/BuildSource/Badge/zettersten?identifier=05148b85-d560-44a1-ad70-3bccbdcdd90e)](https://www.myget.org/)
 
-C# client for GitHub Api v3
-
-Why
-==========
-- Needed GitHub Gist integration for [CodeSaber](https://github.com/in2bits/codesaber) (among other things)
-- [csharp-github-api](https://github.com/sgrassie/csharp-github-api) didn't support Gists
-- [GitHubSharp](https://github.com/erikzaadi/GitHubSharp) is [Not compatible with v3 API](https://github.com/erikzaadi/GithubSharp/issues/13)
+A robust .Net client for Github's Api (v3)
 
 Install
 ==========
+![alt text](https://camo.githubusercontent.com/5d46928f4bb96a8815cebe28b70328f9594cb27a/68747470733a2f2f696d616765732e706d6f6e65792e636f6d2f6262323734653637 "via Nuget")
+
 [via NuGet](https://nuget.org/packages/IronGitHub/)
 
-Supports
-==========
-- Auth via token and app Client ID / Client Secret
-- Gist read, create, delete, edit (public and private)
-- Repository read
-- User read
-- Issues read
-- Search Users, Repositories, Issues, Email
+License
+========
+Copyright 2013 in2bits.org (Tim Erickson)
 
-ToDo
-==========
-- Whatever you want to contribute!
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+[http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+

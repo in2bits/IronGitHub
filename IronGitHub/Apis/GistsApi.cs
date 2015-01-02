@@ -69,7 +69,7 @@ namespace IronGitHub.Apis
         /// </summary>
         /// <param name="id">The Id of the Gist to get</param>
         /// <returns>The Gist</returns>
-        async public Task<Gist> Get(long id)
+        async public Task<Gist> Get(string id)
         {
             var request = CreateRequest("/gists/" + id);
 

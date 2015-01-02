@@ -1,39 +1,38 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using IronGitHub.Tests.Helpers;
 using FluentAssertions;
-using NUnit.Framework;
 
-namespace IntegrationTests
+namespace IronGitHub.Tests
 {
-    [TestFixture]
-    public class RepositoryTests : WithGitHubApi
+    [TestClass]
+    public class Repositories : AuthenticationBoilerPlate
     {
-        [TestFixtureSetUp]
-        public void Setup()
+        [TestMethod]
+        public void Should_Setup_GitHub_Api()
         {
             this.CreateGitHubApi();
+            this.Api.Should().NotBeNull();
         }
 
-        [Test]
-        async public Task GetRepository()
+        [TestMethod]
+        public void Should_Get_Repository()
         {
-            var repo = await Api.Repositories.Get("apitestaccount", "apitest");
+            Should_Setup_GitHub_Api();
+
+            var repo = Api.Repositories.Get("apitestaccount", "apitest").GetAwaiter().GetResult();
 
             repo.Name.Should().Be("apitest");
             repo.FullName.Should().Be("apitestaccount/apitest");
             repo.Description.Should().Be("Repository for testing the GitHub API");
             repo.Homepage.Should().Be("http://google.com");
             repo.HtmlUrl.Should().Be("https://github.com/apitestaccount/apitest");
-            repo.MasterBranch.Should().Be("master");
             repo.DefaultBranch.Should().Be("master");
             repo.Size.Should().BeGreaterThan(0);
             repo.OpenIssuesCount.Should().BeGreaterOrEqualTo(2);
             repo.ForksCount.Should().NotBe(null);
             repo.Forks.Should().NotBe(null);
-            repo.Owner.ShouldBeApiTestAccount();
 
             // Dates
             repo.CreatedAt.ToUniversalTime().Should().Be(new DateTime(2013, 08, 21, 01, 44, 13, DateTimeKind.Utc));
@@ -52,21 +51,26 @@ namespace IntegrationTests
             repo.HasIssues.Should().BeTrue();
             repo.HasDownloads.Should().BeTrue();
             repo.HasWiki.Should().BeTrue();
+
+            repo.Owner.Should().NotBeNull();
+
         }
 
-        [Test]
-        async public Task ListRepositores()
+        [TestMethod]
+        public void Should_Get_All_Repositories()
         {
-            var repos = await Api.Repositories.List();
+            Should_Setup_GitHub_Api();
 
+            var repos = Api.Repositories.List().GetAwaiter().GetResult();
             repos.Should().NotBeEmpty();
         }
 
-        [Test]
-        async public Task ListRepositoresSince()
+        [TestMethod]
+        public void Should_Get_All_Repositories_With_Since_Query()
         {
-            var repos = await Api.Repositories.List(300);
+            Should_Setup_GitHub_Api();
 
+            var repos = Api.Repositories.List("300").GetAwaiter().GetResult();
             repos.Should().NotBeEmpty();
             repos.First().Id.Should().BeGreaterOrEqualTo(300);
         }
