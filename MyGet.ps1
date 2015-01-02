@@ -7,10 +7,6 @@ $msBuild = @'
 msbuild .\IronGitHub.sln
 '@
 
-echo @'
-##myget[message text='FAKE' errorDetails='stack trace' status='ERROR']
-'@
-
 $msTest = @'
 mstest /testcontainer:'.\IronGitHub.Tests\bin\Debug\IronGitHub.Tests.dll'
 '@
@@ -25,4 +21,12 @@ mstest /testcontainer:'.\IronGitHub.Tests\bin\Debug\IronGitHub.Tests.dll'
 (gc .\IronGitHub\Properties\AssemblyInfo.cs).replace('[assembly: AssemblyVersion("1.0.0.0")]','[assembly: AssemblyVersion("' + $version + '")]') | sc .\IronGitHub\Properties\AssemblyInfo.cs
 (gc .\IronGitHub\Properties\AssemblyInfo.cs).replace('[assembly: AssemblyFileVersion("1.0.0.0")]','[assembly: AssemblyFileVersion("' + $version + '")]') | sc .\IronGitHub\Properties\AssemblyInfo.cs
 
+echo @'
+##myget[message text='Starting MSBuild.exe' status='NORMAL']
+'@
 Invoke-Expression -Command:$msBuild
+
+echo @'
+##myget[message text='Starting MSTest.exe' status='NORMAL']
+'@
+Invoke-Expression -Command:$msTest
