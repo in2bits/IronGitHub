@@ -112,4 +112,4 @@ Backup*/
 UpgradeLog*.XML
 
 artifacts
-# app.config
+app.config
