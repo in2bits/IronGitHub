@@ -68,12 +68,12 @@
     <Compile Include="Organizations.cs" />
     <Compile Include="Repositories.cs" />
     <Compile Include="Searches.cs" />
-    <Compile Include="UnitTest1.cs" />
     <Compile Include="Users.cs" />
     <Compile Include="Utilities.cs" />
     <Compile Include="Api.cs" />
     <Compile Include="Gists.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WebHooks.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
