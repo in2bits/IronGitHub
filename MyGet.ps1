@@ -9,7 +9,7 @@ msbuild .\IronGitHub.sln
 
 echo @'
 ##myget[message text='FAKE' errorDetails='stack trace' status='ERROR']
-@'
+'@
 
 $msTest = @'
 mstest /testcontainer:'.\IronGitHub.Tests\bin\Debug\IronGitHub.Tests.dll'
