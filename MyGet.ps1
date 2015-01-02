@@ -2,8 +2,17 @@ $username = Get-Item Env:Username
 $password = Get-Item Env:Password
 $repository = Get-Item Env:Repository
 $version = Get-Item Env:PackageVersion
+
 $msBuild = @'
 msbuild .\IronGitHub.sln
+'@
+
+echo @'
+##myget[message text='FAKE' errorDetails='stack trace' status='ERROR']
+@'
+
+$msTest = @'
+mstest /testcontainer:'.\IronGitHub.Tests\bin\Debug\IronGitHub.Tests.dll'
 '@
 
 (gc .\IronGitHub.Tests\app.config).replace('key="Username" value=""','key="Username" value="' + $username + '"') | sc .\IronGitHub.Tests\app.config
