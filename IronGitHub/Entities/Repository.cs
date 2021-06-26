@@ -127,9 +127,9 @@ namespace IronGitHub.Entities
 
         [DataMember(Name = "html_url")]
         public string HtmlUrl { get; set; }
-        
+
         [DataMember(Name = "id")]
-        public long Id { get; set; }
+        public string Id { get; set; }
 
         [DataMember(Name = "issue_comment_url")]
         public string IssueCommentUrl { get; set; }

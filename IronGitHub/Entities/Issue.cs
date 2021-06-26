@@ -51,7 +51,7 @@ namespace IronGitHub.Entities
         public string EventsUrl { get; set; }
 
         [DataMember(Name = "id")]
-        public long Id { get; set; }
+        public string Id { get; set; }
 
         [DataMember(Name = "labels")]
         public IEnumerable<Label> Labels { get; set; }

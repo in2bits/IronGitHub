@@ -24,7 +24,7 @@ namespace IntegrationTests
             var issue = await Api.Issues.Get("apitestaccount", "apitest", 1);
 
             issue.Number.Should().Be(1);
-            issue.Id.Should().Be(18332016);
+            issue.Id.Should().Be("18332016");
             issue.Title.Should().Be("Open issue");
             issue.State.Should().Be(IssueStates.Open);
             issue.Body.Should().Be("This is an open issue assigned to me with a milesone");

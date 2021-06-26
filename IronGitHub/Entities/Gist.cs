@@ -45,7 +45,7 @@ namespace IronGitHub.Entities
         public string HtmlUrl { get; set; }
 
         [DataMember(Name = "id")]
-        public long Id { get; set; }
+        public string Id { get; set; }
 
         [DataMember(Name = "public")]
         public bool Public { get; set; }
@@ -69,7 +69,7 @@ namespace IronGitHub.Entities
             public bool Public { get; set; }
 
             [DataMember(Name = "files")]
-            public IDictionary<string, NewGistFile> Files { get; set; } 
+            public IDictionary<string, NewGistFile> Files { get; set; }
 
             [DataContract]
             public class NewGistFile
@@ -95,7 +95,7 @@ namespace IronGitHub.Entities
                     Files.Add(file.Key, new PatchedGistFile(file.Value));
             }
 
-            public long Id { get; set; }
+            public string Id { get; set; }
 
             [DataMember(Name = "description")]
             public string Description { get; set; }
@@ -123,14 +123,14 @@ namespace IronGitHub.Entities
         }
 
         private static readonly Regex GistUrlRegex = new Regex(@"http(?:s)?://(?:api|gist)\.github\.com(?:/gists|/raw|/[^/]+)?/([0-9]+)(?:/.*$)?", RegexOptions.IgnoreCase);
-        public static long ParseIdFromUrl(string url)
+        public static string ParseIdFromUrl(string url)
         {
             var match = GistUrlRegex.Match(url);
             if (match.Groups.Count < 2)
-                return -1;
+                return null;
             var group = match.Groups[1];
             var idString = group.Captures[0].Value;
-            return Convert.ToInt64(idString);
+            return idString;
         }
     }
 
@@ -139,7 +139,7 @@ namespace IronGitHub.Entities
     {
         [EnumMember(Value="create")]
         Create,
-        
+
         [EnumMember(Value="update")]
         Update
     }

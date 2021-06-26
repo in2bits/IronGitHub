@@ -22,7 +22,7 @@ namespace IronGitHub.Entities
         public DateTime? DueOn { get; set; }
 
         [DataMember(Name = "id")]
-        public long Id { get; set; }
+        public string Id { get; set; }
 
         [DataMember(Name = "labels_url")]
         public string LabelsUrl { get; set; }
