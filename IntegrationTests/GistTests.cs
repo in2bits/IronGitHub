@@ -44,7 +44,7 @@ namespace IntegrationTests
                     {"the Question", "I dunno"}
                 };
             await Authorize(new[] { Scopes.Gist });
-            
+
             var gist = await Api.Gists.New(files);
             await Api.Gists.Delete(gist);
         }
@@ -52,7 +52,7 @@ namespace IntegrationTests
         [Test]
         async public Task GetGist()
         {
-            const long gistId = 6287413;
+            const string gistId = "6287413";
 
             var gist = await Api.Gists.Get(gistId);
 

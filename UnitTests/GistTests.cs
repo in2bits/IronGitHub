@@ -18,7 +18,7 @@ namespace UnitTests
         [Theory]
         public void ParseUrl(string url)
         {
-            Gist.ParseIdFromUrl(url).Should().Be(5731704);
+            Gist.ParseIdFromUrl(url).Should().Be("5731704");
         }
     }
 }

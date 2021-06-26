@@ -15,8 +15,8 @@ namespace IronGitHub.Apis
         /// <summary>
         /// Create a gist
         /// </summary>
-        /// <param name="files">Files that make up this gist. The key of which 
-        /// should be a required string filename and the value another 
+        /// <param name="files">Files that make up this gist. The key of which
+        /// should be a required string filename and the value another
         /// required hash with parameters</param>
         /// <param name="description">(Optional)</param>
         /// <param name="public">(Optional)</param>
@@ -32,8 +32,8 @@ namespace IronGitHub.Apis
         /// <summary>
         /// Create a gist
         /// </summary>
-        /// <param name="files">Files that make up this gist. The key of which 
-        /// should be a required string filename and the value another 
+        /// <param name="files">Files that make up this gist. The key of which
+        /// should be a required string filename and the value another
         /// required hash with parameters</param>
         /// <param name="description">(Optional)</param>
         /// <param name="public">(Optional)</param>
@@ -69,7 +69,7 @@ namespace IronGitHub.Apis
         /// </summary>
         /// <param name="id">The Id of the Gist to get</param>
         /// <returns>The Gist</returns>
-        async public Task<Gist> Get(long id)
+        async public Task<Gist> Get(string id)
         {
             var request = CreateRequest("/gists/" + id);
 
